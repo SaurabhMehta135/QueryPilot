@@ -1,0 +1,189 @@
+{
+  "database_sha256": "2546fe654e375e3721c9e3593f0baf357649866eedaae0dc1b63149ee6f08961",
+  "total_questions": 150,
+  "spot_checked_count": 20,
+  "spot_checks": [
+    {
+      "id": "easy-001",
+      "question": "How many total products are in the catalog?",
+      "sql": "SELECT COUNT(*) AS total_products FROM products;",
+      "rows_returned": 1,
+      "first_row": [
+        55
+      ]
+    },
+    {
+      "id": "easy-002",
+      "question": "What is the average price of all products?",
+      "sql": "SELECT ROUND(AVG(price), 2) AS average_price FROM products;",
+      "rows_returned": 1,
+      "first_row": [
+        76.56
+      ]
+    },
+    {
+      "id": "easy-003",
+      "question": "How many customers are registered in California?",
+      "sql": "SELECT COUNT(*) AS ca_customers FROM customers WHERE state = 'CA';",
+      "rows_returned": 1,
+      "first_row": [
+        39
+      ]
+    },
+    {
+      "id": "easy-004",
+      "question": "List the 5 most expensive products and their prices.",
+      "sql": "SELECT name, price FROM products ORDER BY price DESC LIMIT 5;",
+      "rows_returned": 5,
+      "first_row": [
+        "Archived Obsolete Model 5",
+        279.99
+      ]
+    },
+    {
+      "id": "easy-005",
+      "question": "Which 5 products have the lowest stock quantity?",
+      "sql": "SELECT name, stock_quantity FROM products ORDER BY stock_quantity ASC LIMIT 5;",
+      "rows_returned": 5,
+      "first_row": [
+        "Ultra Wireless Headphones",
+        0
+      ]
+    },
+    {
+      "id": "easy-006",
+      "question": "How many completed orders have been placed?",
+      "sql": "SELECT COUNT(*) AS completed_orders FROM orders WHERE status = 'completed';",
+      "rows_returned": 1,
+      "first_row": [
+        639
+      ]
+    },
+    {
+      "id": "easy-007",
+      "question": "What is the total revenue collected across all completed orders?",
+      "sql": "SELECT ROUND(SUM(total_amount), 2) AS total_revenue FROM orders WHERE status = 'completed';",
+      "rows_returned": 1,
+      "first_row": [
+        288029.2
+      ]
+    },
+    {
+      "id": "easy-008",
+      "question": "How many reviews have a 5-star rating?",
+      "sql": "SELECT COUNT(*) AS five_star_reviews FROM reviews WHERE rating = 5;",
+      "rows_returned": 1,
+      "first_row": [
+        282
+      ]
+    },
+    {
+      "id": "easy-009",
+      "question": "What is the total amount paid using credit card?",
+      "sql": "SELECT ROUND(SUM(amount), 2) AS credit_card_total FROM payments WHERE payment_method = 'credit_card' AND status = 'successful';",
+      "rows_returned": 1,
+      "first_row": [
+        134352.81
+      ]
+    },
+    {
+      "id": "easy-010",
+      "question": "List all distinct product categories in alphabetical order.",
+      "sql": "SELECT name FROM categories ORDER BY name ASC;",
+      "rows_returned": 8,
+      "first_row": [
+        "Automotive & Industrial"
+      ]
+    },
+    {
+      "id": "easy-011",
+      "question": "How many products currently have zero stock?",
+      "sql": "SELECT COUNT(*) AS out_of_stock FROM products WHERE stock_quantity = 0;",
+      "rows_returned": 1,
+      "first_row": [
+        26
+      ]
+    },
+    {
+      "id": "easy-012",
+      "question": "What is the highest single order total amount?",
+      "sql": "SELECT MAX(total_amount) AS max_order_amount FROM orders;",
+      "rows_returned": 1,
+      "first_row": [
+        1911.79
+      ]
+    },
+    {
+      "id": "easy-013",
+      "question": "What is the lowest single order total amount?",
+      "sql": "SELECT MIN(total_amount) AS min_order_amount FROM orders WHERE status = 'completed';",
+      "rows_returned": 1,
+      "first_row": [
+        16.5
+      ]
+    },
+    {
+      "id": "easy-014",
+      "question": "How many orders were placed in the year 2024?",
+      "sql": "SELECT COUNT(*) AS orders_2024 FROM orders WHERE strftime('%Y', order_date) = '2024';",
+      "rows_returned": 1,
+      "first_row": [
+        59
+      ]
+    },
+    {
+      "id": "easy-015",
+      "question": "How many orders were placed in the year 2023?",
+      "sql": "SELECT COUNT(*) AS orders_2023 FROM orders WHERE strftime('%Y', order_date) = '2023';",
+      "rows_returned": 1,
+      "first_row": [
+        0
+      ]
+    },
+    {
+      "id": "easy-016",
+      "question": "How many customers are located in New York city?",
+      "sql": "SELECT COUNT(*) AS ny_customers FROM customers WHERE city = 'New York';",
+      "rows_returned": 1,
+      "first_row": [
+        20
+      ]
+    },
+    {
+      "id": "easy-017",
+      "question": "What is the average rating across all customer reviews?",
+      "sql": "SELECT ROUND(AVG(rating), 2) AS average_rating FROM reviews;",
+      "rows_returned": 1,
+      "first_row": [
+        3.86
+      ]
+    },
+    {
+      "id": "easy-018",
+      "question": "How many payments failed?",
+      "sql": "SELECT COUNT(*) AS failed_payments FROM payments WHERE status = 'failed';",
+      "rows_returned": 1,
+      "first_row": [
+        163
+      ]
+    },
+    {
+      "id": "easy-019",
+      "question": "How many total items were sold across all order items?",
+      "sql": "SELECT SUM(quantity) AS total_items_sold FROM order_items;",
+      "rows_returned": 1,
+      "first_row": [
+        8514
+      ]
+    },
+    {
+      "id": "easy-020",
+      "question": "How many cancelled orders are in the database?",
+      "sql": "SELECT COUNT(*) AS cancelled_orders FROM orders WHERE status = 'cancelled';",
+      "rows_returned": 1,
+      "first_row": [
+        167
+      ]
+    }
+  ]
+}

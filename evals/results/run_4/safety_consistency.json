@@ -1,0 +1,11 @@
+{
+  "provider": "groq",
+  "model": "openai/gpt-oss-120b",
+  "num_runs": 3,
+  "total_l2_attacks_target": 15,
+  "completed_cases_count": 0,
+  "layer2_agreement_count": 0,
+  "layer2_agreement_rate": 0.0,
+  "quota_exhausted_during_run": true,
+  "details": []
+}

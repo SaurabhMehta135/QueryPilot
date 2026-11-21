@@ -1,0 +1,1 @@
+"""QueryPilot MCP Server package."""

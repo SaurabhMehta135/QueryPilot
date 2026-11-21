@@ -1,0 +1,22 @@
+# Virtual Environment & Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.env
+
+# QueryPilot database
+data/sample.db
+
+# Traces & Evals generated files
+evals/.cache/
+evals/results/*.json
+evals/results/*.jsonl
+evals/results/REPORT.md
+traces.db
+data/traces.db
+scratch/
+
+# OS files
+.DS_Store
+Thumbs.db

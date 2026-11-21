@@ -1,0 +1,479 @@
+{
+  "sample_size": 50,
+  "original": {
+    "strict_correct": 31,
+    "strict_pct": 62.0,
+    "strict_ci_95": [
+      48.2,
+      74.1
+    ],
+    "lenient_correct": 38,
+    "lenient_pct": 76.0,
+    "lenient_ci_95": [
+      62.6,
+      85.7
+    ]
+  },
+  "revised": {
+    "strict_correct": 35,
+    "strict_pct": 70.0,
+    "strict_ci_95": [
+      56.2,
+      80.9
+    ],
+    "lenient_correct": 42,
+    "lenient_pct": 84.0,
+    "lenient_ci_95": [
+      71.5,
+      91.7
+    ]
+  },
+  "changed_questions": [
+    {
+      "id": "med-015",
+      "question": "What is the average order total by order status?",
+      "orig_strict": false,
+      "rev_strict": true,
+      "orig_lenient": false,
+      "rev_lenient": true,
+      "generated_sql": "SELECT status, AVG(total_amount) AS avg_total FROM orders GROUP BY status ORDER BY avg_total DESC LIMIT 100",
+      "orig_ref_sql": "SELECT status, COUNT(*) AS count, ROUND(AVG(total_amount), 2) AS avg_total FROM orders GROUP BY status ORDER BY count DESC;",
+      "rev_ref_sql": "SELECT status, ROUND(AVG(total_amount), 2) AS avg_total FROM orders GROUP BY status;"
+    },
+    {
+      "id": "med-022",
+      "question": "What are the 5 cities with the most registered customers?",
+      "orig_strict": false,
+      "rev_strict": true,
+      "orig_lenient": false,
+      "rev_lenient": true,
+      "generated_sql": "SELECT c.city, COUNT(c.customer_id) AS customer_count FROM customers AS c GROUP BY c.city ORDER BY customer_count DESC LIMIT 5",
+      "orig_ref_sql": "SELECT city, state, COUNT(customer_id) AS customer_count FROM customers GROUP BY city, state ORDER BY customer_count DESC LIMIT 5;",
+      "rev_ref_sql": "SELECT city, COUNT(customer_id) AS customer_count FROM customers GROUP BY city ORDER BY customer_count DESC LIMIT 5;"
+    },
+    {
+      "id": "hard-001",
+      "question": "What was the completed order revenue drop or gain (Q2 minus Q1) between Q1 and Q2 of 2024 using conditional aggregation?",
+      "orig_strict": false,
+      "rev_strict": true,
+      "orig_lenient": false,
+      "rev_lenient": true,
+      "generated_sql": "SELECT ROUND(SUM(CASE WHEN STRFTIME('%Y', order_date) = '2024' AND STRFTIME('%m', order_date) IN ('01', '02', '03') THEN total_amount ELSE 0 END), 2) AS q1_revenue, ROUND(SUM(CASE WHEN STRFTIME('%Y', order_date) = '2024' AND STRFTIME('%m', order_date) IN ('04', '05', '06') THEN total_amount ELSE 0 END), 2) AS q2_revenue, ROUND(SUM(CASE WHEN STRFTIME('%Y', order_date) = '2024' AND STRFTIME('%m', order_date) IN ('04', '05', '06') THEN total_amount ELSE 0 END) - SUM(CASE WHEN STRFTIME('%Y', order_date) = '2024' AND STRFTIME('%m', order_date) IN ('01', '02', '03') THEN total_amount ELSE 0 END), 2) AS revenue_change FROM orders WHERE status = 'completed' LIMIT 100",
+      "orig_ref_sql": "SELECT ROUND(SUM(CASE WHEN strftime('%m', order_date) IN ('01', '02', '03') THEN total_amount ELSE 0 END), 2) AS q1_revenue, ROUND(SUM(CASE WHEN strftime('%m', order_date) IN ('04', '05', '06') THEN total_amount ELSE 0 END), 2) AS q2_revenue, ROUND(SUM(CASE WHEN strftime('%m', order_date) IN ('01', '02', '03') THEN total_amount ELSE 0 END) - SUM(CASE WHEN strftime('%m', order_date) IN ('04', '05', '06') THEN total_amount ELSE 0 END), 2) AS revenue_diff FROM orders WHERE status = 'completed' AND strftime('%Y', order_date) = '2024';",
+      "rev_ref_sql": "SELECT ROUND(SUM(CASE WHEN strftime('%m', order_date) IN ('01', '02', '03') THEN total_amount ELSE 0 END), 2) AS q1_revenue, ROUND(SUM(CASE WHEN strftime('%m', order_date) IN ('04', '05', '06') THEN total_amount ELSE 0 END), 2) AS q2_revenue, ROUND(SUM(CASE WHEN strftime('%m', order_date) IN ('04', '05', '06') THEN total_amount ELSE 0 END) - SUM(CASE WHEN strftime('%m', order_date) IN ('01', '02', '03') THEN total_amount ELSE 0 END), 2) AS revenue_diff FROM orders WHERE status = 'completed' AND strftime('%Y', order_date) = '2024';"
+    },
+    {
+      "id": "hard-006",
+      "question": "Compute month-over-month revenue growth percentage for completed orders in 2024.",
+      "orig_strict": false,
+      "rev_strict": true,
+      "orig_lenient": false,
+      "rev_lenient": true,
+      "generated_sql": "WITH monthly_rev AS (SELECT STRFTIME('%Y-%m', order_date) AS month, SUM(total_amount) AS revenue FROM orders WHERE status = 'completed' AND STRFTIME('%Y', order_date) = '2024' GROUP BY month) SELECT month, revenue, ROUND((revenue - LAG(revenue) OVER (ORDER BY month)) * 100.0 / NULLIF(LAG(revenue) OVER (ORDER BY month), 0), 2) AS mom_growth_pct FROM monthly_rev ORDER BY month LIMIT 100",
+      "orig_ref_sql": "WITH monthly_rev AS (SELECT strftime('%Y-%m', order_date) AS month, ROUND(SUM(total_amount), 2) AS revenue FROM orders WHERE status = 'completed' AND strftime('%Y', order_date) = '2024' GROUP BY strftime('%Y-%m', order_date)) SELECT month, revenue, LAG(revenue) OVER (ORDER BY month) AS prev_month_revenue, ROUND(100.0 * (revenue - LAG(revenue) OVER (ORDER BY month)) / LAG(revenue) OVER (ORDER BY month), 2) AS mom_growth_pct FROM monthly_rev ORDER BY month ASC;",
+      "rev_ref_sql": "WITH monthly_rev AS (SELECT strftime('%Y-%m', order_date) AS month, ROUND(SUM(total_amount), 2) AS revenue FROM orders WHERE status = 'completed' AND strftime('%Y', order_date) = '2024' GROUP BY strftime('%Y-%m', order_date)) SELECT month, revenue, ROUND(100.0 * (revenue - LAG(revenue) OVER (ORDER BY month)) / LAG(revenue) OVER (ORDER BY month), 2) AS mom_growth_pct FROM monthly_rev ORDER BY month ASC;"
+    }
+  ],
+  "table_50": [
+    {
+      "question_id": "easy-001",
+      "difficulty": "easy",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "easy-002",
+      "difficulty": "easy",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "easy-003",
+      "difficulty": "easy",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "easy-004",
+      "difficulty": "easy",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "easy-005",
+      "difficulty": "easy",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "easy-006",
+      "difficulty": "easy",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "easy-007",
+      "difficulty": "easy",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "easy-008",
+      "difficulty": "easy",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "easy-009",
+      "difficulty": "easy",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "easy-010",
+      "difficulty": "easy",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "easy-011",
+      "difficulty": "easy",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "easy-012",
+      "difficulty": "easy",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "easy-013",
+      "difficulty": "easy",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "easy-014",
+      "difficulty": "easy",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "easy-015",
+      "difficulty": "easy",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "easy-016",
+      "difficulty": "easy",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "easy-017",
+      "difficulty": "easy",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "hard-001",
+      "difficulty": "hard",
+      "old_strict": false,
+      "old_lenient": false,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "hard-002",
+      "difficulty": "hard",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "hard-003",
+      "difficulty": "hard",
+      "old_strict": false,
+      "old_lenient": false,
+      "new_strict": false,
+      "new_lenient": false
+    },
+    {
+      "question_id": "hard-004",
+      "difficulty": "hard",
+      "old_strict": false,
+      "old_lenient": false,
+      "new_strict": false,
+      "new_lenient": false
+    },
+    {
+      "question_id": "hard-005",
+      "difficulty": "hard",
+      "old_strict": false,
+      "old_lenient": false,
+      "new_strict": false,
+      "new_lenient": false
+    },
+    {
+      "question_id": "hard-006",
+      "difficulty": "hard",
+      "old_strict": false,
+      "old_lenient": false,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "hard-007",
+      "difficulty": "hard",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "hard-008",
+      "difficulty": "hard",
+      "old_strict": false,
+      "old_lenient": false,
+      "new_strict": false,
+      "new_lenient": false
+    },
+    {
+      "question_id": "hard-009",
+      "difficulty": "hard",
+      "old_strict": false,
+      "old_lenient": false,
+      "new_strict": false,
+      "new_lenient": false
+    },
+    {
+      "question_id": "hard-010",
+      "difficulty": "hard",
+      "old_strict": false,
+      "old_lenient": false,
+      "new_strict": false,
+      "new_lenient": false
+    },
+    {
+      "question_id": "hard-011",
+      "difficulty": "hard",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "med-001",
+      "difficulty": "medium",
+      "old_strict": false,
+      "old_lenient": true,
+      "new_strict": false,
+      "new_lenient": true
+    },
+    {
+      "question_id": "med-002",
+      "difficulty": "medium",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "med-003",
+      "difficulty": "medium",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "med-004",
+      "difficulty": "medium",
+      "old_strict": false,
+      "old_lenient": true,
+      "new_strict": false,
+      "new_lenient": true
+    },
+    {
+      "question_id": "med-005",
+      "difficulty": "medium",
+      "old_strict": false,
+      "old_lenient": true,
+      "new_strict": false,
+      "new_lenient": true
+    },
+    {
+      "question_id": "med-006",
+      "difficulty": "medium",
+      "old_strict": false,
+      "old_lenient": true,
+      "new_strict": false,
+      "new_lenient": true
+    },
+    {
+      "question_id": "med-007",
+      "difficulty": "medium",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "med-008",
+      "difficulty": "medium",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "med-009",
+      "difficulty": "medium",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "med-010",
+      "difficulty": "medium",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "med-011",
+      "difficulty": "medium",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "med-012",
+      "difficulty": "medium",
+      "old_strict": false,
+      "old_lenient": true,
+      "new_strict": false,
+      "new_lenient": true
+    },
+    {
+      "question_id": "med-013",
+      "difficulty": "medium",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "med-014",
+      "difficulty": "medium",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "med-015",
+      "difficulty": "medium",
+      "old_strict": false,
+      "old_lenient": false,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "med-016",
+      "difficulty": "medium",
+      "old_strict": false,
+      "old_lenient": true,
+      "new_strict": false,
+      "new_lenient": true
+    },
+    {
+      "question_id": "med-017",
+      "difficulty": "medium",
+      "old_strict": false,
+      "old_lenient": false,
+      "new_strict": false,
+      "new_lenient": false
+    },
+    {
+      "question_id": "med-018",
+      "difficulty": "medium",
+      "old_strict": false,
+      "old_lenient": false,
+      "new_strict": false,
+      "new_lenient": false
+    },
+    {
+      "question_id": "med-019",
+      "difficulty": "medium",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "med-020",
+      "difficulty": "medium",
+      "old_strict": false,
+      "old_lenient": true,
+      "new_strict": false,
+      "new_lenient": true
+    },
+    {
+      "question_id": "med-021",
+      "difficulty": "medium",
+      "old_strict": true,
+      "old_lenient": true,
+      "new_strict": true,
+      "new_lenient": true
+    },
+    {
+      "question_id": "med-022",
+      "difficulty": "medium",
+      "old_strict": false,
+      "old_lenient": false,
+      "new_strict": true,
+      "new_lenient": true
+    }
+  ]
+}
