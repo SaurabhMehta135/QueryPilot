@@ -1,6 +1,7 @@
 # QueryPilot Phase 8 Evaluation Report (run_4)
 
 **Evaluation Tag:** `eval-freeze-v1`  
+**Git Commit Hash:** `4f8b7890cdae66f45f27eedf4a56cfb30ad65554`  
 **Primary Model:** `openai/gpt-oss-120b` (Groq on-demand) / `gemini-3.1-flash-lite`  
 **Fallback Model:** Disabled during benchmark evals (`allow_fallback=False`)  
 **Run Directory:** `evals/results/run_4/`  
