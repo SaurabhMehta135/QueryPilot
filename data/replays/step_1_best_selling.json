@@ -1,0 +1,640 @@
+{
+  "step_id": "step_1_best_selling",
+  "step_number": 1,
+  "title": "Core Analytical Workflow",
+  "role": "Multi-Agent Pipeline & Aggregation",
+  "question": "What are the top 3 best selling products by total quantity sold?",
+  "highlight": "Demonstrates Schema Agent identifying products & order_items, SQL Writer building aggregates, and Explainer streaming insights.",
+  "model": "gemini-3.1-flash-lite",
+  "provider": "gemini",
+  "recorded_at": "2026-11-22T10:39:38.087794+00:00",
+  "events": [
+    {
+      "event": "run_started",
+      "data": {
+        "run_id": "replay-step-1-run",
+        "question": "What are the top 3 best selling products by total quantity sold?",
+        "thread_id": "replay-step-1-thread"
+      }
+    },
+    {
+      "event": "node_started",
+      "data": {
+        "node": "schema_node"
+      }
+    },
+    {
+      "event": "node_finished",
+      "data": {
+        "node": "schema_node",
+        "tables": [
+          "products",
+          "order_items"
+        ],
+        "intent": "analytical_question"
+      }
+    },
+    {
+      "event": "node_started",
+      "data": {
+        "node": "writer_node"
+      }
+    },
+    {
+      "event": "sql_generated",
+      "data": {
+        "sql": "SELECT p.name, SUM(oi.quantity) AS total_quantity_sold FROM products p JOIN order_items oi ON p.product_id = oi.product_id GROUP BY p.product_id, p.name ORDER BY total_quantity_sold DESC LIMIT 3"
+      }
+    },
+    {
+      "event": "node_finished",
+      "data": {
+        "node": "writer_node",
+        "sql": "SELECT p.name, SUM(oi.quantity) AS total_quantity_sold FROM products p JOIN order_items oi ON p.product_id = oi.product_id GROUP BY p.product_id, p.name ORDER BY total_quantity_sold DESC LIMIT 3"
+      }
+    },
+    {
+      "event": "node_started",
+      "data": {
+        "node": "validator_node"
+      }
+    },
+    {
+      "event": "validation_result",
+      "data": {
+        "is_safe": true,
+        "reason": null,
+        "rewritten_sql": "SELECT p.name, SUM(oi.quantity) AS total_quantity_sold FROM products AS p JOIN order_items AS oi ON p.product_id = oi.product_id GROUP BY p.product_id, p.name ORDER BY total_quantity_sold DESC LIMIT 3",
+        "is_expensive": false
+      }
+    },
+    {
+      "event": "node_finished",
+      "data": {
+        "node": "validator_node",
+        "is_safe": true,
+        "is_expensive": false
+      }
+    },
+    {
+      "event": "node_started",
+      "data": {
+        "node": "executor_node"
+      }
+    },
+    {
+      "event": "execution_result",
+      "data": {
+        "columns": [
+          "name",
+          "total_quantity_sold"
+        ],
+        "rows": [
+          [
+            "Organic Daily Mineral Sunscreen SPF 50",
+            233
+          ],
+          [
+            "OBD2 Diagnostic Code Scanner Reader",
+            212
+          ],
+          [
+            "All-Weather Heavy Duty Rubber Floor Mats",
+            210
+          ]
+        ],
+        "row_count": 3,
+        "truncated": false,
+        "duration_ms": 1.35,
+        "error": null
+      }
+    },
+    {
+      "event": "node_finished",
+      "data": {
+        "node": "executor_node",
+        "row_count": 3
+      }
+    },
+    {
+      "event": "node_started",
+      "data": {
+        "node": "explainer_node"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "The"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "top"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "3"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "best-selling"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "products"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "by"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "quantity"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "are"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "Organic"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "Daily"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "Mineral"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "Sunscreen"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "SPF"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "50"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "(233"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "units),"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "OBD2"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "Diagnostic"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "Code"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "Scanner"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "Reader"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "(212"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "units),"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "and"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "All-Weather"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "Heavy"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "Duty"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "Rubber"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "Floor"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "Mats"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "(210"
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": " "
+      }
+    },
+    {
+      "event": "explanation_chunk",
+      "data": {
+        "chunk": "units)."
+      }
+    },
+    {
+      "event": "explanation_finished",
+      "data": {
+        "summary": "The top 3 best-selling products by quantity are Organic Daily Mineral Sunscreen SPF 50 (233 units), OBD2 Diagnostic Code Scanner Reader (212 units), and All-Weather Heavy Duty Rubber Floor Mats (210 units).",
+        "key_points": [
+          "Organic Daily Mineral Sunscreen SPF 50 is the top performer with 233 units sold.",
+          "OBD2 Diagnostic Code Scanner Reader ranks second with 212 units sold.",
+          "All-Weather Heavy Duty Rubber Floor Mats ranks third with 210 units sold."
+        ],
+        "chart": {
+          "chart_type": "bar",
+          "x": "name",
+          "y": "total_quantity_sold",
+          "title": "Top 3 Best-Selling Products by Quantity"
+        },
+        "caveats": [
+          "Results are limited to the top 3 products by total quantity sold."
+        ]
+      }
+    },
+    {
+      "event": "node_finished",
+      "data": {
+        "node": "explainer_node"
+      }
+    },
+    {
+      "event": "run_finished",
+      "data": {
+        "final_status": "success",
+        "run_id": "replay-step-1-run",
+        "estimated_cost_usd": 0.000625,
+        "total_latency_ms": 21807.5,
+        "trace": [
+          {
+            "node": "schema_agent",
+            "model": "gemini-3.1-flash-lite",
+            "provider": "gemini",
+            "prompt_tokens": 2491,
+            "completion_tokens": 144,
+            "total_tokens": 2635,
+            "duration_ms": 2266.01,
+            "latency_ms": 2266.01,
+            "model_latency_ms": 2265.99,
+            "retry_wait_ms": 0.0,
+            "retry_attempts": 0,
+            "fallback_used": false,
+            "output_summary": "To identify the top 3 best-selling products, I need to join the products table (for product names) with the order_items table (to sum the total quantity sold per product)."
+          },
+          {
+            "node": "sql_writer",
+            "model": "gemini-3.1-flash-lite",
+            "provider": "gemini",
+            "prompt_tokens": 1782,
+            "completion_tokens": 148,
+            "total_tokens": 1930,
+            "duration_ms": 14609.59,
+            "latency_ms": 14609.59,
+            "model_latency_ms": 14609.58,
+            "retry_wait_ms": 0.0,
+            "retry_attempts": 0,
+            "fallback_used": false,
+            "output_summary": "Generated SQL: SELECT p.name, SUM(oi.quantity) AS total_quantity_sold FROM products p JOIN order_items oi ON p.product_id = oi.product_id GROUP BY p.product_id, p.name ORDER BY total_quantity_sold DESC LIMIT 3",
+            "retry_index": 0
+          },
+          {
+            "node": "safety_validator",
+            "model": "sqlglot-deterministic",
+            "provider": "local",
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 0,
+            "duration_ms": 16.9,
+            "output_summary": "Safe: True, Expensive: False",
+            "error": null
+          },
+          {
+            "node": "executor",
+            "model": "mcp-server",
+            "provider": "sqlite",
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 0,
+            "duration_ms": 7.8,
+            "engine_latency_ms": 1.35,
+            "output_summary": "Executed query. Row count: 3",
+            "error": null
+          },
+          {
+            "node": "explainer",
+            "model": "gemini-3.1-flash-lite",
+            "provider": "gemini",
+            "prompt_tokens": 2014,
+            "completion_tokens": 221,
+            "total_tokens": 2235,
+            "duration_ms": 4907.2,
+            "latency_ms": 4907.2,
+            "model_latency_ms": 4907.19,
+            "retry_wait_ms": 0.0,
+            "retry_attempts": 0,
+            "fallback_used": false,
+            "output_summary": "The top 3 best-selling products by quantity are Organic Daily Mineral Sunscreen SPF 50 (233 units), OBD2 Diagnostic Code Scanner Reader (212 units), and All-Weather Heavy Duty Rubber Floor Mats (210 units)."
+          }
+        ],
+        "guardrail_events": [
+          {
+            "node": "guardrails",
+            "type": "guardrail_event",
+            "layer": "untrusted-data wrapping",
+            "action": "injection_wrapper_applied",
+            "reason": "Encapsulated database schema in <untrusted_data> delimiters"
+          },
+          {
+            "node": "guardrails",
+            "type": "guardrail_event",
+            "layer": "untrusted-data wrapping",
+            "action": "injection_wrapper_applied",
+            "reason": "Encapsulated schema and previous errors in <untrusted_data> delimiters"
+          },
+          {
+            "node": "guardrails",
+            "type": "guardrail_event",
+            "layer": "L4 read-only connection",
+            "action": "masking_applied",
+            "reason": "Masked sensitive columns in 3 rows"
+          },
+          {
+            "node": "guardrails",
+            "type": "guardrail_event",
+            "layer": "untrusted-data wrapping",
+            "action": "injection_wrapper_applied",
+            "reason": "Encapsulated query execution result rows in <untrusted_data> delimiters"
+          }
+        ]
+      }
+    }
+  ]
+}

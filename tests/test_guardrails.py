@@ -519,6 +519,7 @@ async def test_guardrail_events_logged_in_trace():
 # END-TO-END INTEGRATION TEST OVER REAL STDIO MCP SERVER
 # =====================================================================
 
+@pytest.mark.real_stdio
 @pytest.mark.asyncio
 async def test_end_to_end_graph_with_real_stdio_mcp_server():
     """

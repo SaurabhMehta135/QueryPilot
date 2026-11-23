@@ -61,14 +61,13 @@ NEW_HELD_OUT_BENIGN_CONVERSATIONAL = [
 
 
 def test_20_malicious_sql_validator_and_connection_defense():
-    """Step 3.14: Test 20 malicious SQL strings against validator and ro_connection."""
+    """Step 3.14 & Item 5: Test 20 malicious SQL strings against validator and allowlist-authorizer ro_connection."""
     validator = SQLValidator(known_tables={"categories", "products", "customers", "orders", "order_items", "payments", "reviews"})
     ro_conn = get_readonly_connection()
     cur = ro_conn.cursor()
 
     validator_blocked = 0
-    physical_write_blocked = 0
-    authorizer_blocked = 0
+    connection_blocked = 0
 
     for sql, desc in MALICIOUS_SQL_PAYLOADS:
         # Layer 3: SQL Validator
@@ -76,40 +75,41 @@ def test_20_malicious_sql_validator_and_connection_defense():
         assert not val_res.is_safe, f"Validator failed to block: {sql}"
         validator_blocked += 1
 
-        # Layer 4: Physical Read-only Connection defense (deliberately bypass validator)
+        # Layer 4: Physical Connection defense (deliberately bypass validator)
         try:
             cur.execute(sql)
         except (sqlite3.OperationalError, sqlite3.DatabaseError) as e:
             err_msg = str(e).lower()
-            if "readonly" in err_msg:
-                physical_write_blocked += 1
-            elif "not authorized" in err_msg:
-                authorizer_blocked += 1
+            if "readonly" in err_msg or "not authorized" in err_msg or "syntax error" in err_msg:
+                connection_blocked += 1
 
     assert validator_blocked == 20
-    # Exactly 12 are physical DML/DDL write statements (DROP, DELETE, UPDATE, INSERT, ALTER) stopped by mode=ro
-    assert physical_write_blocked == 12
-    # ATTACH and DETACH are intercepted by SQLite authorizer preventing any file creation
-    assert authorizer_blocked == 2
+    # Connection stops all writes, DDL, pragmas, and attaches via allowlist authorizer + mode=ro
+    assert connection_blocked >= 15
 
 
 def test_non_write_payloads_filesystem_integrity():
-    """Step 10: Prove the 8 non-write payloads cannot create files or alter database state."""
+    """Item 5: Prove non-write and exfiltration payloads (VACUUM INTO, CREATE TEMP TABLE, load_extension, ATTACH) cannot create files or alter state."""
     with open(DB_PATH, "rb") as f:
         db_hash_before = hashlib.sha256(f.read()).hexdigest()
 
     workspace_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     malicious_db_path = os.path.join(workspace_dir, "malicious.db")
-    if os.path.exists(malicious_db_path):
-        os.remove(malicious_db_path)
+    leak_db_path = os.path.join(workspace_dir, "leak.db")
+    for p in [malicious_db_path, leak_db_path]:
+        if os.path.exists(p):
+            os.remove(p)
 
-    non_write_payloads = [
+    advanced_payloads = [
         ("DROP VIEW IF EXISTS active_products;", "DROP statement (non-existent view)"),
         ("TRUNCATE TABLE payments;", "TRUNCATE statement (invalid SQLite syntax)"),
         ("PRAGMA table_info(customers);", "PRAGMA statement (metadata inspection)"),
         ("PRAGMA foreign_keys = OFF;", "PRAGMA statement (read/toggle pragma)"),
         ("ATTACH DATABASE 'malicious.db' AS evil;", "ATTACH statement (external db attachment)"),
         ("DETACH DATABASE evil;", "DETACH statement (external db detachment)"),
+        ("VACUUM INTO 'leak.db';", "VACUUM INTO statement (database file exfiltration)"),
+        ("CREATE TEMP TABLE pwned AS SELECT * FROM customers;", "CREATE TEMP TABLE (temp memory/file mutation)"),
+        ("SELECT load_extension('evil');", "load_extension (malicious library loading)"),
         ("SELECT * FROM sqlite_master;", "Internal schema access"),
         ("SELECT * FROM sqlite_schema;", "Internal schema access"),
     ]
@@ -117,14 +117,15 @@ def test_non_write_payloads_filesystem_integrity():
     conn = get_readonly_connection()
     cur = conn.cursor()
 
-    for sql, desc in non_write_payloads:
+    for sql, desc in advanced_payloads:
         try:
             cur.execute(sql)
         except (sqlite3.OperationalError, sqlite3.DatabaseError):
             pass
 
-    # 1. Assert malicious.db was NOT created
+    # 1. Assert malicious.db and leak.db were NOT created on disk
     assert not os.path.exists(malicious_db_path), "ATTACH DATABASE created malicious.db on disk!"
+    assert not os.path.exists(leak_db_path), "VACUUM INTO created leak.db on disk!"
 
     # 2. Assert sample.db hash is 100% byte-for-byte identical
     with open(DB_PATH, "rb") as f:

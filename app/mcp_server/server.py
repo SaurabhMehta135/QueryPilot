@@ -24,10 +24,44 @@ def get_db_path() -> str:
     return os.path.abspath(path).replace("\\", "/")
 
 
+ALLOWED_AUTHORIZER_ACTIONS = {
+    sqlite3.SQLITE_SELECT,
+    sqlite3.SQLITE_READ,
+    sqlite3.SQLITE_FUNCTION,
+    sqlite3.SQLITE_PRAGMA,
+    sqlite3.SQLITE_RECURSIVE,
+}
+DISALLOWED_AUTHORIZER_FUNCTIONS = {
+    "load_extension",
+    "writefile",
+    "readfile",
+    "edit",
+    "system",
+    "eval",
+}
+ALLOWED_AUTHORIZER_PRAGMAS = {
+    "table_info",
+    "foreign_key_list",
+}
+
+
 def readonly_authorizer(action: int, arg1: Optional[str], arg2: Optional[str], dbname: Optional[str], source: Optional[str]) -> int:
-    """Enforces read-only database isolation by denying ATTACH and DETACH operations."""
-    if action in (sqlite3.SQLITE_ATTACH, sqlite3.SQLITE_DETACH):
+    """
+    Allow-list SQLite Authorizer:
+    Permits strictly read-only execution primitives (SELECT, READ, safe FUNCTIONs, schema metadata PRAGMAs).
+    Denies everything else by default: ATTACH, DETACH, VACUUM, CREATE TEMP TABLE, load_extension, and all DDL/DML.
+    """
+    if action not in ALLOWED_AUTHORIZER_ACTIONS:
         return sqlite3.SQLITE_DENY
+
+    if action == sqlite3.SQLITE_FUNCTION:
+        if arg2 and arg2.lower() in DISALLOWED_AUTHORIZER_FUNCTIONS:
+            return sqlite3.SQLITE_DENY
+
+    if action == sqlite3.SQLITE_PRAGMA:
+        if arg1 and arg1.lower() not in ALLOWED_AUTHORIZER_PRAGMAS:
+            return sqlite3.SQLITE_DENY
+
     return sqlite3.SQLITE_OK
 
 
@@ -201,17 +235,17 @@ def run_readonly_query(sql: str, unmasked: bool = False) -> Dict[str, Any]:
             "duration_ms": round(duration_ms, 2),
             "error": None,
         }
-    except sqlite3.OperationalError as e:
+    except (sqlite3.OperationalError, sqlite3.DatabaseError) as e:
         duration_ms = (time.perf_counter() - start_time) * 1000
         err_msg = str(e)
         if "interrupted" in err_msg.lower():
             err_type = "ExecutionTimeout"
             err_detail = f"Query timed out after {settings.QUERY_TIMEOUT_SECONDS}s."
-        elif "readonly database" in err_msg.lower():
+        elif "readonly" in err_msg.lower() or "not authorized" in err_msg.lower():
             err_type = "ReadOnlyViolation"
-            err_detail = "Write operation rejected: database connection is read-only."
+            err_detail = "Write or unauthorized operation rejected: database connection is read-only."
         else:
-            err_type = "OperationalError"
+            err_type = type(e).__name__
             err_detail = err_msg
 
         return {

@@ -4,13 +4,13 @@ Verifies all 4 tools, read-only connection enforcement, progress timeout, and ro
 """
 
 import pytest
-from app.mcp_client.client import MCPDatabaseClient
+from app.mcp_client.client import MCPDatabaseClient, DirectMCPClient
 from app.config import settings
 
 
 @pytest.fixture
 def mcp_client():
-    return MCPDatabaseClient()
+    return DirectMCPClient()
 
 
 @pytest.mark.asyncio
@@ -115,24 +115,34 @@ async def test_mcp_readonly_connection_blocks_writes(mcp_client):
 
 
 @pytest.mark.asyncio
-async def test_mcp_query_timeout():
+async def test_mcp_query_timeout(monkeypatch):
     """Verifies that long-running/runaway queries trigger progress-handler timeout."""
-    client_with_short_timeout = MCPDatabaseClient(env={"QUERY_TIMEOUT_SECONDS": "0.3"})
-    async with client_with_short_timeout as client:
-        # Infinite recursive query
-        runaway_sql = "WITH RECURSIVE r(x) AS (VALUES(1) UNION ALL SELECT x+1 FROM r) SELECT count(*) FROM r"
-        res = await client.run_readonly_query(runaway_sql)
-        assert res["error"] is not None
-        assert res["error"]["error_type"] == "ExecutionTimeout"
+    monkeypatch.setattr(settings, "QUERY_TIMEOUT_SECONDS", 0.3)
+    client = DirectMCPClient()
+    # Infinite recursive query
+    runaway_sql = "WITH RECURSIVE r(x) AS (VALUES(1) UNION ALL SELECT x+1 FROM r) SELECT count(*) FROM r"
+    res = await client.run_readonly_query(runaway_sql)
+    assert res["error"] is not None
+    assert res["error"]["error_type"] == "ExecutionTimeout"
 
 
 @pytest.mark.asyncio
-async def test_mcp_row_cap():
+async def test_mcp_row_cap(monkeypatch):
     """Verifies that queries exceeding MAX_ROW_CAP are truncated with truncated=True."""
-    client_with_small_cap = MCPDatabaseClient(env={"MAX_ROW_CAP": "10"})
-    async with client_with_small_cap as client:
-        res = await client.run_readonly_query("SELECT * FROM order_items")
-        assert res["error"] is None
-        assert res["row_count"] == 10
-        assert len(res["rows"]) == 10
-        assert res["truncated"] is True
+    monkeypatch.setattr(settings, "MAX_ROW_CAP", 10)
+    client = DirectMCPClient()
+    res = await client.run_readonly_query("SELECT * FROM order_items")
+    assert res["error"] is None
+    assert res["row_count"] == 10
+    assert len(res["rows"]) == 10
+    assert res["truncated"] is True
+
+
+@pytest.mark.real_stdio
+@pytest.mark.asyncio
+async def test_real_stdio_mcp_server_integration():
+    """Single genuine stdio integration test verifying end-to-end process transport."""
+    client = MCPDatabaseClient()
+    async with client as c:
+        tables = await c.list_tables()
+        assert "products" in tables

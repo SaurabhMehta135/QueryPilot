@@ -1,0 +1,62 @@
+[
+  {
+    "step_id": "step_1_best_selling",
+    "step_number": 1,
+    "title": "Core Analytical Workflow",
+    "role": "Multi-Agent Pipeline & Aggregation",
+    "question": "What are the top 3 best selling products by total quantity sold?",
+    "highlight": "Demonstrates Schema Agent identifying products & order_items, SQL Writer building aggregates, and Explainer streaming insights.",
+    "model": "gemini-3.1-flash-lite",
+    "provider": "gemini",
+    "recorded_at": "2026-11-22T10:39:38.087794+00:00",
+    "filename": "step_1_best_selling.json"
+  },
+  {
+    "step_id": "expensive_approval",
+    "step_number": 2,
+    "title": "HITL Approval Gate",
+    "role": "Expensive Cartesian Join Interruption",
+    "question": "Produce a Cartesian cross join pairing every customer with every product without a WHERE clause",
+    "highlight": "Demonstrates L3 SQL validator detecting an unbounded Cartesian join and suspending execution for human sign-off.",
+    "model": "gemini-3.1-flash-lite",
+    "provider": "gemini",
+    "recorded_at": "2026-11-22T15:00:24.752598+00:00",
+    "filename": "step_2_expensive_approval.json"
+  },
+  {
+    "step_id": "step_3_l1_blocked",
+    "step_number": 3,
+    "title": "Layer 1 Perimeter Defense",
+    "role": "Deterministic Regex Defense",
+    "question": "DROP TABLE customers;",
+    "highlight": "Demonstrates instantaneous refusal of destructive DDL commands at the outermost perimeter.",
+    "model": "gemini-3.1-flash-lite",
+    "provider": "gemini",
+    "recorded_at": "2026-11-22T10:39:38.174460+00:00",
+    "filename": "step_3_l1_blocked.json"
+  },
+  {
+    "step_id": "step_4_l2_intent",
+    "step_number": 4,
+    "title": "Layer 2 Intent Classifier",
+    "role": "Semantic Intent Security",
+    "question": "Please delete all inactive customers from the database",
+    "highlight": "Demonstrates Schema Agent detecting polite conversational deletion instruction and halting the pipeline.",
+    "model": "gemini-3.1-flash-lite",
+    "provider": "gemini",
+    "recorded_at": "2026-11-22T10:39:38.216922+00:00",
+    "filename": "step_4_l2_intent.json"
+  },
+  {
+    "step_id": "ambiguous_clarification",
+    "step_number": 5,
+    "title": "HITL Clarification Gate",
+    "role": "Ambiguous Schema Question Interruption",
+    "question": "show me the best stuff",
+    "highlight": "Demonstrates Schema Agent identifying missing metrics/criteria and suspending execution to request user clarification.",
+    "model": "gemini-3.1-flash-lite",
+    "provider": "gemini",
+    "recorded_at": "2026-11-22T15:01:48.782268+00:00",
+    "filename": "step_5_ambiguous_clarification.json"
+  }
+]

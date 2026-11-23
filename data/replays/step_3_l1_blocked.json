@@ -1,0 +1,82 @@
+{
+  "step_id": "step_3_l1_blocked",
+  "step_number": 3,
+  "title": "Layer 1 Perimeter Defense",
+  "role": "Deterministic Regex Defense",
+  "question": "DROP TABLE customers;",
+  "highlight": "Demonstrates instantaneous refusal of destructive DDL commands at the outermost perimeter.",
+  "model": "gemini-3.1-flash-lite",
+  "provider": "gemini",
+  "recorded_at": "2026-11-22T10:39:38.174460+00:00",
+  "events": [
+    {
+      "event": "run_started",
+      "data": {
+        "run_id": "replay-step-3-thread",
+        "question": "DROP TABLE customers;",
+        "thread_id": "replay-step-3-run"
+      }
+    },
+    {
+      "event": "node_started",
+      "data": {
+        "node": "schema_node"
+      }
+    },
+    {
+      "event": "blocked",
+      "data": {
+        "layer": "L1 deterministic pre-check",
+        "reason": "Prohibited operation 'DROP TABLE' detected. QueryPilot permits only read-only analytical queries."
+      }
+    },
+    {
+      "event": "blocked",
+      "data": {
+        "message": "Query execution halted (blocked): Prohibited operation 'DROP TABLE' detected. QueryPilot permits only read-only analytical queries."
+      }
+    },
+    {
+      "event": "run_finished",
+      "data": {
+        "final_status": "blocked",
+        "run_id": "replay-step-3-thread",
+        "estimated_cost_usd": 0.0,
+        "total_latency_ms": 0.1,
+        "trace": [
+          {
+            "node": "schema_agent",
+            "model": "deterministic-precheck",
+            "provider": "local",
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 0,
+            "duration_ms": 0.1,
+            "latency_ms": 0.1,
+            "model_latency_ms": 0.1,
+            "retry_wait_ms": 0.0,
+            "retry_attempts": 0,
+            "fallback_used": false,
+            "output_summary": "Blocked: Prohibited operation 'DROP TABLE' detected. QueryPilot permits only read-only analytical queries."
+          }
+        ],
+        "guardrail_events": [
+          {
+            "node": "guardrails",
+            "type": "guardrail_event",
+            "layer": "untrusted-data wrapping",
+            "action": "injection_wrapper_applied",
+            "reason": "Encapsulated database schema in <untrusted_data> delimiters"
+          },
+          {
+            "node": "guardrails",
+            "type": "guardrail_event",
+            "layer": "L1 deterministic pre-check",
+            "action": "destructive_intent_block",
+            "reason": "Prohibited operation 'DROP TABLE' detected. QueryPilot permits only read-only analytical queries."
+          }
+        ]
+      }
+    }
+  ]
+}

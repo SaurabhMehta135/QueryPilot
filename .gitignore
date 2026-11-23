@@ -1,21 +1,33 @@
-# Virtual Environment & Python cache
+# Environments & secrets
+.env
+.env.*
+!.env.example
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# Python cache & bytecode
 __pycache__/
 *.py[cod]
 *$py.class
+*.log
+
+# Testing & Cache
 .pytest_cache/
-.env
-
-# QueryPilot database
-data/sample.db
-
-# Traces & Evals generated files
 evals/.cache/
-evals/results/*.json
-evals/results/*.jsonl
-evals/results/REPORT.md
+evals/eval_cache.db
+
+# Database & Observability runtime stores
 traces.db
 data/traces.db
 scratch/
+
+# IDE & Editor configuration
+.idea/
+.vscode/
 
 # OS files
 .DS_Store

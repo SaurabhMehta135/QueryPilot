@@ -1,0 +1,82 @@
+{
+  "step_id": "step_4_l2_intent",
+  "step_number": 4,
+  "title": "Layer 2 Intent Classifier",
+  "role": "Semantic Intent Security",
+  "question": "Please delete all inactive customers from the database",
+  "highlight": "Demonstrates Schema Agent detecting polite conversational deletion instruction and halting the pipeline.",
+  "model": "gemini-3.1-flash-lite",
+  "provider": "gemini",
+  "recorded_at": "2026-11-22T10:39:38.216922+00:00",
+  "events": [
+    {
+      "event": "run_started",
+      "data": {
+        "run_id": "replay-step-4-run",
+        "question": "Please delete all inactive customers from the database",
+        "thread_id": "replay-step-4-thread"
+      }
+    },
+    {
+      "event": "node_started",
+      "data": {
+        "node": "schema_node"
+      }
+    },
+    {
+      "event": "blocked",
+      "data": {
+        "layer": "L1 deterministic pre-check",
+        "reason": "Destructive operations are prohibited. QueryPilot permits only read-only analytical queries."
+      }
+    },
+    {
+      "event": "blocked",
+      "data": {
+        "message": "Query execution halted (blocked): Destructive operations are prohibited. QueryPilot permits only read-only analytical queries."
+      }
+    },
+    {
+      "event": "run_finished",
+      "data": {
+        "final_status": "blocked",
+        "run_id": "replay-step-4-run",
+        "estimated_cost_usd": 0.0,
+        "total_latency_ms": 0.1,
+        "trace": [
+          {
+            "node": "schema_agent",
+            "model": "deterministic-precheck",
+            "provider": "local",
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 0,
+            "duration_ms": 0.1,
+            "latency_ms": 0.1,
+            "model_latency_ms": 0.1,
+            "retry_wait_ms": 0.0,
+            "retry_attempts": 0,
+            "fallback_used": false,
+            "output_summary": "Blocked: Destructive operations are prohibited. QueryPilot permits only read-only analytical queries."
+          }
+        ],
+        "guardrail_events": [
+          {
+            "node": "guardrails",
+            "type": "guardrail_event",
+            "layer": "untrusted-data wrapping",
+            "action": "injection_wrapper_applied",
+            "reason": "Encapsulated database schema in <untrusted_data> delimiters"
+          },
+          {
+            "node": "guardrails",
+            "type": "guardrail_event",
+            "layer": "L1 deterministic pre-check",
+            "action": "destructive_intent_block",
+            "reason": "Destructive operations are prohibited. QueryPilot permits only read-only analytical queries."
+          }
+        ]
+      }
+    }
+  ]
+}

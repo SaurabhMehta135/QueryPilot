@@ -1,0 +1,1704 @@
+{
+  "dataset": "dev.jsonl",
+  "sample_size": 50,
+  "provider": "groq",
+  "note_on_config_c": "Config C (AST Validator without repair loop) was evaluated as a deterministic safety enforcement layer rather than an accuracy component, demonstrating identical execution accuracy to Config B across all evaluated analytical questions.",
+  "table": [
+    {
+      "config": "Config A: Single-shot Baseline",
+      "lenient_correct": 36,
+      "lenient_accuracy": 0.72,
+      "lenient_ci_95": [
+        58.3,
+        82.5
+      ],
+      "strict_correct": 24,
+      "strict_accuracy": 0.48,
+      "strict_ci_95": [
+        34.8,
+        61.5
+      ],
+      "total": 50,
+      "avg_latency_ms": 23618.8,
+      "avg_tokens": 4541.2,
+      "avg_retries": 0.0
+    },
+    {
+      "config": "Config B: Config A + Dynamic Schema Linking",
+      "lenient_correct": 38,
+      "lenient_accuracy": 0.76,
+      "lenient_ci_95": [
+        62.6,
+        85.7
+      ],
+      "strict_correct": 32,
+      "strict_accuracy": 0.64,
+      "strict_ci_95": [
+        50.1,
+        75.9
+      ],
+      "total": 50,
+      "avg_latency_ms": 645.6,
+      "avg_tokens": 4445.7,
+      "avg_retries": 0.0
+    },
+    {
+      "config": "Config D: Full QueryPilot (Self-Correction)",
+      "lenient_correct": 42,
+      "lenient_accuracy": 0.84,
+      "lenient_ci_95": [
+        71.5,
+        91.7
+      ],
+      "strict_correct": 35,
+      "strict_accuracy": 0.7,
+      "strict_ci_95": [
+        56.2,
+        80.9
+      ],
+      "total": 50,
+      "avg_latency_ms": 18.3,
+      "avg_tokens": 4656.7,
+      "avg_retries": 0.0
+    }
+  ],
+  "paired_comparisons_lenient": {
+    "D_vs_A": {
+      "Config D_wins": 8,
+      "Config A_wins": 2,
+      "both_correct": 34,
+      "both_wrong": 6,
+      "ties": 40
+    },
+    "D_vs_B": {
+      "Config D_wins": 5,
+      "Config B_wins": 1,
+      "both_correct": 37,
+      "both_wrong": 7,
+      "ties": 44
+    },
+    "B_vs_A": {
+      "Config B_wins": 4,
+      "Config A_wins": 2,
+      "both_correct": 34,
+      "both_wrong": 10,
+      "ties": 44
+    }
+  },
+  "paired_comparisons_strict": {
+    "D_vs_A": {
+      "Config D_wins": 13,
+      "Config A_wins": 2,
+      "both_correct": 22,
+      "both_wrong": 13,
+      "ties": 35
+    },
+    "D_vs_B": {
+      "Config D_wins": 4,
+      "Config B_wins": 1,
+      "both_correct": 31,
+      "both_wrong": 14,
+      "ties": 45
+    },
+    "B_vs_A": {
+      "Config B_wins": 10,
+      "Config A_wins": 2,
+      "both_correct": 22,
+      "both_wrong": 16,
+      "ties": 38
+    }
+  },
+  "details": {
+    "Config A: Single-shot Baseline": {
+      "strict_correct": 24,
+      "lenient_correct": 36,
+      "total": 50,
+      "total_latency_ms": 1180942.0196000286,
+      "total_tokens": 227059,
+      "total_retries": 0,
+      "details": [
+        {
+          "id": "easy-001",
+          "question": "How many total products are in the catalog?",
+          "generated_sql": "SELECT COUNT(*) AS total_products FROM products",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4262,
+          "latency_ms": 2.5,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-002",
+          "question": "What is the average price of all products?",
+          "generated_sql": "SELECT AVG(price) AS average_price FROM products",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4253,
+          "latency_ms": 1.42,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-003",
+          "question": "How many customers are registered in California?",
+          "generated_sql": "SELECT COUNT(*) AS california_customer_count FROM customers WHERE state = 'CA'",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4291,
+          "latency_ms": 1.11,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-004",
+          "question": "List the 5 most expensive products and their prices.",
+          "generated_sql": "SELECT product_id, name, price FROM products ORDER BY price DESC LIMIT 5",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4380,
+          "latency_ms": 1.19,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-005",
+          "question": "Which 5 products have the lowest stock quantity?",
+          "generated_sql": "SELECT product_id, name, stock_quantity FROM products ORDER BY stock_quantity ASC LIMIT 5",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4399,
+          "latency_ms": 1.28,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-006",
+          "question": "How many completed orders have been placed?",
+          "generated_sql": "SELECT COUNT(*) AS completed_orders FROM orders WHERE status = 'completed';",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4277,
+          "latency_ms": 1.02,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-007",
+          "question": "What is the total revenue collected across all completed orders?",
+          "generated_sql": "SELECT SUM(total_amount) AS total_revenue FROM orders WHERE status = 'completed';",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4315,
+          "latency_ms": 1.01,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-008",
+          "question": "How many reviews have a 5-star rating?",
+          "generated_sql": "SELECT COUNT(*) AS five_star_reviews FROM reviews WHERE rating = 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4277,
+          "latency_ms": 1.93,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-009",
+          "question": "What is the total amount paid from successful payments using credit card?",
+          "generated_sql": "SELECT SUM(amount) AS total_paid FROM payments WHERE payment_method = 'credit_card' AND status = 'successful'",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4360,
+          "latency_ms": 1.3,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-010",
+          "question": "List all distinct product categories in alphabetical order.",
+          "generated_sql": "SELECT DISTINCT name FROM categories ORDER BY name ASC",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4314,
+          "latency_ms": 1.11,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-011",
+          "question": "How many products currently have zero stock?",
+          "generated_sql": "SELECT COUNT(*) AS zero_stock_count FROM products WHERE stock_quantity = 0",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4276,
+          "latency_ms": 1.22,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-012",
+          "question": "What is the highest single order total amount?",
+          "generated_sql": "SELECT order_id, total_amount FROM orders ORDER BY total_amount DESC LIMIT 1",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4311,
+          "latency_ms": 1.2,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-013",
+          "question": "What is the lowest single completed order total amount?",
+          "generated_sql": "SELECT MIN(total_amount) AS lowest_completed_order FROM orders WHERE status = 'completed'",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4333,
+          "latency_ms": 1.16,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-014",
+          "question": "How many orders were placed in the year 2024?",
+          "generated_sql": "SELECT COUNT(*) AS order_count FROM orders WHERE strftime('%Y', order_date) = '2024'",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4322,
+          "latency_ms": 1.1,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-015",
+          "question": "How many orders were placed in the year 2023?",
+          "generated_sql": "SELECT COUNT(*) AS order_count FROM orders WHERE strftime('%Y', order_date) = '2023'",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4325,
+          "latency_ms": 1.44,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-016",
+          "question": "How many customers are located in New York city?",
+          "generated_sql": "SELECT COUNT(*) AS customer_count FROM customers WHERE city = 'New York'",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4315,
+          "latency_ms": 1.38,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-017",
+          "question": "What is the average rating across all customer reviews?",
+          "generated_sql": "SELECT AVG(rating) AS average_rating FROM reviews;",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4313,
+          "latency_ms": 1.06,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-001",
+          "question": "What is the total number of products in each category?",
+          "generated_sql": "SELECT c.category_id, c.name AS category_name, COUNT(p.product_id) AS total_products FROM categories c JOIN products p ON c.category_id = p.category_id GROUP BY c.category_id, c.name ORDER BY total_products DESC",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4340,
+          "latency_ms": 1.08,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-002",
+          "question": "What is the total revenue generated from completed orders for each product category?",
+          "generated_sql": "SELECT c.name AS category_name, ROUND(SUM((oi.unit_price * oi.quantity) - oi.discount),2) AS total_revenue FROM orders o JOIN order_items oi ON o.order_id = oi.order_id JOIN products p ON oi.product_id = p.product_id JOIN categories c ON p.category_id = c.category_id WHERE o.status = 'completed' GROUP BY c.category_id, c.name ORDER BY total_revenue DESC",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4720,
+          "latency_ms": 1.49,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-003",
+          "question": "List the top 5 customers who have spent the most money on completed orders.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, c.email, SUM(o.total_amount) AS total_spent FROM customers c JOIN orders o ON c.customer_id = o.customer_id WHERE o.status = 'completed' GROUP BY c.customer_id, c.first_name, c.last_name, c.email ORDER BY total_spent DESC LIMIT 5",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4413,
+          "latency_ms": 1.85,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-004",
+          "question": "Which 5 products have generated the highest total revenue from completed orders?",
+          "generated_sql": "SELECT p.product_id, p.name, ROUND(SUM(oi.quantity * oi.unit_price - oi.discount),2) AS total_revenue FROM orders o JOIN order_items oi ON o.order_id = oi.order_id JOIN products p ON oi.product_id = p.product_id WHERE o.status = 'completed' GROUP BY p.product_id, p.name ORDER BY total_revenue DESC LIMIT 5",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4668,
+          "latency_ms": 1.3,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-005",
+          "question": "Which 5 products have been ordered the most by quantity in completed orders?",
+          "generated_sql": "SELECT p.product_id, p.name, SUM(oi.quantity) AS total_quantity FROM orders o JOIN order_items oi ON o.order_id = oi.order_id JOIN products p ON oi.product_id = p.product_id WHERE o.status = 'completed' GROUP BY p.product_id, p.name ORDER BY total_quantity DESC LIMIT 5",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4559,
+          "latency_ms": 1.17,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-006",
+          "question": "Show the average review rating and review count for each product that has at least 3 reviews.",
+          "generated_sql": "SELECT p.product_id, p.name, ROUND(AVG(r.rating),2) AS avg_rating, COUNT(*) AS review_count FROM reviews r JOIN products p ON r.product_id = p.product_id GROUP BY p.product_id, p.name HAVING COUNT(*) >= 3 ORDER BY avg_rating DESC",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4502,
+          "latency_ms": 1.15,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-007",
+          "question": "What is the monthly revenue for completed orders in 2024?",
+          "generated_sql": "SELECT strftime('%Y-%m', order_date) AS month, ROUND(SUM(total_amount),2) AS revenue FROM orders WHERE status='completed' AND strftime('%Y',order_date)='2024' GROUP BY month ORDER BY month",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4514,
+          "latency_ms": 3.65,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-008",
+          "question": "How many orders were placed by customers in each state?",
+          "generated_sql": "SELECT c.state, COUNT(o.order_id) AS order_count FROM customers c JOIN orders o ON c.customer_id = o.customer_id GROUP BY c.state ORDER BY order_count DESC",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4392,
+          "latency_ms": 1.04,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-009",
+          "question": "Find the top 5 states by total completed order spending.",
+          "generated_sql": "SELECT c.state, SUM(o.total_amount) AS total_spent FROM customers c JOIN orders o ON c.customer_id = o.customer_id WHERE o.status = 'completed' GROUP BY c.state ORDER BY total_spent DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4494,
+          "latency_ms": 1.31,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-010",
+          "question": "What is the total amount and count of successful payments per payment method?",
+          "generated_sql": "SELECT p.payment_method, SUM(p.amount) AS total_amount, COUNT(*) AS payment_count FROM payments p WHERE p.status = 'completed' GROUP BY p.payment_method ORDER BY total_amount DESC",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4565,
+          "latency_ms": 1.06,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-011",
+          "question": "Find customers who have placed more than 5 orders.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, c.email, COUNT(o.order_id) AS order_count FROM customers c JOIN orders o ON c.customer_id = o.customer_id GROUP BY c.customer_id, c.first_name, c.last_name, c.email HAVING COUNT(o.order_id) > 5 ORDER BY order_count DESC",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4555,
+          "latency_ms": 2110.23,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-012",
+          "question": "Which customers have registered but never placed an order?",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, c.email, c.created_at FROM customers c LEFT JOIN orders o ON c.customer_id = o.customer_id WHERE o.order_id IS NULL ORDER BY c.customer_id",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4476,
+          "latency_ms": 61839.95,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-013",
+          "question": "List products that have never received any customer reviews.",
+          "generated_sql": "SELECT p.product_id, p.name, p.sku, p.price FROM products p LEFT JOIN reviews r ON p.product_id = r.product_id WHERE r.review_id IS NULL ORDER BY p.product_id",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4456,
+          "latency_ms": 84548.47,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-014",
+          "question": "Find products that have never been ordered.",
+          "generated_sql": "SELECT p.product_id, p.name, p.sku, p.price FROM products p LEFT JOIN order_items oi ON p.product_id = oi.product_id WHERE oi.item_id IS NULL",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4530,
+          "latency_ms": 1513.98,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-015",
+          "question": "What is the average order total by order status?",
+          "generated_sql": "SELECT status, AVG(total_amount) AS avg_total FROM orders GROUP BY status",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4288,
+          "latency_ms": 60289.45,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-016",
+          "question": "What is the average rating given per category of products?",
+          "generated_sql": "SELECT c.category_id, c.name AS category_name, AVG(r.rating) AS avg_rating FROM categories c JOIN products p ON c.category_id = p.category_id JOIN reviews r ON p.product_id = r.product_id GROUP BY c.category_id, c.name ORDER BY avg_rating DESC",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4537,
+          "latency_ms": 62270.04,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-017",
+          "question": "Which payment method has the highest failure rate?",
+          "generated_sql": "SELECT payment_method, SUM(CASE WHEN status='failed' THEN 1 ELSE 0 END) AS failures, COUNT(*) AS total, ROUND(SUM(CASE WHEN status='failed' THEN 1 ELSE 0 END)*1.0/COUNT(*),4) AS failure_rate FROM payments GROUP BY payment_method ORDER BY failure_rate DESC LIMIT 1",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4626,
+          "latency_ms": 7.89,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-018",
+          "question": "What is the total revenue by quarter for completed orders?",
+          "generated_sql": "SELECT strftime('%Y', order_date) AS year, (CAST(strftime('%m', order_date) AS INTEGER) - 1) / 3 + 1 AS quarter, ROUND(SUM(total_amount), 2) AS total_revenue FROM orders WHERE status = 'completed' GROUP BY year, quarter ORDER BY year, quarter",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4730,
+          "latency_ms": 1228.02,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-019",
+          "question": "List the top 5 customers with the most reviews written.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, COUNT(r.review_id) AS review_count FROM customers c JOIN reviews r ON c.customer_id = r.customer_id GROUP BY c.customer_id, c.first_name, c.last_name ORDER BY review_count DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4726,
+          "latency_ms": 60276.8,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-020",
+          "question": "What is the average item price by category?",
+          "generated_sql": "SELECT c.name AS category_name, ROUND(AVG(p.price), 2) AS average_item_price FROM products p JOIN categories c ON p.category_id = c.category_id GROUP BY c.category_id, c.name ORDER BY c.name",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4707,
+          "latency_ms": 60243.82,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-021",
+          "question": "Find all products that have an average rating lower than 3.0.",
+          "generated_sql": "SELECT p.product_id, p.name, p.sku, p.price, ROUND(AVG(r.rating), 2) AS avg_rating FROM products p JOIN reviews r ON p.product_id = r.product_id GROUP BY p.product_id, p.name, p.sku, p.price HAVING AVG(r.rating) < 3.0 ORDER BY avg_rating ASC",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4752,
+          "latency_ms": 60546.65,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-022",
+          "question": "What are the 5 cities with the most registered customers?",
+          "generated_sql": "SELECT city, COUNT(customer_id) AS customer_count FROM customers WHERE city IS NOT NULL GROUP BY city ORDER BY customer_count DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4690,
+          "latency_ms": 60237.67,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-001",
+          "question": "What was the completed order revenue drop or gain (Q2 minus Q1) between Q1 and Q2 of 2024 using conditional aggregation?",
+          "generated_sql": "SELECT ROUND(SUM(CASE WHEN strftime('%m', order_date) IN ('01', '02', '03') THEN total_amount ELSE 0 END), 2) AS q1_revenue, ROUND(SUM(CASE WHEN strftime('%m', order_date) IN ('04', '05', '06') THEN total_amount ELSE 0 END), 2) AS q2_revenue, ROUND(SUM(CASE WHEN strftime('%m', order_date) IN ('04', '05', '06') THEN total_amount ELSE 0 END) - SUM(CASE WHEN strftime('%m', order_date) IN ('01', '02', '03') THEN total_amount ELSE 0 END), 2) AS q2_minus_q1 FROM orders WHERE status = 'completed' AND strftime('%Y', order_date) = '2024'",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4885,
+          "latency_ms": 60601.62,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-002",
+          "question": "Calculate customer lifetime value (LTV): rank the top 5 customers by total completed spend and include their average order value and order count.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, SUM(o.total_amount) AS total_completed_spend, ROUND(AVG(o.total_amount), 2) AS avg_order_value, COUNT(o.order_id) AS order_count FROM customers c JOIN orders o ON c.customer_id = o.customer_id WHERE o.status = 'completed' GROUP BY c.customer_id, c.first_name, c.last_name ORDER BY total_completed_spend DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4785,
+          "latency_ms": 60370.12,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-003",
+          "question": "Identify repeat customers versus one-time buyers: count how many customers placed exactly 1 completed order versus 2 or more completed orders, returning one row per buyer type with columns buyer_type and customer_count.",
+          "generated_sql": "WITH customer_order_counts AS (SELECT o.customer_id, COUNT(o.order_id) AS completed_order_count FROM orders o WHERE o.status = 'completed' GROUP BY o.customer_id) SELECT CASE WHEN completed_order_count = 1 THEN 'one_time_buyer' ELSE 'repeat_customer' END AS buyer_type, COUNT(customer_id) AS customer_count FROM customer_order_counts GROUP BY CASE WHEN completed_order_count = 1 THEN 'one_time_buyer' ELSE 'repeat_customer' END",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4801,
+          "latency_ms": 60404.92,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-004",
+          "question": "Which product category has the highest customer repeat purchase rate (completed orders with products from that category from repeat buyers)?",
+          "generated_sql": "WITH completed_orders AS (\n    SELECT o.order_id, o.customer_id, oi.product_id\n    FROM orders o\n    JOIN order_items oi ON o.order_id = oi.order_id\n    WHERE o.status = 'completed'\n),\ncustomer_category_orders AS (\n    SELECT co.customer_id, p.category_id, COUNT(DISTINCT co.order_id) AS order_count\n    FROM completed_orders co\n    JOIN products p ON co.product_id = p.product_id\n    GROUP BY co.customer_id, p.category_id\n),\ncategory_stats AS (\n    SELECT \n        cco.category_id,\n        COUNT(DISTINCT cco.customer_id) AS total_customers,\n        COUNT(DISTINCT CASE WHEN cco.order_count > 1 THEN cco.customer_id END) AS repeat_customers\n    FROM customer_category_orders cco\n    GROUP BY cco.category_id\n)\nSELECT \n    cat.name AS category_name,\n    cs.total_customers,\n    cs.repeat_customers,\n    ROUND(CAST(cs.repeat_customers AS REAL) / cs.total_customers, 4) AS repeat_purchase_rate\nFROM category_stats cs\nJOIN categories cat ON cs.category_id = cat.category_id\nORDER BY repeat_purchase_rate DESC\nLIMIT 1",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 5043,
+          "latency_ms": 60932.4,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-005",
+          "question": "Find the top product in each category by total revenue generated from completed orders.",
+          "generated_sql": "WITH product_revenue AS (SELECT p.product_id, p.name AS product_name, c.category_id, c.name AS category_name, SUM(oi.quantity * oi.unit_price * (1 - oi.discount)) AS total_revenue FROM order_items oi JOIN orders o ON oi.order_id = o.order_id JOIN products p ON oi.product_id = p.product_id JOIN categories c ON p.category_id = c.category_id WHERE o.status = 'completed' GROUP BY p.product_id, p.name, c.category_id, c.name), ranked AS (SELECT product_revenue.*, ROW_NUMBER() OVER (PARTITION BY category_id ORDER BY total_revenue DESC) AS rn FROM product_revenue) SELECT category_name, product_name, total_revenue FROM ranked WHERE rn = 1 ORDER BY category_name",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4857,
+          "latency_ms": 60139.89,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-006",
+          "question": "Compute month-over-month revenue growth percentage for completed orders in 2024.",
+          "generated_sql": "WITH monthly_revenue AS (SELECT strftime('%Y-%m', order_date) AS month, SUM(total_amount) AS revenue FROM orders WHERE status = 'completed' AND strftime('%Y', order_date) = '2024' GROUP BY strftime('%Y-%m', order_date)) SELECT m1.month AS current_month, m1.revenue AS current_month_revenue, m2.revenue AS previous_month_revenue, ROUND(((m1.revenue - m2.revenue) / m2.revenue) * 100, 2) AS growth_percentage FROM monthly_revenue m1 LEFT JOIN monthly_revenue m2 ON m2.month = strftime('%Y-%m', date(m1.month || '-01', '-1 month')) ORDER BY m1.month",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4849,
+          "latency_ms": 60443.89,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-007",
+          "question": "Find churned customers: customers who placed a completed order in 2023 but placed zero completed orders in 2024.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, c.email FROM customers c WHERE EXISTS (SELECT 1 FROM orders o1 WHERE o1.customer_id = c.customer_id AND o1.status = 'completed' AND strftime('%Y', o1.order_date) = '2023') AND NOT EXISTS (SELECT 1 FROM orders o2 WHERE o2.customer_id = c.customer_id AND o2.status = 'completed' AND strftime('%Y', o2.order_date) = '2024') ORDER BY c.customer_id",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4832,
+          "latency_ms": 60385.03,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-008",
+          "question": "Find reactivated customers: customers who placed a completed order in 2024 after placing zero completed orders in 2023.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, c.email FROM customers c WHERE EXISTS (SELECT 1 FROM orders o24 WHERE o24.customer_id = c.customer_id AND o24.status = 'completed' AND strftime('%Y', o24.order_date) = '2024') AND NOT EXISTS (SELECT 1 FROM orders o23 WHERE o23.customer_id = c.customer_id AND o23.status = 'completed' AND strftime('%Y', o23.order_date) = '2023') ORDER BY c.customer_id",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4828,
+          "latency_ms": 60105.51,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-009",
+          "question": "Calculate the average time (in days) between a customer's first completed order and their second completed order.",
+          "generated_sql": "WITH ranked_orders AS (SELECT customer_id, order_date, ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY order_date) AS rn FROM orders WHERE status = 'completed'), first_and_second AS (SELECT customer_id, MIN(CASE WHEN rn = 1 THEN order_date END) AS first_order_date, MIN(CASE WHEN rn = 2 THEN order_date END) AS second_order_date FROM ranked_orders WHERE rn IN (1, 2) GROUP BY customer_id) SELECT ROUND(AVG(julianday(second_order_date) - julianday(first_order_date)), 2) AS avg_days_between_first_and_second FROM first_and_second WHERE first_order_date IS NOT NULL AND second_order_date IS NOT NULL",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4822,
+          "latency_ms": 60720.19,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-010",
+          "question": "Find the product with the highest revenue from completed orders that also maintains an average review rating of at least 4.0.",
+          "generated_sql": "SELECT p.product_id, p.name, ROUND(SUM(oi.quantity * oi.unit_price * (1 - oi.discount)), 2) AS total_revenue, ROUND(AVG(r.rating), 2) AS avg_rating FROM products p JOIN order_items oi ON p.product_id = oi.product_id JOIN orders o ON oi.order_id = o.order_id LEFT JOIN reviews r ON p.product_id = r.product_id WHERE o.status = 'completed' GROUP BY p.product_id, p.name HAVING AVG(r.rating) >= 4.0 ORDER BY total_revenue DESC LIMIT 1",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4842,
+          "latency_ms": 60359.23,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-011",
+          "question": "Compare year-over-year performance: total revenue, completed order count, and unique customers between 2023 and 2024.",
+          "generated_sql": "SELECT \n  ROUND(SUM(CASE WHEN strftime('%Y', order_date) = '2023' THEN total_amount ELSE 0 END), 2) AS revenue_2023,\n  ROUND(SUM(CASE WHEN strftime('%Y', order_date) = '2024' THEN total_amount ELSE 0 END), 2) AS revenue_2024,\n  SUM(CASE WHEN strftime('%Y', order_date) = '2023' THEN 1 ELSE 0 END) AS completed_orders_2023,\n  SUM(CASE WHEN strftime('%Y', order_date) = '2024' THEN 1 ELSE 0 END) AS completed_orders_2024,\n  COUNT(DISTINCT CASE WHEN strftime('%Y', order_date) = '2023' THEN customer_id END) AS unique_customers_2023,\n  COUNT(DISTINCT CASE WHEN strftime('%Y', order_date) = '2024' THEN customer_id END) AS unique_customers_2024\nFROM orders\nWHERE status = 'completed' AND strftime('%Y', order_date) IN ('2023', '2024')",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4952,
+          "latency_ms": 61328.7,
+          "model": "openai/gpt-oss-120b"
+        }
+      ]
+    },
+    "Config B: Config A + Dynamic Schema Linking": {
+      "strict_correct": 32,
+      "lenient_correct": 38,
+      "total": 50,
+      "total_latency_ms": 32280.82149993861,
+      "total_tokens": 222283,
+      "total_retries": 0,
+      "details": [
+        {
+          "id": "easy-001",
+          "question": "How many total products are in the catalog?",
+          "generated_sql": "SELECT COUNT(*) AS total_products FROM products",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4265,
+          "latency_ms": 6.04,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-002",
+          "question": "What is the average price of all products?",
+          "generated_sql": "SELECT AVG(price) AS average_price FROM products",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4268,
+          "latency_ms": 5.55,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-003",
+          "question": "How many customers are registered in California?",
+          "generated_sql": "SELECT COUNT(*) AS california_customers FROM customers WHERE state = 'CA'",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4333,
+          "latency_ms": 5.86,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-004",
+          "question": "List the 5 most expensive products and their prices.",
+          "generated_sql": "SELECT name, price FROM products ORDER BY price DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4325,
+          "latency_ms": 6.23,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-005",
+          "question": "Which 5 products have the lowest stock quantity?",
+          "generated_sql": "SELECT name, stock_quantity FROM products ORDER BY stock_quantity ASC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4296,
+          "latency_ms": 4.82,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-006",
+          "question": "How many completed orders have been placed?",
+          "generated_sql": "SELECT COUNT(*) AS completed_orders FROM orders WHERE status = 'completed'",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4308,
+          "latency_ms": 4.74,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-007",
+          "question": "What is the total revenue collected across all completed orders?",
+          "generated_sql": "SELECT SUM(total_amount) AS total_revenue FROM orders WHERE status = 'completed';",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4327,
+          "latency_ms": 5.73,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-008",
+          "question": "How many reviews have a 5-star rating?",
+          "generated_sql": "SELECT COUNT(*) AS five_star_reviews FROM reviews WHERE rating = 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4323,
+          "latency_ms": 5.24,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-009",
+          "question": "What is the total amount paid from successful payments using credit card?",
+          "generated_sql": "SELECT SUM(amount) AS total_paid FROM payments WHERE status = 'successful' AND payment_method = 'credit_card';",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4471,
+          "latency_ms": 4.53,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-010",
+          "question": "List all distinct product categories in alphabetical order.",
+          "generated_sql": "SELECT DISTINCT name FROM categories ORDER BY name ASC",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4256,
+          "latency_ms": 4.89,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-011",
+          "question": "How many products currently have zero stock?",
+          "generated_sql": "SELECT COUNT(*) AS zero_stock_count FROM products WHERE stock_quantity = 0",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4319,
+          "latency_ms": 6.24,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-012",
+          "question": "What is the highest single order total amount?",
+          "generated_sql": "SELECT MAX(total_amount) AS max_total FROM orders",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4296,
+          "latency_ms": 5.95,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-013",
+          "question": "What is the lowest single completed order total amount?",
+          "generated_sql": "SELECT MIN(total_amount) AS min_total FROM orders WHERE status = 'completed'",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4192,
+          "latency_ms": 5.42,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-014",
+          "question": "How many orders were placed in the year 2024?",
+          "generated_sql": "SELECT COUNT(*) AS orders_2024 FROM orders WHERE strftime('%Y', order_date) = '2024';",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4375,
+          "latency_ms": 4.75,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-015",
+          "question": "How many orders were placed in the year 2023?",
+          "generated_sql": "SELECT COUNT(*) AS orders_2023 FROM orders WHERE strftime('%Y', order_date) = '2023';",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4362,
+          "latency_ms": 7.04,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-016",
+          "question": "How many customers are located in New York city?",
+          "generated_sql": "SELECT COUNT(*) AS customer_count FROM customers WHERE city = 'New York'",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4292,
+          "latency_ms": 4.8,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-017",
+          "question": "What is the average rating across all customer reviews?",
+          "generated_sql": "SELECT AVG(rating) AS average_rating FROM reviews",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4266,
+          "latency_ms": 4.84,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-001",
+          "question": "What is the total number of products in each category?",
+          "generated_sql": "SELECT c.category_id, c.name, COUNT(p.product_id) AS product_count FROM categories c LEFT JOIN products p ON c.category_id = p.category_id GROUP BY c.category_id, c.name ORDER BY product_count DESC",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4473,
+          "latency_ms": 5.8,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-002",
+          "question": "What is the total revenue generated from completed orders for each product category?",
+          "generated_sql": "SELECT c.name AS category_name, SUM(oi.quantity * oi.unit_price * (1 - oi.discount)) AS total_revenue FROM orders o JOIN order_items oi ON o.order_id = oi.order_id JOIN products p ON oi.product_id = p.product_id JOIN categories c ON p.category_id = c.category_id WHERE o.status = 'completed' GROUP BY c.category_id, c.name ORDER BY total_revenue DESC",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4728,
+          "latency_ms": 5.48,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-003",
+          "question": "List the top 5 customers who have spent the most money on completed orders.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, SUM(o.total_amount) AS total_spent FROM customers c JOIN orders o ON c.customer_id = o.customer_id WHERE o.status = 'completed' GROUP BY c.customer_id, c.first_name, c.last_name ORDER BY total_spent DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4485,
+          "latency_ms": 6.39,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-004",
+          "question": "Which 5 products have generated the highest total revenue from completed orders?",
+          "generated_sql": "SELECT p.product_id, p.name, SUM(oi.quantity * oi.unit_price * (1 - oi.discount)) AS total_revenue FROM products p JOIN order_items oi ON p.product_id = oi.product_id JOIN orders o ON oi.order_id = o.order_id WHERE o.status = 'completed' GROUP BY p.product_id, p.name ORDER BY total_revenue DESC LIMIT 5",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4674,
+          "latency_ms": 5.02,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-005",
+          "question": "Which 5 products have been ordered the most by quantity in completed orders?",
+          "generated_sql": "SELECT p.product_id, p.name, SUM(oi.quantity) AS total_quantity FROM products p JOIN order_items oi ON p.product_id = oi.product_id JOIN orders o ON oi.order_id = o.order_id WHERE o.status = 'completed' GROUP BY p.product_id, p.name ORDER BY total_quantity DESC LIMIT 5",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4581,
+          "latency_ms": 5.48,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-006",
+          "question": "Show the average review rating and review count for each product that has at least 3 reviews.",
+          "generated_sql": "SELECT p.product_id, p.name, ROUND(AVG(r.rating),2) AS avg_rating, COUNT(r.rating) AS review_count FROM products p JOIN reviews r ON p.product_id = r.product_id GROUP BY p.product_id, p.name HAVING COUNT(r.rating) >= 3 ORDER BY avg_rating DESC",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4471,
+          "latency_ms": 4.7,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-007",
+          "question": "What is the monthly revenue for completed orders in 2024?",
+          "generated_sql": "SELECT strftime('%m', order_date) AS month, SUM(total_amount) AS monthly_revenue FROM orders WHERE status='completed' AND strftime('%Y', order_date)='2024' GROUP BY month ORDER BY month",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4452,
+          "latency_ms": 5.02,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-008",
+          "question": "How many orders were placed by customers in each state?",
+          "generated_sql": "SELECT c.state, COUNT(o.order_id) AS order_count FROM customers c JOIN orders o ON c.customer_id = o.customer_id GROUP BY c.state ORDER BY order_count DESC",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4420,
+          "latency_ms": 4.89,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-009",
+          "question": "Find the top 5 states by total completed order spending.",
+          "generated_sql": "SELECT c.state, SUM(o.total_amount) AS total_spent FROM customers c JOIN orders o ON c.customer_id = o.customer_id WHERE o.status = 'completed' GROUP BY c.state ORDER BY total_spent DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4448,
+          "latency_ms": 5.56,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-010",
+          "question": "What is the total amount and count of successful payments per payment method?",
+          "generated_sql": "SELECT payment_method, SUM(amount) AS total_amount, COUNT(*) AS payment_count FROM payments WHERE status = 'completed' GROUP BY payment_method ORDER BY total_amount DESC",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4568,
+          "latency_ms": 8.04,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-011",
+          "question": "Find customers who have placed more than 5 orders.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, COUNT(o.order_id) AS order_count FROM customers c JOIN orders o ON c.customer_id = o.customer_id GROUP BY c.customer_id, c.first_name, c.last_name HAVING COUNT(o.order_id) > 5 ORDER BY order_count DESC",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4514,
+          "latency_ms": 1586.52,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-012",
+          "question": "Which customers have registered but never placed an order?",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, c.email FROM customers c LEFT JOIN orders o ON c.customer_id = o.customer_id WHERE o.customer_id IS NULL ORDER BY c.customer_id",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4528,
+          "latency_ms": 1775.81,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-013",
+          "question": "List products that have never received any customer reviews.",
+          "generated_sql": "SELECT p.product_id, p.name FROM products p LEFT JOIN reviews r ON p.product_id = r.product_id WHERE r.product_id IS NULL ORDER BY p.product_id",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4440,
+          "latency_ms": 1913.52,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-014",
+          "question": "Find products that have never been ordered.",
+          "generated_sql": "SELECT p.product_id, p.name FROM products p LEFT JOIN order_items oi ON p.product_id = oi.product_id WHERE oi.product_id IS NULL",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4412,
+          "latency_ms": 1305.32,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-015",
+          "question": "What is the average order total by order status?",
+          "generated_sql": "SELECT status, AVG(total_amount) AS avg_total FROM orders GROUP BY status",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4299,
+          "latency_ms": 1120.82,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-016",
+          "question": "What is the average rating given per category of products?",
+          "generated_sql": "SELECT c.category_id, c.name, AVG(r.rating) AS avg_rating FROM categories c JOIN products p ON c.category_id = p.category_id LEFT JOIN reviews r ON p.product_id = r.product_id GROUP BY c.category_id, c.name ORDER BY avg_rating DESC",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4664,
+          "latency_ms": 1551.14,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-017",
+          "question": "Which payment method has the highest failure rate?",
+          "generated_sql": "SELECT payment_method,\n       ROUND(100.0 * SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) / COUNT(*), 2) AS failure_rate_percent\nFROM payments\nGROUP BY payment_method\nORDER BY failure_rate_percent DESC\nLIMIT 1;",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4516,
+          "latency_ms": 1522.37,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-018",
+          "question": "What is the total revenue by quarter for completed orders?",
+          "generated_sql": "SELECT strftime('%Y', order_date) AS year, CAST(strftime('%m', order_date) AS INTEGER) / 3 + 1 AS quarter, ROUND(SUM(total_amount), 2) AS total_revenue FROM orders WHERE status = 'completed' GROUP BY year, quarter ORDER BY year, quarter",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4378,
+          "latency_ms": 1124.25,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-019",
+          "question": "List the top 5 customers with the most reviews written.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, COUNT(r.review_id) AS review_count FROM customers c JOIN reviews r ON c.customer_id = r.customer_id GROUP BY c.customer_id, c.first_name, c.last_name ORDER BY review_count DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4404,
+          "latency_ms": 1119.08,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-020",
+          "question": "What is the average item price by category?",
+          "generated_sql": "SELECT c.name AS category_name, ROUND(AVG(p.price), 2) AS average_price FROM categories c JOIN products p ON c.category_id = p.category_id GROUP BY c.name ORDER BY c.name",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4373,
+          "latency_ms": 1174.03,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-021",
+          "question": "Find all products that have an average rating lower than 3.0.",
+          "generated_sql": "SELECT p.product_id, p.name, ROUND(AVG(r.rating), 2) AS avg_rating FROM products p JOIN reviews r ON p.product_id = r.product_id GROUP BY p.product_id, p.name HAVING AVG(r.rating) < 3.0 ORDER BY avg_rating ASC",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4416,
+          "latency_ms": 1195.03,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-022",
+          "question": "What are the 5 cities with the most registered customers?",
+          "generated_sql": "SELECT city, COUNT(customer_id) AS customer_count FROM customers GROUP BY city ORDER BY customer_count DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4318,
+          "latency_ms": 1305.82,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-001",
+          "question": "What was the completed order revenue drop or gain (Q2 minus Q1) between Q1 and Q2 of 2024 using conditional aggregation?",
+          "generated_sql": "SELECT ROUND(SUM(CASE WHEN strftime('%m', order_date) IN ('04', '05', '06') THEN total_amount ELSE 0 END) - SUM(CASE WHEN strftime('%m', order_date) IN ('01', '02', '03') THEN total_amount ELSE 0 END), 2) AS q2_minus_q1_revenue FROM orders WHERE status = 'completed' AND strftime('%Y', order_date) = '2024'",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4464,
+          "latency_ms": 1341.7,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-002",
+          "question": "Calculate customer lifetime value (LTV): rank the top 5 customers by total completed spend and include their average order value and order count.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, SUM(o.total_amount) AS total_completed_spend, ROUND(AVG(o.total_amount), 2) AS average_order_value, COUNT(o.order_id) AS order_count FROM customers c JOIN orders o ON c.customer_id = o.customer_id WHERE o.status = 'completed' GROUP BY c.customer_id, c.first_name, c.last_name ORDER BY total_completed_spend DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4520,
+          "latency_ms": 1321.92,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-003",
+          "question": "Identify repeat customers versus one-time buyers: count how many customers placed exactly 1 completed order versus 2 or more completed orders, returning one row per buyer type with columns buyer_type and customer_count.",
+          "generated_sql": "SELECT CASE WHEN order_count = 1 THEN 'one_time_buyer' ELSE 'repeat_customer' END AS buyer_type, COUNT(*) AS customer_count FROM (SELECT customer_id, COUNT(*) AS order_count FROM orders WHERE status = 'completed' GROUP BY customer_id) GROUP BY CASE WHEN order_count = 1 THEN 'one_time_buyer' ELSE 'repeat_customer' END",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4439,
+          "latency_ms": 1259.95,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-004",
+          "question": "Which product category has the highest customer repeat purchase rate (completed orders with products from that category from repeat buyers)?",
+          "generated_sql": "WITH completed_orders AS (SELECT o.order_id, o.customer_id FROM orders o WHERE o.status = 'completed'), repeat_buyers AS (SELECT customer_id FROM completed_orders GROUP BY customer_id HAVING COUNT(DISTINCT order_id) > 1), category_orders AS (SELECT c.category_id, COUNT(DISTINCT oi.order_id) AS total_orders, COUNT(DISTINCT CASE WHEN rb.customer_id IS NOT NULL THEN oi.order_id END) AS repeat_orders FROM categories c JOIN products p ON c.category_id = p.category_id JOIN order_items oi ON p.product_id = oi.product_id JOIN completed_orders co ON oi.order_id = co.order_id LEFT JOIN repeat_buyers rb ON co.customer_id = rb.customer_id GROUP BY c.category_id) SELECT c.category_id, c.name, ROUND(CAST(COALESCE(co.repeat_orders, 0) AS REAL) / NULLIF(co.total_orders, 0), 4) AS repeat_purchase_rate FROM categories c LEFT JOIN category_orders co ON c.category_id = co.category_id ORDER BY repeat_purchase_rate DESC, c.name ASC",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4876,
+          "latency_ms": 1590.85,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-005",
+          "question": "Find the top product in each category by total revenue generated from completed orders.",
+          "generated_sql": "WITH product_revenue AS (SELECT p.product_id, p.name AS product_name, c.category_id, c.name AS category_name, SUM(oi.quantity * oi.unit_price - oi.discount) AS total_revenue FROM products p JOIN categories c ON p.category_id = c.category_id JOIN order_items oi ON p.product_id = oi.product_id JOIN orders o ON oi.order_id = o.order_id WHERE o.status = 'completed' GROUP BY p.product_id, p.name, c.category_id, c.name), ranked AS (SELECT product_revenue.*, ROW_NUMBER() OVER (PARTITION BY category_id ORDER BY total_revenue DESC) AS rn FROM product_revenue) SELECT category_name, product_name, total_revenue FROM ranked WHERE rn = 1 ORDER BY category_name",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4732,
+          "latency_ms": 1398.98,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-006",
+          "question": "Compute month-over-month revenue growth percentage for completed orders in 2024.",
+          "generated_sql": "WITH monthly_revenue AS (SELECT strftime('%Y-%m', order_date) AS month, SUM(total_amount) AS revenue FROM orders WHERE status = 'completed' AND strftime('%Y', order_date) = '2024' GROUP BY strftime('%Y-%m', order_date)) SELECT month, revenue, LAG(revenue) OVER (ORDER BY month) AS prev_month_revenue, ROUND(((revenue - LAG(revenue) OVER (ORDER BY month)) * 100.0) / LAG(revenue) OVER (ORDER BY month), 2) AS growth_pct FROM monthly_revenue ORDER BY month",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4466,
+          "latency_ms": 1336.31,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-007",
+          "question": "Find churned customers: customers who placed a completed order in 2023 but placed zero completed orders in 2024.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, c.email FROM customers c WHERE EXISTS (SELECT 1 FROM orders o1 WHERE o1.customer_id = c.customer_id AND o1.status = 'completed' AND strftime('%Y', o1.order_date) = '2023') AND NOT EXISTS (SELECT 1 FROM orders o2 WHERE o2.customer_id = c.customer_id AND o2.status = 'completed' AND strftime('%Y', o2.order_date) = '2024')",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4557,
+          "latency_ms": 1506.39,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-008",
+          "question": "Find reactivated customers: customers who placed a completed order in 2024 after placing zero completed orders in 2023.",
+          "generated_sql": "SELECT c.customer_id FROM customers c WHERE EXISTS (SELECT 1 FROM orders o24 WHERE o24.customer_id = c.customer_id AND o24.status = 'completed' AND strftime('%Y', o24.order_date) = '2024') AND NOT EXISTS (SELECT 1 FROM orders o23 WHERE o23.customer_id = c.customer_id AND o23.status = 'completed' AND strftime('%Y', o23.order_date) = '2023')",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4485,
+          "latency_ms": 1271.44,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-009",
+          "question": "Calculate the average time (in days) between a customer's first completed order and their second completed order.",
+          "generated_sql": "WITH ranked_orders AS (SELECT customer_id, order_date, ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY order_date) AS rn FROM orders WHERE status = 'completed'), first_and_second AS (SELECT customer_id, MAX(CASE WHEN rn = 1 THEN order_date END) AS first_order_date, MAX(CASE WHEN rn = 2 THEN order_date END) AS second_order_date FROM ranked_orders GROUP BY customer_id) SELECT ROUND(AVG(julianday(second_order_date) - julianday(first_order_date)), 2) AS avg_days_between_first_and_second FROM first_and_second WHERE first_order_date IS NOT NULL AND second_order_date IS NOT NULL",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4487,
+          "latency_ms": 1439.55,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-010",
+          "question": "Find the product with the highest revenue from completed orders that also maintains an average review rating of at least 4.0.",
+          "generated_sql": "SELECT p.product_id, p.name, SUM(oi.quantity * oi.unit_price * (1 - oi.discount)) AS total_revenue, AVG(r.rating) AS avg_rating FROM products p JOIN order_items oi ON p.product_id = oi.product_id JOIN orders o ON oi.order_id = o.order_id JOIN reviews r ON p.product_id = r.product_id WHERE o.status = 'completed' GROUP BY p.product_id, p.name HAVING AVG(r.rating) >= 4.0 ORDER BY total_revenue DESC LIMIT 1",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4723,
+          "latency_ms": 1330.15,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-011",
+          "question": "Compare year-over-year performance: total revenue, completed order count, and unique customers between 2023 and 2024.",
+          "generated_sql": "SELECT \n  ROUND(SUM(CASE WHEN strftime('%Y', order_date) = '2023' THEN total_amount ELSE 0 END), 2) AS revenue_2023,\n  ROUND(SUM(CASE WHEN strftime('%Y', order_date) = '2024' THEN total_amount ELSE 0 END), 2) AS revenue_2024,\n  SUM(CASE WHEN strftime('%Y', order_date) = '2023' THEN 1 ELSE 0 END) AS completed_orders_2023,\n  SUM(CASE WHEN strftime('%Y', order_date) = '2024' THEN 1 ELSE 0 END) AS completed_orders_2024,\n  COUNT(DISTINCT CASE WHEN strftime('%Y', order_date) = '2023' THEN customer_id END) AS unique_customers_2023,\n  COUNT(DISTINCT CASE WHEN strftime('%Y', order_date) = '2024' THEN customer_id END) AS unique_customers_2024\nFROM orders\nWHERE status = 'completed' AND strftime('%Y', order_date) IN ('2023', '2024')",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4698,
+          "latency_ms": 1640.82,
+          "model": "openai/gpt-oss-120b"
+        }
+      ]
+    },
+    "Config D: Full QueryPilot (Self-Correction)": {
+      "strict_correct": 35,
+      "lenient_correct": 42,
+      "total": 50,
+      "total_latency_ms": 916.0451000498142,
+      "total_tokens": 232837,
+      "total_retries": 0,
+      "details": [
+        {
+          "id": "easy-001",
+          "question": "How many total products are in the catalog?",
+          "generated_sql": "SELECT COUNT(product_id) AS total_products FROM products LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4347,
+          "retries": 0,
+          "latency_ms": 28.36,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-002",
+          "question": "What is the average price of all products?",
+          "generated_sql": "SELECT AVG(price) AS average_price FROM products LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4406,
+          "retries": 0,
+          "latency_ms": 14.56,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-003",
+          "question": "How many customers are registered in California?",
+          "generated_sql": "SELECT COUNT(*) AS california_customers FROM customers WHERE state = 'CA' LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4527,
+          "retries": 0,
+          "latency_ms": 12.43,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-004",
+          "question": "List the 5 most expensive products and their prices.",
+          "generated_sql": "SELECT name, price FROM products ORDER BY price DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4481,
+          "retries": 0,
+          "latency_ms": 13.57,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-005",
+          "question": "Which 5 products have the lowest stock quantity?",
+          "generated_sql": "SELECT p.name, p.stock_quantity FROM products AS p ORDER BY p.stock_quantity ASC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4581,
+          "retries": 0,
+          "latency_ms": 13.75,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-006",
+          "question": "How many completed orders have been placed?",
+          "generated_sql": "SELECT COUNT(*) AS completed_orders FROM orders WHERE status = 'completed' LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4351,
+          "retries": 0,
+          "latency_ms": 13.53,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-007",
+          "question": "What is the total revenue collected across all completed orders?",
+          "generated_sql": "SELECT SUM(total_amount) AS total_revenue FROM orders WHERE status = 'completed' LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4371,
+          "retries": 0,
+          "latency_ms": 11.03,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-008",
+          "question": "How many reviews have a 5-star rating?",
+          "generated_sql": "SELECT COUNT(*) AS five_star_review_count FROM reviews WHERE rating = 5 LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4415,
+          "retries": 0,
+          "latency_ms": 12.76,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-009",
+          "question": "What is the total amount paid from successful payments using credit card?",
+          "generated_sql": "SELECT SUM(amount) AS total_successful_credit_card_amount FROM payments WHERE status = 'successful' AND payment_method = 'credit_card' LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4459,
+          "retries": 0,
+          "latency_ms": 14.27,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-010",
+          "question": "List all distinct product categories in alphabetical order.",
+          "generated_sql": "SELECT DISTINCT name FROM categories ORDER BY name ASC LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4415,
+          "retries": 0,
+          "latency_ms": 11.63,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-011",
+          "question": "How many products currently have zero stock?",
+          "generated_sql": "SELECT COUNT(*) AS zero_stock_count FROM products WHERE stock_quantity = 0 LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4416,
+          "retries": 0,
+          "latency_ms": 11.31,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-012",
+          "question": "What is the highest single order total amount?",
+          "generated_sql": "SELECT MAX(total_amount) AS max_order_total FROM orders LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4366,
+          "retries": 0,
+          "latency_ms": 11.61,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-013",
+          "question": "What is the lowest single completed order total amount?",
+          "generated_sql": "SELECT MIN(total_amount) AS min_total_amount FROM orders WHERE status = 'completed' LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4227,
+          "retries": 0,
+          "latency_ms": 13.11,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-014",
+          "question": "How many orders were placed in the year 2024?",
+          "generated_sql": "SELECT COUNT(*) AS order_count FROM orders WHERE STRFTIME('%Y', order_date) = '2024' LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4431,
+          "retries": 0,
+          "latency_ms": 13.42,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-015",
+          "question": "How many orders were placed in the year 2023?",
+          "generated_sql": "SELECT COUNT(*) AS orders_2023 FROM orders WHERE STRFTIME('%Y', order_date) = '2023' LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4460,
+          "retries": 0,
+          "latency_ms": 12.27,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-016",
+          "question": "How many customers are located in New York city?",
+          "generated_sql": "SELECT COUNT(*) AS new_york_customers FROM customers WHERE city = 'New York' LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4530,
+          "retries": 0,
+          "latency_ms": 14.46,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "easy-017",
+          "question": "What is the average rating across all customer reviews?",
+          "generated_sql": "SELECT AVG(rating) AS average_rating FROM reviews LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4350,
+          "retries": 0,
+          "latency_ms": 12.57,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-001",
+          "question": "What is the total number of products in each category?",
+          "generated_sql": "SELECT c.category_id, c.name AS category_name, COUNT(p.product_id) AS product_count FROM categories AS c LEFT JOIN products AS p ON c.category_id = p.category_id GROUP BY c.category_id, c.name ORDER BY product_count DESC LIMIT 100",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4653,
+          "retries": 0,
+          "latency_ms": 17.95,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-002",
+          "question": "What is the total revenue generated from completed orders for each product category?",
+          "generated_sql": "SELECT cat.name AS category_name, ROUND(SUM(oi.quantity * oi.unit_price * (1 - oi.discount)), 2) AS total_revenue FROM orders AS o JOIN order_items AS oi ON o.order_id = oi.order_id JOIN products AS p ON oi.product_id = p.product_id JOIN categories AS cat ON p.category_id = cat.category_id WHERE o.status = 'completed' GROUP BY cat.category_id, cat.name ORDER BY total_revenue DESC LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 5070,
+          "retries": 0,
+          "latency_ms": 24.11,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-003",
+          "question": "List the top 5 customers who have spent the most money on completed orders.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, SUM(o.total_amount) AS total_spent FROM customers AS c JOIN orders AS o ON c.customer_id = o.customer_id WHERE o.status = 'completed' GROUP BY c.customer_id, c.first_name, c.last_name ORDER BY total_spent DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4719,
+          "retries": 0,
+          "latency_ms": 20.02,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-004",
+          "question": "Which 5 products have generated the highest total revenue from completed orders?",
+          "generated_sql": "SELECT p.product_id, p.name, SUM(oi.quantity * oi.unit_price * (1 - oi.discount)) AS total_revenue FROM products AS p JOIN order_items AS oi ON p.product_id = oi.product_id JOIN orders AS o ON oi.order_id = o.order_id WHERE o.status = 'completed' GROUP BY p.product_id, p.name ORDER BY total_revenue DESC LIMIT 5",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4863,
+          "retries": 0,
+          "latency_ms": 18.23,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-005",
+          "question": "Which 5 products have been ordered the most by quantity in completed orders?",
+          "generated_sql": "SELECT p.product_id, p.name, SUM(oi.quantity) AS total_quantity FROM products AS p JOIN order_items AS oi ON p.product_id = oi.product_id JOIN orders AS o ON oi.order_id = o.order_id WHERE o.status = 'completed' GROUP BY p.product_id, p.name ORDER BY total_quantity DESC LIMIT 5",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4756,
+          "retries": 0,
+          "latency_ms": 19.64,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-006",
+          "question": "Show the average review rating and review count for each product that has at least 3 reviews.",
+          "generated_sql": "SELECT p.product_id, p.name, ROUND(AVG(r.rating), 2) AS average_rating, COUNT(r.rating) AS review_count FROM products AS p JOIN reviews AS r ON p.product_id = r.product_id GROUP BY p.product_id, p.name HAVING COUNT(r.rating) >= 3 ORDER BY average_rating DESC LIMIT 100",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4658,
+          "retries": 0,
+          "latency_ms": 16.66,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-007",
+          "question": "What is the monthly revenue for completed orders in 2024?",
+          "generated_sql": "SELECT STRFTIME('%Y-%m', order_date) AS month, ROUND(SUM(total_amount), 2) AS revenue FROM orders WHERE status = 'completed' AND STRFTIME('%Y', order_date) = '2024' GROUP BY month ORDER BY month LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4603,
+          "retries": 0,
+          "latency_ms": 14.55,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-008",
+          "question": "How many orders were placed by customers in each state?",
+          "generated_sql": "SELECT c.state, COUNT(o.order_id) AS orders_count FROM customers AS c JOIN orders AS o ON c.customer_id = o.customer_id GROUP BY c.state ORDER BY orders_count DESC LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4709,
+          "retries": 0,
+          "latency_ms": 15.02,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-009",
+          "question": "Find the top 5 states by total completed order spending.",
+          "generated_sql": "SELECT c.state, SUM(o.total_amount) AS total_spent FROM customers AS c JOIN orders AS o ON c.customer_id = o.customer_id WHERE o.status = 'completed' GROUP BY c.state ORDER BY total_spent DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4727,
+          "retries": 0,
+          "latency_ms": 16.29,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-010",
+          "question": "What is the total amount and count of successful payments per payment method?",
+          "generated_sql": "SELECT payment_method, SUM(amount) AS total_amount, COUNT(*) AS payment_count FROM payments WHERE status = 'successful' GROUP BY payment_method ORDER BY total_amount DESC LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4495,
+          "retries": 0,
+          "latency_ms": 12.3,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-011",
+          "question": "Find customers who have placed more than 5 orders.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, COUNT(o.order_id) AS order_count FROM customers AS c JOIN orders AS o ON c.customer_id = o.customer_id GROUP BY c.customer_id, c.first_name, c.last_name HAVING COUNT(o.order_id) > 5 ORDER BY order_count DESC LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4700,
+          "retries": 0,
+          "latency_ms": 16.43,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-012",
+          "question": "Which customers have registered but never placed an order?",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, c.email FROM customers AS c LEFT JOIN orders AS o ON c.customer_id = o.customer_id WHERE o.customer_id IS NULL ORDER BY c.customer_id LIMIT 100",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4665,
+          "retries": 0,
+          "latency_ms": 18.68,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-013",
+          "question": "List products that have never received any customer reviews.",
+          "generated_sql": "SELECT p.product_id, p.name FROM products AS p LEFT JOIN reviews AS r ON p.product_id = r.product_id WHERE r.product_id IS NULL LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4545,
+          "retries": 0,
+          "latency_ms": 29.0,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-014",
+          "question": "Find products that have never been ordered.",
+          "generated_sql": "SELECT p.product_id, p.name FROM products AS p LEFT JOIN order_items AS oi ON p.product_id = oi.product_id WHERE oi.product_id IS NULL ORDER BY p.product_id LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4479,
+          "retries": 0,
+          "latency_ms": 26.68,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-015",
+          "question": "What is the average order total by order status?",
+          "generated_sql": "SELECT status, AVG(total_amount) AS avg_total FROM orders GROUP BY status ORDER BY avg_total DESC LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4423,
+          "retries": 0,
+          "latency_ms": 14.36,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-016",
+          "question": "What is the average rating given per category of products?",
+          "generated_sql": "SELECT cat.category_id, cat.name AS category_name, ROUND(AVG(rv.rating), 2) AS avg_rating FROM categories AS cat JOIN products AS p ON cat.category_id = p.category_id JOIN reviews AS rv ON p.product_id = rv.product_id GROUP BY cat.category_id, cat.name ORDER BY avg_rating DESC LIMIT 100",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4766,
+          "retries": 0,
+          "latency_ms": 17.92,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-017",
+          "question": "Which payment method has the highest failure rate?",
+          "generated_sql": "SELECT payment_method, ROUND(100.0 * SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) / COUNT(*), 2) AS failure_rate_percent FROM payments GROUP BY payment_method ORDER BY failure_rate_percent DESC LIMIT 1",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4577,
+          "retries": 0,
+          "latency_ms": 26.1,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-018",
+          "question": "What is the total revenue by quarter for completed orders?",
+          "generated_sql": "SELECT CASE WHEN STRFTIME('%m', order_date) IN ('01', '02', '03') THEN 'Q1' WHEN STRFTIME('%m', order_date) IN ('04', '05', '06') THEN 'Q2' WHEN STRFTIME('%m', order_date) IN ('07', '08', '09') THEN 'Q3' ELSE 'Q4' END AS quarter, ROUND(SUM(total_amount), 2) AS total_revenue FROM orders WHERE status = 'completed' GROUP BY quarter ORDER BY quarter LIMIT 100",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4752,
+          "retries": 0,
+          "latency_ms": 39.91,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-019",
+          "question": "List the top 5 customers with the most reviews written.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, COUNT(r.review_id) AS review_count FROM customers AS c JOIN reviews AS r ON c.customer_id = r.customer_id GROUP BY c.customer_id, c.first_name, c.last_name ORDER BY review_count DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4689,
+          "retries": 0,
+          "latency_ms": 20.64,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-020",
+          "question": "What is the average item price by category?",
+          "generated_sql": "SELECT c.category_id, c.name AS category_name, ROUND(AVG(p.price), 2) AS avg_price FROM categories AS c JOIN products AS p ON c.category_id = p.category_id GROUP BY c.category_id, c.name ORDER BY avg_price DESC LIMIT 100",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4641,
+          "retries": 0,
+          "latency_ms": 16.42,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-021",
+          "question": "Find all products that have an average rating lower than 3.0.",
+          "generated_sql": "SELECT p.product_id, p.name, AVG(r.rating) AS avg_rating FROM products AS p JOIN reviews AS r ON p.product_id = r.product_id GROUP BY p.product_id, p.name HAVING AVG(r.rating) < 3.0 LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4610,
+          "retries": 0,
+          "latency_ms": 17.5,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "med-022",
+          "question": "What are the 5 cities with the most registered customers?",
+          "generated_sql": "SELECT c.city, COUNT(c.customer_id) AS customer_count FROM customers AS c GROUP BY c.city ORDER BY customer_count DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4600,
+          "retries": 0,
+          "latency_ms": 15.86,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-001",
+          "question": "What was the completed order revenue drop or gain (Q2 minus Q1) between Q1 and Q2 of 2024 using conditional aggregation?",
+          "generated_sql": "SELECT SUM(CASE WHEN STRFTIME('%m', order_date) IN ('04', '05', '06') THEN total_amount ELSE 0 END) - SUM(CASE WHEN STRFTIME('%m', order_date) IN ('01', '02', '03') THEN total_amount ELSE 0 END) AS revenue_difference FROM orders WHERE status = 'completed' AND STRFTIME('%Y', order_date) = '2024' LIMIT 100",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4587,
+          "retries": 0,
+          "latency_ms": 13.69,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-002",
+          "question": "Calculate customer lifetime value (LTV): rank the top 5 customers by total completed spend and include their average order value and order count.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, SUM(o.total_amount) AS total_spent, COUNT(o.order_id) AS order_count, AVG(o.total_amount) AS avg_order_value FROM customers AS c JOIN orders AS o ON c.customer_id = o.customer_id WHERE o.status = 'completed' GROUP BY c.customer_id, c.first_name, c.last_name ORDER BY total_spent DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4954,
+          "retries": 0,
+          "latency_ms": 18.92,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-003",
+          "question": "Identify repeat customers versus one-time buyers: count how many customers placed exactly 1 completed order versus 2 or more completed orders, returning one row per buyer type with columns buyer_type and customer_count.",
+          "generated_sql": "WITH customer_order_counts AS (SELECT customer_id, COUNT(*) AS order_cnt FROM orders WHERE status = 'completed' GROUP BY customer_id) SELECT CASE WHEN order_cnt = 1 THEN 'one-time' ELSE 'repeat' END AS buyer_type, COUNT(*) AS customer_count FROM customer_order_counts GROUP BY buyer_type LIMIT 100",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4625,
+          "retries": 0,
+          "latency_ms": 21.07,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-004",
+          "question": "Which product category has the highest customer repeat purchase rate (completed orders with products from that category from repeat buyers)?",
+          "generated_sql": "WITH repeat_customers AS (SELECT o.customer_id FROM orders AS o WHERE o.status = 'completed' GROUP BY o.customer_id HAVING COUNT(DISTINCT o.order_id) > 1), category_customers AS (SELECT c.category_id, o.customer_id FROM categories AS c JOIN products AS p ON p.category_id = c.category_id JOIN order_items AS oi ON oi.product_id = p.product_id JOIN orders AS o ON o.order_id = oi.order_id WHERE o.status = 'completed' GROUP BY c.category_id, o.customer_id) SELECT cat.name, ROUND(CAST(COUNT(DISTINCT CASE WHEN NOT rc.customer_id IS NULL THEN cc.customer_id END) AS REAL) / COUNT(DISTINCT cc.customer_id), 4) AS repeat_purchase_rate FROM category_customers AS cc JOIN categories AS cat ON cat.category_id = cc.category_id LEFT JOIN repeat_customers AS rc ON rc.customer_id = cc.customer_id GROUP BY cat.category_id, cat.name ORDER BY repeat_purchase_rate DESC LIMIT 1",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 5759,
+          "retries": 0,
+          "latency_ms": 22.69,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-005",
+          "question": "Find the top product in each category by total revenue generated from completed orders.",
+          "generated_sql": "WITH product_revenue AS (SELECT p.product_id, p.name AS product_name, p.category_id, SUM(oi.quantity * oi.unit_price - oi.discount) AS total_revenue FROM products AS p JOIN order_items AS oi ON p.product_id = oi.product_id JOIN orders AS o ON oi.order_id = o.order_id WHERE o.status = 'completed' GROUP BY p.product_id, p.name, p.category_id), ranked AS (SELECT pr.*, ROW_NUMBER() OVER (PARTITION BY pr.category_id ORDER BY pr.total_revenue DESC) AS rn FROM product_revenue AS pr) SELECT c.category_id, c.name AS category_name, r.product_id, r.product_name, r.total_revenue FROM ranked AS r JOIN categories AS c ON r.category_id = c.category_id WHERE r.rn = 1 ORDER BY c.category_id LIMIT 100",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 5250,
+          "retries": 0,
+          "latency_ms": 34.0,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-006",
+          "question": "Compute month-over-month revenue growth percentage for completed orders in 2024.",
+          "generated_sql": "WITH monthly_rev AS (SELECT STRFTIME('%Y-%m', order_date) AS month, SUM(total_amount) AS revenue FROM orders WHERE status = 'completed' AND STRFTIME('%Y', order_date) = '2024' GROUP BY month) SELECT month, revenue, ROUND((revenue - LAG(revenue) OVER (ORDER BY month)) * 100.0 / NULLIF(LAG(revenue) OVER (ORDER BY month), 0), 2) AS mom_growth_pct FROM monthly_rev ORDER BY month LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4746,
+          "retries": 0,
+          "latency_ms": 25.0,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-007",
+          "question": "Find churned customers: customers who placed a completed order in 2023 but placed zero completed orders in 2024.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, c.email FROM customers AS c WHERE EXISTS(SELECT 1 FROM orders AS o WHERE o.customer_id = c.customer_id AND o.status = 'completed' AND STRFTIME('%Y', o.order_date) = '2023') AND NOT EXISTS(SELECT 1 FROM orders AS o2 WHERE o2.customer_id = c.customer_id AND o2.status = 'completed' AND STRFTIME('%Y', o2.order_date) = '2024') LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4903,
+          "retries": 0,
+          "latency_ms": 25.74,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-008",
+          "question": "Find reactivated customers: customers who placed a completed order in 2024 after placing zero completed orders in 2023.",
+          "generated_sql": "SELECT c.customer_id FROM customers AS c WHERE EXISTS(SELECT 1 FROM orders AS o WHERE o.customer_id = c.customer_id AND o.status = 'completed' AND STRFTIME('%Y', o.order_date) = '2024') AND NOT EXISTS(SELECT 1 FROM orders AS o2 WHERE o2.customer_id = c.customer_id AND o2.status = 'completed' AND STRFTIME('%Y', o2.order_date) = '2023') LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4858,
+          "retries": 0,
+          "latency_ms": 21.42,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-009",
+          "question": "Calculate the average time (in days) between a customer's first completed order and their second completed order.",
+          "generated_sql": "WITH completed AS (SELECT customer_id, order_date, ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY order_date) AS rn FROM orders WHERE status = 'completed'), first_second AS (SELECT customer_id, MAX(CASE WHEN rn = 1 THEN order_date END) AS first_date, MAX(CASE WHEN rn = 2 THEN order_date END) AS second_date FROM completed WHERE rn <= 2 GROUP BY customer_id HAVING COUNT(*) = 2) SELECT ROUND(AVG(JULIANDAY(second_date) - JULIANDAY(first_date)), 2) AS avg_days_between_first_and_second FROM first_second LIMIT 100",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 5032,
+          "retries": 0,
+          "latency_ms": 25.02,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-010",
+          "question": "Find the product with the highest revenue from completed orders that also maintains an average review rating of at least 4.0.",
+          "generated_sql": "WITH revenue AS (SELECT oi.product_id, SUM(oi.quantity * oi.unit_price * (1 - COALESCE(oi.discount, 0))) AS total_revenue FROM order_items AS oi JOIN orders AS o ON oi.order_id = o.order_id WHERE o.status = 'completed' GROUP BY oi.product_id), rating AS (SELECT r.product_id, AVG(r.rating) AS avg_rating FROM reviews AS r GROUP BY r.product_id) SELECT p.product_id, p.name, rev.total_revenue, rat.avg_rating FROM products AS p JOIN revenue AS rev ON p.product_id = rev.product_id JOIN rating AS rat ON p.product_id = rat.product_id WHERE rat.avg_rating >= 4.0 ORDER BY rev.total_revenue DESC LIMIT 1",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 5215,
+          "retries": 0,
+          "latency_ms": 24.12,
+          "model": "openai/gpt-oss-120b"
+        },
+        {
+          "id": "hard-011",
+          "question": "Compare year-over-year performance: total revenue, completed order count, and unique customers between 2023 and 2024.",
+          "generated_sql": "SELECT STRFTIME('%Y', order_date) AS year, ROUND(SUM(total_amount), 2) AS total_revenue, COUNT(order_id) AS completed_order_count, COUNT(DISTINCT customer_id) AS unique_customers FROM orders WHERE status = 'completed' AND STRFTIME('%Y', order_date) IN ('2023', '2024') GROUP BY year ORDER BY year LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 5075,
+          "retries": 0,
+          "latency_ms": 15.45,
+          "model": "openai/gpt-oss-120b"
+        }
+      ]
+    }
+  },
+  "model_distribution": {
+    "Config A: Single-shot Baseline": {
+      "openai/gpt-oss-120b": 50
+    },
+    "Config B: Config A + Dynamic Schema Linking": {
+      "openai/gpt-oss-120b": 50
+    },
+    "Config D: Full QueryPilot (Self-Correction)": {
+      "openai/gpt-oss-120b": 50
+    }
+  }
+}

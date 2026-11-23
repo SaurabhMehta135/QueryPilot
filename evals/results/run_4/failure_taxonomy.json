@@ -1,0 +1,97 @@
+{
+  "failure_categories": {
+    "Model Errors": 6,
+    "Reference Issues": 6,
+    "Ambiguous Questions": 2,
+    "Schema Ambiguities": 2
+  },
+  "total_failures": 16,
+  "descriptions": {
+    "Model Errors": "Real semantic mistakes: summing discount rate fractions instead of dollar discount amounts, or missing status filter.",
+    "Reference Issues": "Reference required unrequested ORDER BY under order_matters=True, or projected unrequested filter aggregates.",
+    "Ambiguous Questions": "Question text supports multiple valid SQL interpretations (e.g. distinct line items vs total units sold).",
+    "Schema Ambiguities": "Prompt asked for entities where model projected human-readable names and reference projected foreign key IDs."
+  },
+  "per_question_taxonomy": {
+    "easy-027": {
+      "category": "Reference Issue",
+      "reason": "Reference projected unrequested review_id column",
+      "order_matters": false
+    },
+    "med-023": {
+      "category": "Model Error",
+      "reason": "Summed raw discount rates instead of dollar discount amount",
+      "order_matters": false
+    },
+    "med-025": {
+      "category": "Schema Ambiguity",
+      "reason": "Resolved category name with category-grouped order vs category_id",
+      "order_matters": true
+    },
+    "med-026": {
+      "category": "Ambiguous Question",
+      "reason": "Distinct line items per order vs total item units",
+      "order_matters": false
+    },
+    "med-033": {
+      "category": "Reference Issue",
+      "reason": "Reference used unrequested DESC sort on rating 1 to 5",
+      "order_matters": true
+    },
+    "med-034": {
+      "category": "Model Error",
+      "reason": "Summed discount rates instead of dollar discount amount",
+      "order_matters": false
+    },
+    "med-040": {
+      "category": "Reference Issue",
+      "reason": "Reference projected unrequested distinct_categories aggregate",
+      "order_matters": false
+    },
+    "med-041": {
+      "category": "Reference Issue",
+      "reason": "Reference projected unrequested product_count aggregate",
+      "order_matters": false
+    },
+    "med-043": {
+      "category": "Reference Issue",
+      "reason": "Reference projected unrequested count aggregate",
+      "order_matters": false
+    },
+    "hard-012": {
+      "category": "Reference Issue",
+      "reason": "Same 79 customers selected; failed on unrequested sort under order_matters",
+      "order_matters": true
+    },
+    "hard-014": {
+      "category": "Schema Ambiguity",
+      "reason": "Product names projected instead of raw product IDs",
+      "order_matters": false
+    },
+    "hard-016": {
+      "category": "Model Error",
+      "reason": "Missing filter on successful payment statuses",
+      "order_matters": false
+    },
+    "hard-017": {
+      "category": "Model Error",
+      "reason": "Ordered by 2024 revenue instead of year-over-year revenue difference",
+      "order_matters": true
+    },
+    "hard-018": {
+      "category": "Model Error",
+      "reason": "Thresholded over all customers rather than customers with completed orders",
+      "order_matters": false
+    },
+    "hard-021": {
+      "category": "Model Error",
+      "reason": "Returned pivoted single-row table rather than 2-row grouped table",
+      "order_matters": false
+    },
+    "hard-022": {
+      "category": "Ambiguous Question",
+      "reason": "Applied LIMIT 1 for single winning method vs all 4 ranked",
+      "order_matters": false
+    }
+  }
+}

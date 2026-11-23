@@ -80,7 +80,12 @@ def normalize_row(row: Tuple[Any, ...]) -> Tuple[Any, ...]:
     return tuple(normalize_val(v) for v in row)
 
 
-def compare_results_strict(gen_rows: List[Tuple], ref_rows: List[Tuple], order_matters: bool = False) -> bool:
+def compare_results_strict(
+    gen_rows: List[Tuple],
+    ref_rows: List[Tuple],
+    *,
+    order_matters: bool = False,
+) -> bool:
     """
     Strict execution match:
     1. Exact same number of columns.
@@ -131,6 +136,7 @@ compare_results = compare_results_strict
 def compare_results_lenient(
     gen_rows: List[Tuple],
     ref_rows: List[Tuple],
+    *,
     order_matters: bool = False,
     gen_cols: Optional[List[str]] = None,
     ref_cols: Optional[List[str]] = None,
@@ -209,7 +215,8 @@ async def run_accuracy_evaluation(
     raw_llm = LLMClient(provider=provider_name, allow_fallback=False)
     cached_llm_provider = CachedLLMProvider(
         inner_provider=raw_llm.provider,
-        throttle_seconds=throttle_seconds,
+        max_tpm=6000,
+        throttle_seconds=4.0,
     )
     llm_client = LLMClient(custom_provider=cached_llm_provider, allow_fallback=False)
 
@@ -238,10 +245,30 @@ async def run_accuracy_evaluation(
         "hard": {"total": 0, "strict_correct": 0, "lenient_correct": 0},
     }
 
+    ckpt_file = os.path.join(RUN4_DIR, f"checkpoint_{dataset_name.replace('.jsonl', '')}.json")
+    completed_qids = set()
+    if os.path.exists(ckpt_file):
+        try:
+            with open(ckpt_file, "r", encoding="utf-8") as f:
+                ckpt_data = json.load(f)
+                eval_results = ckpt_data.get("eval_results", [])
+                strict_correct_count = ckpt_data.get("strict_correct_count", 0)
+                lenient_correct_count = ckpt_data.get("lenient_correct_count", 0)
+                clarification_count = ckpt_data.get("clarification_count", 0)
+                blocked_count = ckpt_data.get("blocked_count", 0)
+                failed_count = ckpt_data.get("failed_count", 0)
+                diff_stats = ckpt_data.get("diff_stats", diff_stats)
+                completed_qids = {r["id"] for r in eval_results}
+                print(f"Resuming evaluation from checkpoint: {len(completed_qids)}/{len(questions)} completed.")
+        except Exception as e:
+            print(f"Warning: could not read checkpoint: {e}")
+
     start_eval_time = time.time()
 
     for idx, q in enumerate(questions):
         qid = q["id"]
+        if qid in completed_qids:
+            continue
         question_text = q["question"]
         ref_sql = q["reference_sql"]
         diff = q.get("difficulty", "medium")
@@ -336,6 +363,17 @@ async def run_accuracy_evaluation(
             "latency_ms": round(q_duration, 2),
             "error": error_msg,
         })
+
+        with open(ckpt_file, "w", encoding="utf-8") as f:
+            json.dump({
+                "eval_results": eval_results,
+                "strict_correct_count": strict_correct_count,
+                "lenient_correct_count": lenient_correct_count,
+                "clarification_count": clarification_count,
+                "blocked_count": blocked_count,
+                "failed_count": failed_count,
+                "diff_stats": diff_stats,
+            }, f, indent=2)
 
         outcome_symbol = "✓" if is_strict else ("~" if is_lenient else ("?" if status == "clarification_requested" else "✗"))
         print(f"[{idx+1}/{len(questions)}] {outcome_symbol} {qid} ({diff}): strict={is_strict}, lenient={is_lenient}, status={status}")

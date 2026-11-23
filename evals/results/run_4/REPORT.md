@@ -155,9 +155,105 @@ SQLite connections opened via `get_readonly_connection()` enforce `conn.set_auth
 
 ---
 
-## 8. Operational Statistics (Uncached Only)
+## 8. 3-Configuration Ablation Study Results (50 Questions)
 
-not measured (Test set and ablation not yet executed per freeze protocol)
+*Dataset:* `dev.jsonl` (50 questions) | *Provider:* Groq with a fallback chain (`openai/gpt-oss-120b`, `openai/gpt-oss-20b`, `qwen/qwen3.8-27b`); the primary model is expected to have served nearly all calls but per-call model identity was not recorded. | *Explainer:* SKIPPED (core Text-to-SQL pipeline evaluation only)
+
+### 8.1 Summary Table
+
+| Configuration | Strict Accuracy (95% CI) | Lenient Accuracy (95% CI) | Avg Tokens | Paired Lenient Record | Paired Strict Record |
+|---|---|---|---|---|---|
+| **Config A: Single-shot Baseline**<br>*(Full schema context, 1 LLM call, no retry)* | 48.0% (24/50)<br>[34.8%, 61.5%] | 72.0% (36/50)<br>[58.3%, 82.5%] | 4,541.2 | Baseline | Baseline |
+| **Config B: Config A + Dynamic Schema Linking**<br>*(Schema Agent selects targeted tables/cols)* | 64.0% (32/50)<br>[50.1%, 75.9%] | 76.0% (38/50)<br>[62.6%, 85.7%] | 4,445.7 | 4 Wins / 2 Losses / 44 Ties vs A | 10 Wins / 2 Losses / 38 Ties vs A |
+| **Config D: Full QueryPilot (Self-Correction)**<br>*(Schema Linking + AST Validator + Self-Correction)* | **70.0% (35/50)**<br>**[56.2%, 80.9%]** | **84.0% (42/50)**<br>**[71.5%, 91.7%]** | 4,656.7 | **8 Wins / 2 Losses / 40 Ties vs A**<br>**5 Wins / 1 Loss / 44 Ties vs B** | **13 Wins / 2 Losses / 35 Ties vs A**<br>**4 Wins / 1 Loss / 45 Ties vs B** |
+
+*\*Measurement Disclosure on Latency & Cost:* Latency and cost metrics are excluded from this ablation comparison because they are contaminated by disk prompt caching on repeated calls and TPM throttling pauses on live API calls; latency was not reliably measured in a cold, unthrottled environment. Token counts represent exact prompt and completion usage.  
+*\*Note on Config C:* In our benchmark evaluation, the AST Validator without a repair loop passed 50/50 dev analytical queries without blocking or rewriting (except for 1 query flagged as expensive for human approval), demonstrating identical execution accuracy to Config B on pure analytical questions. Config C is a deterministic safety enforcement layer, not an accuracy mechanism.  
+*\*Statistical Significance (Exact Sign-Test):*
+- **Multiple Comparisons & Dataset Scope**: Sign-test p-values reported below are uncorrected for the six paired comparisons (3 pairs x 2 scorers), and the ablation was conducted on the tuning set (`dev.jsonl`). Under a Bonferroni-corrected threshold of $\alpha = 0.05 / 6 \approx 0.0083$, Config D vs Config A under strict scoring remains statistically significant (**p = 0.0074**).
+- **Lenient Scoring:**
+  - **D vs A:** 8 Wins / 2 Losses (p = 0.1094, two-sided exact sign test)
+  - **D vs B:** 5 Wins / 1 Loss (p = 0.2188, two-sided exact sign test)
+  - **B vs A:** 4 Wins / 2 Losses (p = 0.6875, two-sided exact sign test)
+- **Strict Scoring:**
+  - **D vs A:** 13 Wins / 2 Losses (**p = 0.0074**, statistically significant improvement)
+  - **D vs B:** 4 Wins / 1 Loss (p = 0.3750, two-sided exact sign test)
+  - **B vs A:** 10 Wins / 2 Losses (**p = 0.0386**, statistically significant improvement)
+
+### 8.2 Paired Head-to-Head Comparisons
+
+- **Lenient Scoring:**
+  - **D vs A:** Config D Wins = 8, Config A Wins = 2, Ties = 40 (Both Correct: 34, Both Wrong: 6)
+  - **D vs B:** Config D Wins = 5, Config B Wins = 1, Ties = 44 (Both Correct: 37, Both Wrong: 7)
+  - **B vs A:** Config B Wins = 4, Config A Wins = 2, Ties = 44 (Both Correct: 34, Both Wrong: 10)
+- **Strict Scoring:**
+  - **D vs A:** Config D Wins = 13, Config A Wins = 2, Ties = 35 (Both Correct: 22, Both Wrong: 13)
+  - **D vs B:** Config D Wins = 4, Config B Wins = 1, Ties = 45 (Both Correct: 31, Both Wrong: 14)
+  - **B vs A:** Config B Wins = 10, Config A Wins = 2, Ties = 38 (Both Correct: 22, Both Wrong: 16)
+
+---
+
+## 9. Held-Out Test Set Execution Accuracy (50 Questions)
+
+*Dataset:* `test_stratified_50.jsonl` (17 Easy, 22 Medium, 11 Hard)  
+*Provider:* Groq with a fallback chain (`openai/gpt-oss-120b`, `openai/gpt-oss-20b`, `qwen/qwen3.8-27b`); the primary model is expected to have served nearly all calls but per-call model identity was not recorded. | *Explainer:* SKIPPED  
+*Raw Artifact:* `evals/results/run_4/accuracy_test_stratified_50.json`
+
+### 9.1 Summary Table
+
+| Metric | Accuracy | 95% Wilson CI | Correct / Total |
+|---|---|---|---|
+| **Lenient Accuracy (Full Set, n=50)** | **68.0%** | **[54.2%, 79.2%]** | **34 / 50** |
+| **Strict Accuracy (Full Set, n=50)** | **58.0%** | **[44.2%, 70.6%]** | **29 / 50** |
+| **Clean Subset (33 Medium & Hard questions never seen before)** | | | |
+| ↳ **Clean Subset Lenient Accuracy (n=33)** | **54.5%** | **[38.0%, 70.2%]** | **18 / 33** |
+| ↳ **Clean Subset Strict Accuracy (n=33)** | **39.4%** | **[24.7%, 56.3%]** | **13 / 33** |
+| Easy Questions (all 17 exposed in early runs) | 94.1% / 94.1% | [73.0%, 99.0%] | 16 / 17 |
+| Medium Questions (unexposed) | 63.6% (Lenient) / 50.0% (Strict) | [43.0%, 80.3%] / [30.7%, 69.3%] | 14 / 22 (Len) / 11 / 22 (Str) |
+| Hard Questions (unexposed) | 36.4% (Lenient) / 18.2% (Strict) | [15.2%, 64.6%] / [5.1%, 47.7%] | 4 / 11 (Len) / 2 / 11 (Str) |
+
+*Exposure Disclosure:* All 17 easy test questions had been exposed in early exploratory runs. The clean subset of 33 medium and hard questions represents completely unexposed, never-before-evaluated queries evaluated strictly once under frozen references.
+
+---
+
+## 10. Post-Hoc Qualitative Failure Classification (16 Held-Out Test Lenient Failures)
+
+*Note: Per evaluation protocol, all references and datasets remain 100% frozen. This post-hoc taxonomy inspects the root causes of the 16 lenient test set failures.*
+
+| # | Question ID | Difficulty | Root Cause Category | Natural Language Question | Root Cause Breakdown |
+|---|---|---|---|---|---|
+| 1 | `easy-027` | easy | **Reference Issue** | "Show the 5 most recent reviews with their ratings and comments." | The reference SQL projects `review_id, rating, comment, review_date`, whereas the model projected `review_date, rating, comment` (omitting unrequested `review_id`). Because the question did not ask for the primary key ID, lenient failed due to missing reference column `review_id`. |
+| 2 | `med-023` | medium | **Model Error** | "What is the total discount amount given per product category on completed orders?" | Model wrote `SUM(oi.discount)` (summing raw fractional discount rates) instead of `SUM(oi.quantity * oi.unit_price * oi.discount)` (computing dollar discount amount). |
+| 3 | `med-025` | medium | **Schema Ambiguity** | "Which products have price higher than the average product price in their category?" | Question asked for products compared to category average. Model resolved human-readable category name `c.name AS category_name` and ordered by `c.name, p.price DESC`, omitting reference's raw foreign key `p.category_id` (ordered by `p.price DESC`, with `order_matters: true`). The projected entities match (25/25 rows), but missing `category_id` and category-grouped ordering cause lenient failure. |
+| 4 | `med-026` | medium | **Ambiguous Question** | "What is the average number of items per order?" | "Items" has two common business definitions: distinct line items vs total item units. Reference computes `AVG(SUM(quantity))` across order line items; model computed `COUNT(oi.item_id) / COUNT(DISTINCT o.order_id)` (average distinct line items per order). |
+| 5 | `med-033` | medium | **Reference Issue** | "What is the breakdown of reviews by star rating from 1 to 5?" | Reference specified unrequested `ORDER BY rating DESC` (5 to 1); model ordered `ORDER BY rating ASC` (1 to 5 as stated in prompt "from 1 to 5", with `order_matters: true`). |
+| 6 | `med-034` | medium | **Model Error** | "Find the 5 customers who received the largest total discount across their completed orders." | Model wrote `SUM(oi.discount)` (summing rate fractions) instead of `SUM(oi.quantity * oi.unit_price * oi.discount)` (dollar savings amount). |
+| 7 | `med-040` | medium | **Reference Issue** | "Show customers who have ordered products from at least 3 distinct categories in completed orders." | Reference projected unrequested filter aggregate `distinct_categories` and ordered by it; model projected customer details `customer_id, first_name, last_name` ordered by `customer_id`. |
+| 8 | `med-041` | medium | **Reference Issue** | "Find orders that contain more than 3 distinct products." | Reference projected unrequested filter aggregate `product_count` and ordered by it; model projected requested entity `order_id` only. |
+| 9 | `med-043` | medium | **Reference Issue** | "List categories that have at least 10 products." | Reference projected unrequested count aggregate `product_count` ordered by count DESC; model projected `category_id, name` ordered by name. |
+| 10 | `hard-012` | hard | **Reference Issue** | "Find customers whose average order value exceeds 200 dollars and who have placed at least 3 completed orders." | Dataset has `order_matters: true`. Reference ordered arbitrarily by `c.customer_id ASC`. Model projected requested customers plus context columns and sorted by `avg_order_value DESC LIMIT 100`. Both queries select the exact same 79 customer IDs (79/79 set match), but unrequested sort order causes lenient mismatch under `order_matters: true`. |
+| 11 | `hard-014` | hard | **Schema Ambiguity** | "Find the top 3 product pairs most frequently purchased together in the same order." | Reference projected product ID integers (`product_a, product_b`); model joined `products` and projected product names (`product_1, product_2`). The prompt asked for "product pairs" without specifying IDs vs names. |
+| 12 | `hard-016` | hard | **Model Error** | "What is the order fulfillment delay in days by order status (difference between order date and last payment date)?" | Model grouped without filtering `p.status = 'successful'`, returning delay rows for 4 statuses (`cancelled`, `completed`, `pending`, `processing`) instead of the 2 successful statuses (`completed`, `processing`). |
+| 13 | `hard-017` | hard | **Model Error** | "Identify products where completed order revenue in 2024 was higher than completed order revenue in 2023." | Model ordered by `revenue_2024 DESC LIMIT 100` rather than the year-over-year difference `(rev_2024 - rev_2023) DESC`, causing borderline product row divergences. |
+| 14 | `hard-018` | hard | **Model Error** | "Find the top spending customer in each state on completed orders (for states with at least 5 registered customers)." | Model thresholded states over all registered customers `COUNT(customer_id) >= 5` rather than customers with completed orders, altering qualifying states. |
+| 15 | `hard-021` | hard | **Model Error** | "What is the average discount given on completed orders where total amount exceeds 1000 dollars versus under 1000 dollars?" | Model returned a pivoted 1-row table (`avg_discount_over_1000`, `avg_discount_under_1000`) instead of a 2-row table grouped by order category. |
+| 16 | `hard-022` | hard | **Ambiguous Question** | "Find the most reliable payment method: lowest failed transaction count and highest total successful settlement." | Reference reported all 4 payment methods ranked by settlement; model applied `LIMIT 1` to return the single winning method. |
+
+### 10.1 Post-Hoc Taxonomy Summary (16 Failures)
+- **Model Errors:** 6 / 16 (37.50%)
+- **Reference Issues (Unrequested sort orders, arbitrary order_matters flags, or unrequested columns in reference):** 6 / 16 (37.50%)
+- **Schema Ambiguities (Name vs ID, Category Name vs Category ID):** 2 / 16 (12.50%)
+- **Ambiguous Questions:** 2 / 16 (12.50%)
+- **Total:** 16 / 16 (100.0%)
+
+---
+
+## 11. Operational Statistics (Uncached Only)
+
+- **Uncached Model Latency:** Avg = 2,120.5 ms, P95 = 2,120.5 ms
+- **Uncached Tokens per Call:** Avg Total = 1,993.0 tokens (Prompt: 1,645.0, Completion: 348.0)
+- **Retry Wait Time:** 0.0 ms
+- **Cache Hit Rate:** 99.0% (99 hits, 1 miss during cached dev evaluation)
 
 ---
 *Report generated for QueryPilot eval-freeze-v1.*

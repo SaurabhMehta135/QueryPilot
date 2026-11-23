@@ -1,0 +1,33 @@
+{
+  "step_id": "ambiguous_clarification",
+  "step_number": 5,
+  "title": "HITL Clarification Gate",
+  "role": "Ambiguous Schema Question Interruption",
+  "question": "show me the best stuff",
+  "highlight": "Demonstrates Schema Agent identifying missing metrics/criteria and suspending execution to request user clarification.",
+  "model": "gemini-3.1-flash-lite",
+  "provider": "gemini",
+  "recorded_at": "2026-11-22T15:01:48.782268+00:00",
+  "events": [
+    {
+      "event": "run_started",
+      "data": "{\"run_id\": \"replay-step-5-run\", \"question\": \"show me the best stuff\", \"thread_id\": \"replay-step-5-thread\"}"
+    },
+    {
+      "event": "node_started",
+      "data": "{\"node\": \"schema_node\"}"
+    },
+    {
+      "event": "node_finished",
+      "data": "{\"node\": \"schema_node\", \"tables\": [], \"intent\": \"needs_clarification\"}"
+    },
+    {
+      "event": "needs_input",
+      "data": "{\"type\": \"clarification_needed\", \"prompt\": \"Could you please clarify what you mean by 'best stuff'? Are you looking for top-rated products, best-selling items, or perhaps products with the highest revenue?\", \"sql\": null, \"thread_id\": \"replay-step-5-thread\"}"
+    },
+    {
+      "event": "run_finished",
+      "data": "{\"final_status\": \"needs_input\", \"run_id\": \"replay-step-5-run\", \"estimated_cost_usd\": 0.000228, \"total_latency_ms\": 15124.72, \"trace\": [{\"node\": \"schema_agent\", \"model\": \"gemini-3.1-flash-lite\", \"provider\": \"gemini\", \"prompt_tokens\": 2482, \"completion_tokens\": 138, \"total_tokens\": 2620, \"duration_ms\": 15124.72, \"latency_ms\": 15124.72, \"model_latency_ms\": 15124.7, \"retry_wait_ms\": 0.0, \"retry_attempts\": 0, \"fallback_used\": false, \"output_summary\": \"The term 'best stuff' is subjective and ambiguous, requiring clarification to determine which metrics (e.g., ratings, sales volume, revenue) should be used to define 'best'.\"}], \"guardrail_events\": [{\"node\": \"guardrails\", \"type\": \"guardrail_event\", \"layer\": \"untrusted-data wrapping\", \"action\": \"injection_wrapper_applied\", \"reason\": \"Encapsulated database schema in <untrusted_data> delimiters\"}]}"
+    }
+  ]
+}

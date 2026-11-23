@@ -89,15 +89,36 @@ def test_compare_results_lenient_rejects_missing_columns():
 
 
 def test_compare_results_order_matters_flag():
-    """Verifies that order_matters=True enforces exact row sequence."""
+    """Verifies that order_matters=True enforces exact row sequence for both strict and lenient."""
     ref_rows = [(1,), (2,), (3,)]
     gen_rows = [(3,), (1,), (2,)]
 
-    # When order does not matter: multiset equality holds
+    # Strict: When order does not matter: multiset equality holds
     assert compare_results_strict(gen_rows, ref_rows, order_matters=False) is True
-
-    # When order matters: sequence must be identical
+    # Strict: When order matters: sequence must be identical
     assert compare_results_strict(gen_rows, ref_rows, order_matters=True) is False
+
+    # Lenient: When order does not matter: multiset equality holds
+    assert compare_results_lenient(gen_rows, ref_rows, order_matters=False) is True
+    # Lenient: When order matters: sequence must be identical
+    assert compare_results_lenient(gen_rows, ref_rows, order_matters=True) is False
+
+    # Lenient with extra column: respects order_matters
+    gen_rows_extra = [(3, "extra3"), (1, "extra1"), (2, "extra2")]
+    assert compare_results_lenient(gen_rows_extra, ref_rows, order_matters=False) is True
+    assert compare_results_lenient(gen_rows_extra, ref_rows, order_matters=True) is False
+
+
+def test_scoring_parameters_are_keyword_only():
+    """Regression test: verifies that order_matters, gen_cols, ref_cols cannot be passed positionally."""
+    ref_rows = [(1,)]
+    gen_rows = [(1,)]
+
+    with pytest.raises(TypeError):
+        compare_results_strict(gen_rows, ref_rows, False)  # type: ignore
+
+    with pytest.raises(TypeError):
+        compare_results_lenient(gen_rows, ref_rows, False)  # type: ignore
 
 
 # =============================================================================

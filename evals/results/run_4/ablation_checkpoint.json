@@ -1,11 +1,11 @@
 {
   "ablation_stats": {
     "Config A: Single-shot Baseline": {
-      "strict_correct": 17,
-      "lenient_correct": 24,
+      "strict_correct": 24,
+      "lenient_correct": 36,
       "total": 50,
-      "total_latency_ms": 4796.537199974409,
-      "total_tokens": 118490,
+      "total_latency_ms": 1180942.0196000286,
+      "total_tokens": 227059,
       "total_retries": 0,
       "details": [
         {
@@ -15,7 +15,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4262,
-          "latency_ms": 2.96
+          "latency_ms": 2.5
         },
         {
           "id": "easy-002",
@@ -24,7 +24,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4253,
-          "latency_ms": 2.15
+          "latency_ms": 1.42
         },
         {
           "id": "easy-003",
@@ -33,7 +33,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4291,
-          "latency_ms": 2.5
+          "latency_ms": 1.11
         },
         {
           "id": "easy-004",
@@ -42,7 +42,7 @@
           "strict_correct": false,
           "lenient_correct": true,
           "tokens": 4380,
-          "latency_ms": 1.96
+          "latency_ms": 1.19
         },
         {
           "id": "easy-005",
@@ -51,7 +51,7 @@
           "strict_correct": false,
           "lenient_correct": true,
           "tokens": 4399,
-          "latency_ms": 2.21
+          "latency_ms": 1.28
         },
         {
           "id": "easy-006",
@@ -60,7 +60,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4277,
-          "latency_ms": 1.92
+          "latency_ms": 1.02
         },
         {
           "id": "easy-007",
@@ -69,7 +69,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4315,
-          "latency_ms": 2.5
+          "latency_ms": 1.01
         },
         {
           "id": "easy-008",
@@ -78,7 +78,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4277,
-          "latency_ms": 1.85
+          "latency_ms": 1.93
         },
         {
           "id": "easy-009",
@@ -87,7 +87,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4360,
-          "latency_ms": 2.07
+          "latency_ms": 1.3
         },
         {
           "id": "easy-010",
@@ -96,7 +96,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4314,
-          "latency_ms": 2.6
+          "latency_ms": 1.11
         },
         {
           "id": "easy-011",
@@ -105,7 +105,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4276,
-          "latency_ms": 1.76
+          "latency_ms": 1.22
         },
         {
           "id": "easy-012",
@@ -114,7 +114,7 @@
           "strict_correct": false,
           "lenient_correct": true,
           "tokens": 4311,
-          "latency_ms": 2.03
+          "latency_ms": 1.2
         },
         {
           "id": "easy-013",
@@ -123,7 +123,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4333,
-          "latency_ms": 1.78
+          "latency_ms": 1.16
         },
         {
           "id": "easy-014",
@@ -132,7 +132,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4322,
-          "latency_ms": 2.47
+          "latency_ms": 1.1
         },
         {
           "id": "easy-015",
@@ -141,7 +141,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4325,
-          "latency_ms": 1.72
+          "latency_ms": 1.44
         },
         {
           "id": "easy-016",
@@ -150,7 +150,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4315,
-          "latency_ms": 1.96
+          "latency_ms": 1.38
         },
         {
           "id": "easy-017",
@@ -159,16 +159,16 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4313,
-          "latency_ms": 1.75
+          "latency_ms": 1.06
         },
         {
           "id": "med-001",
           "question": "What is the total number of products in each category?",
           "generated_sql": "SELECT c.category_id, c.name AS category_name, COUNT(p.product_id) AS total_products FROM categories c JOIN products p ON c.category_id = p.category_id GROUP BY c.category_id, c.name ORDER BY total_products DESC",
           "strict_correct": false,
-          "lenient_correct": true,
+          "lenient_correct": false,
           "tokens": 4340,
-          "latency_ms": 1.93
+          "latency_ms": 1.08
         },
         {
           "id": "med-002",
@@ -177,7 +177,7 @@
           "strict_correct": false,
           "lenient_correct": false,
           "tokens": 4720,
-          "latency_ms": 1.99
+          "latency_ms": 1.49
         },
         {
           "id": "med-003",
@@ -186,7 +186,7 @@
           "strict_correct": false,
           "lenient_correct": true,
           "tokens": 4413,
-          "latency_ms": 2.21
+          "latency_ms": 1.85
         },
         {
           "id": "med-004",
@@ -195,7 +195,7 @@
           "strict_correct": false,
           "lenient_correct": false,
           "tokens": 4668,
-          "latency_ms": 2.24
+          "latency_ms": 1.3
         },
         {
           "id": "med-005",
@@ -204,7 +204,7 @@
           "strict_correct": false,
           "lenient_correct": true,
           "tokens": 4559,
-          "latency_ms": 2.22
+          "latency_ms": 1.17
         },
         {
           "id": "med-006",
@@ -213,7 +213,7 @@
           "strict_correct": false,
           "lenient_correct": true,
           "tokens": 4502,
-          "latency_ms": 2.8
+          "latency_ms": 1.15
         },
         {
           "id": "med-007",
@@ -222,7 +222,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4514,
-          "latency_ms": 2.29
+          "latency_ms": 3.65
         },
         {
           "id": "med-008",
@@ -231,7 +231,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4392,
-          "latency_ms": 2.41
+          "latency_ms": 1.04
         },
         {
           "id": "med-009",
@@ -240,7 +240,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4494,
-          "latency_ms": 2.02
+          "latency_ms": 1.31
         },
         {
           "id": "med-010",
@@ -249,16 +249,223 @@
           "strict_correct": false,
           "lenient_correct": false,
           "tokens": 4565,
-          "latency_ms": 4740.27
+          "latency_ms": 1.06
+        },
+        {
+          "id": "med-011",
+          "question": "Find customers who have placed more than 5 orders.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, c.email, COUNT(o.order_id) AS order_count FROM customers c JOIN orders o ON c.customer_id = o.customer_id GROUP BY c.customer_id, c.first_name, c.last_name, c.email HAVING COUNT(o.order_id) > 5 ORDER BY order_count DESC",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4555,
+          "latency_ms": 2110.23
+        },
+        {
+          "id": "med-012",
+          "question": "Which customers have registered but never placed an order?",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, c.email, c.created_at FROM customers c LEFT JOIN orders o ON c.customer_id = o.customer_id WHERE o.order_id IS NULL ORDER BY c.customer_id",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4476,
+          "latency_ms": 61839.95
+        },
+        {
+          "id": "med-013",
+          "question": "List products that have never received any customer reviews.",
+          "generated_sql": "SELECT p.product_id, p.name, p.sku, p.price FROM products p LEFT JOIN reviews r ON p.product_id = r.product_id WHERE r.review_id IS NULL ORDER BY p.product_id",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4456,
+          "latency_ms": 84548.47
+        },
+        {
+          "id": "med-014",
+          "question": "Find products that have never been ordered.",
+          "generated_sql": "SELECT p.product_id, p.name, p.sku, p.price FROM products p LEFT JOIN order_items oi ON p.product_id = oi.product_id WHERE oi.item_id IS NULL",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4530,
+          "latency_ms": 1513.98
+        },
+        {
+          "id": "med-015",
+          "question": "What is the average order total by order status?",
+          "generated_sql": "SELECT status, AVG(total_amount) AS avg_total FROM orders GROUP BY status",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4288,
+          "latency_ms": 60289.45
+        },
+        {
+          "id": "med-016",
+          "question": "What is the average rating given per category of products?",
+          "generated_sql": "SELECT c.category_id, c.name AS category_name, AVG(r.rating) AS avg_rating FROM categories c JOIN products p ON c.category_id = p.category_id JOIN reviews r ON p.product_id = r.product_id GROUP BY c.category_id, c.name ORDER BY avg_rating DESC",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4537,
+          "latency_ms": 62270.04
+        },
+        {
+          "id": "med-017",
+          "question": "Which payment method has the highest failure rate?",
+          "generated_sql": "SELECT payment_method, SUM(CASE WHEN status='failed' THEN 1 ELSE 0 END) AS failures, COUNT(*) AS total, ROUND(SUM(CASE WHEN status='failed' THEN 1 ELSE 0 END)*1.0/COUNT(*),4) AS failure_rate FROM payments GROUP BY payment_method ORDER BY failure_rate DESC LIMIT 1",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4626,
+          "latency_ms": 7.89
+        },
+        {
+          "id": "med-018",
+          "question": "What is the total revenue by quarter for completed orders?",
+          "generated_sql": "SELECT strftime('%Y', order_date) AS year, (CAST(strftime('%m', order_date) AS INTEGER) - 1) / 3 + 1 AS quarter, ROUND(SUM(total_amount), 2) AS total_revenue FROM orders WHERE status = 'completed' GROUP BY year, quarter ORDER BY year, quarter",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4730,
+          "latency_ms": 1228.02
+        },
+        {
+          "id": "med-019",
+          "question": "List the top 5 customers with the most reviews written.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, COUNT(r.review_id) AS review_count FROM customers c JOIN reviews r ON c.customer_id = r.customer_id GROUP BY c.customer_id, c.first_name, c.last_name ORDER BY review_count DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4726,
+          "latency_ms": 60276.8
+        },
+        {
+          "id": "med-020",
+          "question": "What is the average item price by category?",
+          "generated_sql": "SELECT c.name AS category_name, ROUND(AVG(p.price), 2) AS average_item_price FROM products p JOIN categories c ON p.category_id = c.category_id GROUP BY c.category_id, c.name ORDER BY c.name",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4707,
+          "latency_ms": 60243.82
+        },
+        {
+          "id": "med-021",
+          "question": "Find all products that have an average rating lower than 3.0.",
+          "generated_sql": "SELECT p.product_id, p.name, p.sku, p.price, ROUND(AVG(r.rating), 2) AS avg_rating FROM products p JOIN reviews r ON p.product_id = r.product_id GROUP BY p.product_id, p.name, p.sku, p.price HAVING AVG(r.rating) < 3.0 ORDER BY avg_rating ASC",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4752,
+          "latency_ms": 60546.65
+        },
+        {
+          "id": "med-022",
+          "question": "What are the 5 cities with the most registered customers?",
+          "generated_sql": "SELECT city, COUNT(customer_id) AS customer_count FROM customers WHERE city IS NOT NULL GROUP BY city ORDER BY customer_count DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4690,
+          "latency_ms": 60237.67
+        },
+        {
+          "id": "hard-001",
+          "question": "What was the completed order revenue drop or gain (Q2 minus Q1) between Q1 and Q2 of 2024 using conditional aggregation?",
+          "generated_sql": "SELECT ROUND(SUM(CASE WHEN strftime('%m', order_date) IN ('01', '02', '03') THEN total_amount ELSE 0 END), 2) AS q1_revenue, ROUND(SUM(CASE WHEN strftime('%m', order_date) IN ('04', '05', '06') THEN total_amount ELSE 0 END), 2) AS q2_revenue, ROUND(SUM(CASE WHEN strftime('%m', order_date) IN ('04', '05', '06') THEN total_amount ELSE 0 END) - SUM(CASE WHEN strftime('%m', order_date) IN ('01', '02', '03') THEN total_amount ELSE 0 END), 2) AS q2_minus_q1 FROM orders WHERE status = 'completed' AND strftime('%Y', order_date) = '2024'",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4885,
+          "latency_ms": 60601.62
+        },
+        {
+          "id": "hard-002",
+          "question": "Calculate customer lifetime value (LTV): rank the top 5 customers by total completed spend and include their average order value and order count.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, SUM(o.total_amount) AS total_completed_spend, ROUND(AVG(o.total_amount), 2) AS avg_order_value, COUNT(o.order_id) AS order_count FROM customers c JOIN orders o ON c.customer_id = o.customer_id WHERE o.status = 'completed' GROUP BY c.customer_id, c.first_name, c.last_name ORDER BY total_completed_spend DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4785,
+          "latency_ms": 60370.12
+        },
+        {
+          "id": "hard-003",
+          "question": "Identify repeat customers versus one-time buyers: count how many customers placed exactly 1 completed order versus 2 or more completed orders, returning one row per buyer type with columns buyer_type and customer_count.",
+          "generated_sql": "WITH customer_order_counts AS (SELECT o.customer_id, COUNT(o.order_id) AS completed_order_count FROM orders o WHERE o.status = 'completed' GROUP BY o.customer_id) SELECT CASE WHEN completed_order_count = 1 THEN 'one_time_buyer' ELSE 'repeat_customer' END AS buyer_type, COUNT(customer_id) AS customer_count FROM customer_order_counts GROUP BY CASE WHEN completed_order_count = 1 THEN 'one_time_buyer' ELSE 'repeat_customer' END",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4801,
+          "latency_ms": 60404.92
+        },
+        {
+          "id": "hard-004",
+          "question": "Which product category has the highest customer repeat purchase rate (completed orders with products from that category from repeat buyers)?",
+          "generated_sql": "WITH completed_orders AS (\n    SELECT o.order_id, o.customer_id, oi.product_id\n    FROM orders o\n    JOIN order_items oi ON o.order_id = oi.order_id\n    WHERE o.status = 'completed'\n),\ncustomer_category_orders AS (\n    SELECT co.customer_id, p.category_id, COUNT(DISTINCT co.order_id) AS order_count\n    FROM completed_orders co\n    JOIN products p ON co.product_id = p.product_id\n    GROUP BY co.customer_id, p.category_id\n),\ncategory_stats AS (\n    SELECT \n        cco.category_id,\n        COUNT(DISTINCT cco.customer_id) AS total_customers,\n        COUNT(DISTINCT CASE WHEN cco.order_count > 1 THEN cco.customer_id END) AS repeat_customers\n    FROM customer_category_orders cco\n    GROUP BY cco.category_id\n)\nSELECT \n    cat.name AS category_name,\n    cs.total_customers,\n    cs.repeat_customers,\n    ROUND(CAST(cs.repeat_customers AS REAL) / cs.total_customers, 4) AS repeat_purchase_rate\nFROM category_stats cs\nJOIN categories cat ON cs.category_id = cat.category_id\nORDER BY repeat_purchase_rate DESC\nLIMIT 1",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 5043,
+          "latency_ms": 60932.4
+        },
+        {
+          "id": "hard-005",
+          "question": "Find the top product in each category by total revenue generated from completed orders.",
+          "generated_sql": "WITH product_revenue AS (SELECT p.product_id, p.name AS product_name, c.category_id, c.name AS category_name, SUM(oi.quantity * oi.unit_price * (1 - oi.discount)) AS total_revenue FROM order_items oi JOIN orders o ON oi.order_id = o.order_id JOIN products p ON oi.product_id = p.product_id JOIN categories c ON p.category_id = c.category_id WHERE o.status = 'completed' GROUP BY p.product_id, p.name, c.category_id, c.name), ranked AS (SELECT product_revenue.*, ROW_NUMBER() OVER (PARTITION BY category_id ORDER BY total_revenue DESC) AS rn FROM product_revenue) SELECT category_name, product_name, total_revenue FROM ranked WHERE rn = 1 ORDER BY category_name",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4857,
+          "latency_ms": 60139.89
+        },
+        {
+          "id": "hard-006",
+          "question": "Compute month-over-month revenue growth percentage for completed orders in 2024.",
+          "generated_sql": "WITH monthly_revenue AS (SELECT strftime('%Y-%m', order_date) AS month, SUM(total_amount) AS revenue FROM orders WHERE status = 'completed' AND strftime('%Y', order_date) = '2024' GROUP BY strftime('%Y-%m', order_date)) SELECT m1.month AS current_month, m1.revenue AS current_month_revenue, m2.revenue AS previous_month_revenue, ROUND(((m1.revenue - m2.revenue) / m2.revenue) * 100, 2) AS growth_percentage FROM monthly_revenue m1 LEFT JOIN monthly_revenue m2 ON m2.month = strftime('%Y-%m', date(m1.month || '-01', '-1 month')) ORDER BY m1.month",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4849,
+          "latency_ms": 60443.89
+        },
+        {
+          "id": "hard-007",
+          "question": "Find churned customers: customers who placed a completed order in 2023 but placed zero completed orders in 2024.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, c.email FROM customers c WHERE EXISTS (SELECT 1 FROM orders o1 WHERE o1.customer_id = c.customer_id AND o1.status = 'completed' AND strftime('%Y', o1.order_date) = '2023') AND NOT EXISTS (SELECT 1 FROM orders o2 WHERE o2.customer_id = c.customer_id AND o2.status = 'completed' AND strftime('%Y', o2.order_date) = '2024') ORDER BY c.customer_id",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4832,
+          "latency_ms": 60385.03
+        },
+        {
+          "id": "hard-008",
+          "question": "Find reactivated customers: customers who placed a completed order in 2024 after placing zero completed orders in 2023.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, c.email FROM customers c WHERE EXISTS (SELECT 1 FROM orders o24 WHERE o24.customer_id = c.customer_id AND o24.status = 'completed' AND strftime('%Y', o24.order_date) = '2024') AND NOT EXISTS (SELECT 1 FROM orders o23 WHERE o23.customer_id = c.customer_id AND o23.status = 'completed' AND strftime('%Y', o23.order_date) = '2023') ORDER BY c.customer_id",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4828,
+          "latency_ms": 60105.51
+        },
+        {
+          "id": "hard-009",
+          "question": "Calculate the average time (in days) between a customer's first completed order and their second completed order.",
+          "generated_sql": "WITH ranked_orders AS (SELECT customer_id, order_date, ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY order_date) AS rn FROM orders WHERE status = 'completed'), first_and_second AS (SELECT customer_id, MIN(CASE WHEN rn = 1 THEN order_date END) AS first_order_date, MIN(CASE WHEN rn = 2 THEN order_date END) AS second_order_date FROM ranked_orders WHERE rn IN (1, 2) GROUP BY customer_id) SELECT ROUND(AVG(julianday(second_order_date) - julianday(first_order_date)), 2) AS avg_days_between_first_and_second FROM first_and_second WHERE first_order_date IS NOT NULL AND second_order_date IS NOT NULL",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4822,
+          "latency_ms": 60720.19
+        },
+        {
+          "id": "hard-010",
+          "question": "Find the product with the highest revenue from completed orders that also maintains an average review rating of at least 4.0.",
+          "generated_sql": "SELECT p.product_id, p.name, ROUND(SUM(oi.quantity * oi.unit_price * (1 - oi.discount)), 2) AS total_revenue, ROUND(AVG(r.rating), 2) AS avg_rating FROM products p JOIN order_items oi ON p.product_id = oi.product_id JOIN orders o ON oi.order_id = o.order_id LEFT JOIN reviews r ON p.product_id = r.product_id WHERE o.status = 'completed' GROUP BY p.product_id, p.name HAVING AVG(r.rating) >= 4.0 ORDER BY total_revenue DESC LIMIT 1",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4842,
+          "latency_ms": 60359.23
+        },
+        {
+          "id": "hard-011",
+          "question": "Compare year-over-year performance: total revenue, completed order count, and unique customers between 2023 and 2024.",
+          "generated_sql": "SELECT \n  ROUND(SUM(CASE WHEN strftime('%Y', order_date) = '2023' THEN total_amount ELSE 0 END), 2) AS revenue_2023,\n  ROUND(SUM(CASE WHEN strftime('%Y', order_date) = '2024' THEN total_amount ELSE 0 END), 2) AS revenue_2024,\n  SUM(CASE WHEN strftime('%Y', order_date) = '2023' THEN 1 ELSE 0 END) AS completed_orders_2023,\n  SUM(CASE WHEN strftime('%Y', order_date) = '2024' THEN 1 ELSE 0 END) AS completed_orders_2024,\n  COUNT(DISTINCT CASE WHEN strftime('%Y', order_date) = '2023' THEN customer_id END) AS unique_customers_2023,\n  COUNT(DISTINCT CASE WHEN strftime('%Y', order_date) = '2024' THEN customer_id END) AS unique_customers_2024\nFROM orders\nWHERE status = 'completed' AND strftime('%Y', order_date) IN ('2023', '2024')",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4952,
+          "latency_ms": 61328.7
         }
       ]
     },
-    "Config B: Config A + Schema Linking": {
-      "strict_correct": 21,
-      "lenient_correct": 25,
+    "Config B: Config A + Dynamic Schema Linking": {
+      "strict_correct": 32,
+      "lenient_correct": 38,
       "total": 50,
-      "total_latency_ms": 2579.0725999395363,
-      "total_tokens": 118574,
+      "total_latency_ms": 32280.82149993861,
+      "total_tokens": 222283,
       "total_retries": 0,
       "details": [
         {
@@ -268,7 +475,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4265,
-          "latency_ms": 11.93
+          "latency_ms": 6.04
         },
         {
           "id": "easy-002",
@@ -277,7 +484,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4268,
-          "latency_ms": 11.23
+          "latency_ms": 5.55
         },
         {
           "id": "easy-003",
@@ -286,7 +493,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4333,
-          "latency_ms": 13.83
+          "latency_ms": 5.86
         },
         {
           "id": "easy-004",
@@ -295,7 +502,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4325,
-          "latency_ms": 9.41
+          "latency_ms": 6.23
         },
         {
           "id": "easy-005",
@@ -304,7 +511,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4296,
-          "latency_ms": 9.54
+          "latency_ms": 4.82
         },
         {
           "id": "easy-006",
@@ -313,7 +520,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4308,
-          "latency_ms": 9.23
+          "latency_ms": 4.74
         },
         {
           "id": "easy-007",
@@ -322,7 +529,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4327,
-          "latency_ms": 12.58
+          "latency_ms": 5.73
         },
         {
           "id": "easy-008",
@@ -331,7 +538,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4323,
-          "latency_ms": 9.27
+          "latency_ms": 5.24
         },
         {
           "id": "easy-009",
@@ -340,7 +547,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4471,
-          "latency_ms": 9.17
+          "latency_ms": 4.53
         },
         {
           "id": "easy-010",
@@ -349,7 +556,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4256,
-          "latency_ms": 10.41
+          "latency_ms": 4.89
         },
         {
           "id": "easy-011",
@@ -358,7 +565,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4319,
-          "latency_ms": 8.9
+          "latency_ms": 6.24
         },
         {
           "id": "easy-012",
@@ -367,7 +574,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4296,
-          "latency_ms": 8.06
+          "latency_ms": 5.95
         },
         {
           "id": "easy-013",
@@ -376,7 +583,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4192,
-          "latency_ms": 8.91
+          "latency_ms": 5.42
         },
         {
           "id": "easy-014",
@@ -385,7 +592,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4375,
-          "latency_ms": 9.42
+          "latency_ms": 4.75
         },
         {
           "id": "easy-015",
@@ -394,7 +601,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4362,
-          "latency_ms": 9.19
+          "latency_ms": 7.04
         },
         {
           "id": "easy-016",
@@ -403,7 +610,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4292,
-          "latency_ms": 8.58
+          "latency_ms": 4.8
         },
         {
           "id": "easy-017",
@@ -412,7 +619,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4266,
-          "latency_ms": 8.55
+          "latency_ms": 4.84
         },
         {
           "id": "med-001",
@@ -421,7 +628,7 @@
           "strict_correct": false,
           "lenient_correct": true,
           "tokens": 4473,
-          "latency_ms": 8.97
+          "latency_ms": 5.8
         },
         {
           "id": "med-002",
@@ -430,7 +637,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4728,
-          "latency_ms": 9.83
+          "latency_ms": 5.48
         },
         {
           "id": "med-003",
@@ -439,7 +646,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4485,
-          "latency_ms": 14.04
+          "latency_ms": 6.39
         },
         {
           "id": "med-004",
@@ -448,7 +655,7 @@
           "strict_correct": false,
           "lenient_correct": true,
           "tokens": 4674,
-          "latency_ms": 8.3
+          "latency_ms": 5.02
         },
         {
           "id": "med-005",
@@ -457,7 +664,7 @@
           "strict_correct": false,
           "lenient_correct": true,
           "tokens": 4581,
-          "latency_ms": 7.43
+          "latency_ms": 5.48
         },
         {
           "id": "med-006",
@@ -466,7 +673,7 @@
           "strict_correct": false,
           "lenient_correct": true,
           "tokens": 4471,
-          "latency_ms": 10.0
+          "latency_ms": 4.7
         },
         {
           "id": "med-007",
@@ -475,7 +682,7 @@
           "strict_correct": false,
           "lenient_correct": false,
           "tokens": 4452,
-          "latency_ms": 8.46
+          "latency_ms": 5.02
         },
         {
           "id": "med-008",
@@ -484,7 +691,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4420,
-          "latency_ms": 7.74
+          "latency_ms": 4.89
         },
         {
           "id": "med-009",
@@ -493,7 +700,7 @@
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4448,
-          "latency_ms": 8.45
+          "latency_ms": 5.56
         },
         {
           "id": "med-010",
@@ -502,269 +709,223 @@
           "strict_correct": false,
           "lenient_correct": false,
           "tokens": 4568,
-          "latency_ms": 2327.64
-        }
-      ]
-    },
-    "Config C: Config B + AST Validator & Limit Injection": {
-      "strict_correct": 21,
-      "lenient_correct": 25,
-      "total": 50,
-      "total_latency_ms": 2651.8265999184223,
-      "total_tokens": 118574,
-      "total_retries": 0,
-      "details": [
-        {
-          "id": "easy-001",
-          "question": "How many total products are in the catalog?",
-          "generated_sql": "SELECT COUNT(*) AS total_products FROM products LIMIT 100",
-          "strict_correct": true,
-          "lenient_correct": true,
-          "tokens": 4265,
-          "latency_ms": 33.19
+          "latency_ms": 8.04
         },
         {
-          "id": "easy-002",
-          "question": "What is the average price of all products?",
-          "generated_sql": "SELECT AVG(price) AS average_price FROM products LIMIT 100",
+          "id": "med-011",
+          "question": "Find customers who have placed more than 5 orders.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, COUNT(o.order_id) AS order_count FROM customers c JOIN orders o ON c.customer_id = o.customer_id GROUP BY c.customer_id, c.first_name, c.last_name HAVING COUNT(o.order_id) > 5 ORDER BY order_count DESC",
           "strict_correct": true,
           "lenient_correct": true,
-          "tokens": 4268,
-          "latency_ms": 12.66
+          "tokens": 4514,
+          "latency_ms": 1586.52
         },
         {
-          "id": "easy-003",
-          "question": "How many customers are registered in California?",
-          "generated_sql": "SELECT COUNT(*) AS california_customers FROM customers WHERE state = 'CA' LIMIT 100",
-          "strict_correct": true,
-          "lenient_correct": true,
-          "tokens": 4333,
-          "latency_ms": 15.54
-        },
-        {
-          "id": "easy-004",
-          "question": "List the 5 most expensive products and their prices.",
-          "generated_sql": "SELECT name, price FROM products ORDER BY price DESC LIMIT 5",
-          "strict_correct": true,
-          "lenient_correct": true,
-          "tokens": 4325,
-          "latency_ms": 11.83
-        },
-        {
-          "id": "easy-005",
-          "question": "Which 5 products have the lowest stock quantity?",
-          "generated_sql": "SELECT name, stock_quantity FROM products ORDER BY stock_quantity ASC LIMIT 5",
-          "strict_correct": true,
-          "lenient_correct": true,
-          "tokens": 4296,
-          "latency_ms": 10.5
-        },
-        {
-          "id": "easy-006",
-          "question": "How many completed orders have been placed?",
-          "generated_sql": "SELECT COUNT(*) AS completed_orders FROM orders WHERE status = 'completed' LIMIT 100",
-          "strict_correct": true,
-          "lenient_correct": true,
-          "tokens": 4308,
-          "latency_ms": 10.74
-        },
-        {
-          "id": "easy-007",
-          "question": "What is the total revenue collected across all completed orders?",
-          "generated_sql": "SELECT SUM(total_amount) AS total_revenue FROM orders WHERE status = 'completed' LIMIT 100",
-          "strict_correct": true,
-          "lenient_correct": true,
-          "tokens": 4327,
-          "latency_ms": 14.49
-        },
-        {
-          "id": "easy-008",
-          "question": "How many reviews have a 5-star rating?",
-          "generated_sql": "SELECT COUNT(*) AS five_star_reviews FROM reviews WHERE rating = 5 LIMIT 100",
-          "strict_correct": true,
-          "lenient_correct": true,
-          "tokens": 4323,
-          "latency_ms": 10.33
-        },
-        {
-          "id": "easy-009",
-          "question": "What is the total amount paid from successful payments using credit card?",
-          "generated_sql": "SELECT SUM(amount) AS total_paid FROM payments WHERE status = 'successful' AND payment_method = 'credit_card' LIMIT 100",
-          "strict_correct": true,
-          "lenient_correct": true,
-          "tokens": 4471,
-          "latency_ms": 10.51
-        },
-        {
-          "id": "easy-010",
-          "question": "List all distinct product categories in alphabetical order.",
-          "generated_sql": "SELECT DISTINCT name FROM categories ORDER BY name ASC LIMIT 100",
-          "strict_correct": true,
-          "lenient_correct": true,
-          "tokens": 4256,
-          "latency_ms": 11.78
-        },
-        {
-          "id": "easy-011",
-          "question": "How many products currently have zero stock?",
-          "generated_sql": "SELECT COUNT(*) AS zero_stock_count FROM products WHERE stock_quantity = 0 LIMIT 100",
-          "strict_correct": true,
-          "lenient_correct": true,
-          "tokens": 4319,
-          "latency_ms": 9.91
-        },
-        {
-          "id": "easy-012",
-          "question": "What is the highest single order total amount?",
-          "generated_sql": "SELECT MAX(total_amount) AS max_total FROM orders LIMIT 100",
-          "strict_correct": true,
-          "lenient_correct": true,
-          "tokens": 4296,
-          "latency_ms": 9.15
-        },
-        {
-          "id": "easy-013",
-          "question": "What is the lowest single completed order total amount?",
-          "generated_sql": "SELECT MIN(total_amount) AS min_total FROM orders WHERE status = 'completed' LIMIT 100",
-          "strict_correct": true,
-          "lenient_correct": true,
-          "tokens": 4192,
-          "latency_ms": 10.7
-        },
-        {
-          "id": "easy-014",
-          "question": "How many orders were placed in the year 2024?",
-          "generated_sql": "SELECT COUNT(*) AS orders_2024 FROM orders WHERE STRFTIME('%Y', order_date) = '2024' LIMIT 100",
-          "strict_correct": true,
-          "lenient_correct": true,
-          "tokens": 4375,
-          "latency_ms": 11.17
-        },
-        {
-          "id": "easy-015",
-          "question": "How many orders were placed in the year 2023?",
-          "generated_sql": "SELECT COUNT(*) AS orders_2023 FROM orders WHERE STRFTIME('%Y', order_date) = '2023' LIMIT 100",
-          "strict_correct": true,
-          "lenient_correct": true,
-          "tokens": 4362,
-          "latency_ms": 10.81
-        },
-        {
-          "id": "easy-016",
-          "question": "How many customers are located in New York city?",
-          "generated_sql": "SELECT COUNT(*) AS customer_count FROM customers WHERE city = 'New York' LIMIT 100",
-          "strict_correct": true,
-          "lenient_correct": true,
-          "tokens": 4292,
-          "latency_ms": 9.81
-        },
-        {
-          "id": "easy-017",
-          "question": "What is the average rating across all customer reviews?",
-          "generated_sql": "SELECT AVG(rating) AS average_rating FROM reviews LIMIT 100",
-          "strict_correct": true,
-          "lenient_correct": true,
-          "tokens": 4266,
-          "latency_ms": 9.53
-        },
-        {
-          "id": "med-001",
-          "question": "What is the total number of products in each category?",
-          "generated_sql": "SELECT c.category_id, c.name, COUNT(p.product_id) AS product_count FROM categories AS c LEFT JOIN products AS p ON c.category_id = p.category_id GROUP BY c.category_id, c.name ORDER BY product_count DESC LIMIT 100",
+          "id": "med-012",
+          "question": "Which customers have registered but never placed an order?",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, c.email FROM customers c LEFT JOIN orders o ON c.customer_id = o.customer_id WHERE o.customer_id IS NULL ORDER BY c.customer_id",
           "strict_correct": false,
           "lenient_correct": true,
-          "tokens": 4473,
-          "latency_ms": 11.47
+          "tokens": 4528,
+          "latency_ms": 1775.81
         },
         {
-          "id": "med-002",
-          "question": "What is the total revenue generated from completed orders for each product category?",
-          "generated_sql": "SELECT c.name AS category_name, SUM(oi.quantity * oi.unit_price * (1 - oi.discount)) AS total_revenue FROM orders AS o JOIN order_items AS oi ON o.order_id = oi.order_id JOIN products AS p ON oi.product_id = p.product_id JOIN categories AS c ON p.category_id = c.category_id WHERE o.status = 'completed' GROUP BY c.category_id, c.name ORDER BY total_revenue DESC LIMIT 100",
+          "id": "med-013",
+          "question": "List products that have never received any customer reviews.",
+          "generated_sql": "SELECT p.product_id, p.name FROM products p LEFT JOIN reviews r ON p.product_id = r.product_id WHERE r.product_id IS NULL ORDER BY p.product_id",
           "strict_correct": true,
           "lenient_correct": true,
-          "tokens": 4728,
-          "latency_ms": 14.9
+          "tokens": 4440,
+          "latency_ms": 1913.52
         },
         {
-          "id": "med-003",
-          "question": "List the top 5 customers who have spent the most money on completed orders.",
-          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, SUM(o.total_amount) AS total_spent FROM customers AS c JOIN orders AS o ON c.customer_id = o.customer_id WHERE o.status = 'completed' GROUP BY c.customer_id, c.first_name, c.last_name ORDER BY total_spent DESC LIMIT 5",
+          "id": "med-014",
+          "question": "Find products that have never been ordered.",
+          "generated_sql": "SELECT p.product_id, p.name FROM products p LEFT JOIN order_items oi ON p.product_id = oi.product_id WHERE oi.product_id IS NULL",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4412,
+          "latency_ms": 1305.32
+        },
+        {
+          "id": "med-015",
+          "question": "What is the average order total by order status?",
+          "generated_sql": "SELECT status, AVG(total_amount) AS avg_total FROM orders GROUP BY status",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4299,
+          "latency_ms": 1120.82
+        },
+        {
+          "id": "med-016",
+          "question": "What is the average rating given per category of products?",
+          "generated_sql": "SELECT c.category_id, c.name, AVG(r.rating) AS avg_rating FROM categories c JOIN products p ON c.category_id = p.category_id LEFT JOIN reviews r ON p.product_id = r.product_id GROUP BY c.category_id, c.name ORDER BY avg_rating DESC",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4664,
+          "latency_ms": 1551.14
+        },
+        {
+          "id": "med-017",
+          "question": "Which payment method has the highest failure rate?",
+          "generated_sql": "SELECT payment_method,\n       ROUND(100.0 * SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) / COUNT(*), 2) AS failure_rate_percent\nFROM payments\nGROUP BY payment_method\nORDER BY failure_rate_percent DESC\nLIMIT 1;",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4516,
+          "latency_ms": 1522.37
+        },
+        {
+          "id": "med-018",
+          "question": "What is the total revenue by quarter for completed orders?",
+          "generated_sql": "SELECT strftime('%Y', order_date) AS year, CAST(strftime('%m', order_date) AS INTEGER) / 3 + 1 AS quarter, ROUND(SUM(total_amount), 2) AS total_revenue FROM orders WHERE status = 'completed' GROUP BY year, quarter ORDER BY year, quarter",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4378,
+          "latency_ms": 1124.25
+        },
+        {
+          "id": "med-019",
+          "question": "List the top 5 customers with the most reviews written.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, COUNT(r.review_id) AS review_count FROM customers c JOIN reviews r ON c.customer_id = r.customer_id GROUP BY c.customer_id, c.first_name, c.last_name ORDER BY review_count DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4404,
+          "latency_ms": 1119.08
+        },
+        {
+          "id": "med-020",
+          "question": "What is the average item price by category?",
+          "generated_sql": "SELECT c.name AS category_name, ROUND(AVG(p.price), 2) AS average_price FROM categories c JOIN products p ON c.category_id = p.category_id GROUP BY c.name ORDER BY c.name",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4373,
+          "latency_ms": 1174.03
+        },
+        {
+          "id": "med-021",
+          "question": "Find all products that have an average rating lower than 3.0.",
+          "generated_sql": "SELECT p.product_id, p.name, ROUND(AVG(r.rating), 2) AS avg_rating FROM products p JOIN reviews r ON p.product_id = r.product_id GROUP BY p.product_id, p.name HAVING AVG(r.rating) < 3.0 ORDER BY avg_rating ASC",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4416,
+          "latency_ms": 1195.03
+        },
+        {
+          "id": "med-022",
+          "question": "What are the 5 cities with the most registered customers?",
+          "generated_sql": "SELECT city, COUNT(customer_id) AS customer_count FROM customers GROUP BY city ORDER BY customer_count DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4318,
+          "latency_ms": 1305.82
+        },
+        {
+          "id": "hard-001",
+          "question": "What was the completed order revenue drop or gain (Q2 minus Q1) between Q1 and Q2 of 2024 using conditional aggregation?",
+          "generated_sql": "SELECT ROUND(SUM(CASE WHEN strftime('%m', order_date) IN ('04', '05', '06') THEN total_amount ELSE 0 END) - SUM(CASE WHEN strftime('%m', order_date) IN ('01', '02', '03') THEN total_amount ELSE 0 END), 2) AS q2_minus_q1_revenue FROM orders WHERE status = 'completed' AND strftime('%Y', order_date) = '2024'",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4464,
+          "latency_ms": 1341.7
+        },
+        {
+          "id": "hard-002",
+          "question": "Calculate customer lifetime value (LTV): rank the top 5 customers by total completed spend and include their average order value and order count.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, SUM(o.total_amount) AS total_completed_spend, ROUND(AVG(o.total_amount), 2) AS average_order_value, COUNT(o.order_id) AS order_count FROM customers c JOIN orders o ON c.customer_id = o.customer_id WHERE o.status = 'completed' GROUP BY c.customer_id, c.first_name, c.last_name ORDER BY total_completed_spend DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4520,
+          "latency_ms": 1321.92
+        },
+        {
+          "id": "hard-003",
+          "question": "Identify repeat customers versus one-time buyers: count how many customers placed exactly 1 completed order versus 2 or more completed orders, returning one row per buyer type with columns buyer_type and customer_count.",
+          "generated_sql": "SELECT CASE WHEN order_count = 1 THEN 'one_time_buyer' ELSE 'repeat_customer' END AS buyer_type, COUNT(*) AS customer_count FROM (SELECT customer_id, COUNT(*) AS order_count FROM orders WHERE status = 'completed' GROUP BY customer_id) GROUP BY CASE WHEN order_count = 1 THEN 'one_time_buyer' ELSE 'repeat_customer' END",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4439,
+          "latency_ms": 1259.95
+        },
+        {
+          "id": "hard-004",
+          "question": "Which product category has the highest customer repeat purchase rate (completed orders with products from that category from repeat buyers)?",
+          "generated_sql": "WITH completed_orders AS (SELECT o.order_id, o.customer_id FROM orders o WHERE o.status = 'completed'), repeat_buyers AS (SELECT customer_id FROM completed_orders GROUP BY customer_id HAVING COUNT(DISTINCT order_id) > 1), category_orders AS (SELECT c.category_id, COUNT(DISTINCT oi.order_id) AS total_orders, COUNT(DISTINCT CASE WHEN rb.customer_id IS NOT NULL THEN oi.order_id END) AS repeat_orders FROM categories c JOIN products p ON c.category_id = p.category_id JOIN order_items oi ON p.product_id = oi.product_id JOIN completed_orders co ON oi.order_id = co.order_id LEFT JOIN repeat_buyers rb ON co.customer_id = rb.customer_id GROUP BY c.category_id) SELECT c.category_id, c.name, ROUND(CAST(COALESCE(co.repeat_orders, 0) AS REAL) / NULLIF(co.total_orders, 0), 4) AS repeat_purchase_rate FROM categories c LEFT JOIN category_orders co ON c.category_id = co.category_id ORDER BY repeat_purchase_rate DESC, c.name ASC",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4876,
+          "latency_ms": 1590.85
+        },
+        {
+          "id": "hard-005",
+          "question": "Find the top product in each category by total revenue generated from completed orders.",
+          "generated_sql": "WITH product_revenue AS (SELECT p.product_id, p.name AS product_name, c.category_id, c.name AS category_name, SUM(oi.quantity * oi.unit_price - oi.discount) AS total_revenue FROM products p JOIN categories c ON p.category_id = c.category_id JOIN order_items oi ON p.product_id = oi.product_id JOIN orders o ON oi.order_id = o.order_id WHERE o.status = 'completed' GROUP BY p.product_id, p.name, c.category_id, c.name), ranked AS (SELECT product_revenue.*, ROW_NUMBER() OVER (PARTITION BY category_id ORDER BY total_revenue DESC) AS rn FROM product_revenue) SELECT category_name, product_name, total_revenue FROM ranked WHERE rn = 1 ORDER BY category_name",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4732,
+          "latency_ms": 1398.98
+        },
+        {
+          "id": "hard-006",
+          "question": "Compute month-over-month revenue growth percentage for completed orders in 2024.",
+          "generated_sql": "WITH monthly_revenue AS (SELECT strftime('%Y-%m', order_date) AS month, SUM(total_amount) AS revenue FROM orders WHERE status = 'completed' AND strftime('%Y', order_date) = '2024' GROUP BY strftime('%Y-%m', order_date)) SELECT month, revenue, LAG(revenue) OVER (ORDER BY month) AS prev_month_revenue, ROUND(((revenue - LAG(revenue) OVER (ORDER BY month)) * 100.0) / LAG(revenue) OVER (ORDER BY month), 2) AS growth_pct FROM monthly_revenue ORDER BY month",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4466,
+          "latency_ms": 1336.31
+        },
+        {
+          "id": "hard-007",
+          "question": "Find churned customers: customers who placed a completed order in 2023 but placed zero completed orders in 2024.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, c.email FROM customers c WHERE EXISTS (SELECT 1 FROM orders o1 WHERE o1.customer_id = c.customer_id AND o1.status = 'completed' AND strftime('%Y', o1.order_date) = '2023') AND NOT EXISTS (SELECT 1 FROM orders o2 WHERE o2.customer_id = c.customer_id AND o2.status = 'completed' AND strftime('%Y', o2.order_date) = '2024')",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4557,
+          "latency_ms": 1506.39
+        },
+        {
+          "id": "hard-008",
+          "question": "Find reactivated customers: customers who placed a completed order in 2024 after placing zero completed orders in 2023.",
+          "generated_sql": "SELECT c.customer_id FROM customers c WHERE EXISTS (SELECT 1 FROM orders o24 WHERE o24.customer_id = c.customer_id AND o24.status = 'completed' AND strftime('%Y', o24.order_date) = '2024') AND NOT EXISTS (SELECT 1 FROM orders o23 WHERE o23.customer_id = c.customer_id AND o23.status = 'completed' AND strftime('%Y', o23.order_date) = '2023')",
           "strict_correct": true,
           "lenient_correct": true,
           "tokens": 4485,
-          "latency_ms": 17.59
+          "latency_ms": 1271.44
         },
         {
-          "id": "med-004",
-          "question": "Which 5 products have generated the highest total revenue from completed orders?",
-          "generated_sql": "SELECT p.product_id, p.name, SUM(oi.quantity * oi.unit_price * (1 - oi.discount)) AS total_revenue FROM products AS p JOIN order_items AS oi ON p.product_id = oi.product_id JOIN orders AS o ON oi.order_id = o.order_id WHERE o.status = 'completed' GROUP BY p.product_id, p.name ORDER BY total_revenue DESC LIMIT 5",
-          "strict_correct": false,
-          "lenient_correct": true,
-          "tokens": 4674,
-          "latency_ms": 10.89
-        },
-        {
-          "id": "med-005",
-          "question": "Which 5 products have been ordered the most by quantity in completed orders?",
-          "generated_sql": "SELECT p.product_id, p.name, SUM(oi.quantity) AS total_quantity FROM products AS p JOIN order_items AS oi ON p.product_id = oi.product_id JOIN orders AS o ON oi.order_id = o.order_id WHERE o.status = 'completed' GROUP BY p.product_id, p.name ORDER BY total_quantity DESC LIMIT 5",
-          "strict_correct": false,
-          "lenient_correct": true,
-          "tokens": 4581,
-          "latency_ms": 9.68
-        },
-        {
-          "id": "med-006",
-          "question": "Show the average review rating and review count for each product that has at least 3 reviews.",
-          "generated_sql": "SELECT p.product_id, p.name, ROUND(AVG(r.rating), 2) AS avg_rating, COUNT(r.rating) AS review_count FROM products AS p JOIN reviews AS r ON p.product_id = r.product_id GROUP BY p.product_id, p.name HAVING COUNT(r.rating) >= 3 ORDER BY avg_rating DESC LIMIT 100",
-          "strict_correct": false,
-          "lenient_correct": true,
-          "tokens": 4471,
-          "latency_ms": 12.76
-        },
-        {
-          "id": "med-007",
-          "question": "What is the monthly revenue for completed orders in 2024?",
-          "generated_sql": "SELECT STRFTIME('%m', order_date) AS month, SUM(total_amount) AS monthly_revenue FROM orders WHERE status = 'completed' AND STRFTIME('%Y', order_date) = '2024' GROUP BY month ORDER BY month LIMIT 100",
+          "id": "hard-009",
+          "question": "Calculate the average time (in days) between a customer's first completed order and their second completed order.",
+          "generated_sql": "WITH ranked_orders AS (SELECT customer_id, order_date, ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY order_date) AS rn FROM orders WHERE status = 'completed'), first_and_second AS (SELECT customer_id, MAX(CASE WHEN rn = 1 THEN order_date END) AS first_order_date, MAX(CASE WHEN rn = 2 THEN order_date END) AS second_order_date FROM ranked_orders GROUP BY customer_id) SELECT ROUND(AVG(julianday(second_order_date) - julianday(first_order_date)), 2) AS avg_days_between_first_and_second FROM first_and_second WHERE first_order_date IS NOT NULL AND second_order_date IS NOT NULL",
           "strict_correct": false,
           "lenient_correct": false,
-          "tokens": 4452,
-          "latency_ms": 10.64
+          "tokens": 4487,
+          "latency_ms": 1439.55
         },
         {
-          "id": "med-008",
-          "question": "How many orders were placed by customers in each state?",
-          "generated_sql": "SELECT c.state, COUNT(o.order_id) AS order_count FROM customers AS c JOIN orders AS o ON c.customer_id = o.customer_id GROUP BY c.state ORDER BY order_count DESC LIMIT 100",
+          "id": "hard-010",
+          "question": "Find the product with the highest revenue from completed orders that also maintains an average review rating of at least 4.0.",
+          "generated_sql": "SELECT p.product_id, p.name, SUM(oi.quantity * oi.unit_price * (1 - oi.discount)) AS total_revenue, AVG(r.rating) AS avg_rating FROM products p JOIN order_items oi ON p.product_id = oi.product_id JOIN orders o ON oi.order_id = o.order_id JOIN reviews r ON p.product_id = r.product_id WHERE o.status = 'completed' GROUP BY p.product_id, p.name HAVING AVG(r.rating) >= 4.0 ORDER BY total_revenue DESC LIMIT 1",
           "strict_correct": true,
           "lenient_correct": true,
-          "tokens": 4420,
-          "latency_ms": 9.82
+          "tokens": 4723,
+          "latency_ms": 1330.15
         },
         {
-          "id": "med-009",
-          "question": "Find the top 5 states by total completed order spending.",
-          "generated_sql": "SELECT c.state, SUM(o.total_amount) AS total_spent FROM customers AS c JOIN orders AS o ON c.customer_id = o.customer_id WHERE o.status = 'completed' GROUP BY c.state ORDER BY total_spent DESC LIMIT 5",
-          "strict_correct": true,
-          "lenient_correct": true,
-          "tokens": 4448,
-          "latency_ms": 10.92
-        },
-        {
-          "id": "med-010",
-          "question": "What is the total amount and count of successful payments per payment method?",
-          "generated_sql": "SELECT payment_method, SUM(amount) AS total_amount, COUNT(*) AS payment_count FROM payments WHERE status = 'completed' GROUP BY payment_method ORDER BY total_amount DESC LIMIT 100",
+          "id": "hard-011",
+          "question": "Compare year-over-year performance: total revenue, completed order count, and unique customers between 2023 and 2024.",
+          "generated_sql": "SELECT \n  ROUND(SUM(CASE WHEN strftime('%Y', order_date) = '2023' THEN total_amount ELSE 0 END), 2) AS revenue_2023,\n  ROUND(SUM(CASE WHEN strftime('%Y', order_date) = '2024' THEN total_amount ELSE 0 END), 2) AS revenue_2024,\n  SUM(CASE WHEN strftime('%Y', order_date) = '2023' THEN 1 ELSE 0 END) AS completed_orders_2023,\n  SUM(CASE WHEN strftime('%Y', order_date) = '2024' THEN 1 ELSE 0 END) AS completed_orders_2024,\n  COUNT(DISTINCT CASE WHEN strftime('%Y', order_date) = '2023' THEN customer_id END) AS unique_customers_2023,\n  COUNT(DISTINCT CASE WHEN strftime('%Y', order_date) = '2024' THEN customer_id END) AS unique_customers_2024\nFROM orders\nWHERE status = 'completed' AND strftime('%Y', order_date) IN ('2023', '2024')",
           "strict_correct": false,
           "lenient_correct": false,
-          "tokens": 4568,
-          "latency_ms": 2330.49
+          "tokens": 4698,
+          "latency_ms": 1640.82
         }
       ]
     },
     "Config D: Full QueryPilot (Self-Correction)": {
-      "strict_correct": 23,
-      "lenient_correct": 27,
+      "strict_correct": 35,
+      "lenient_correct": 42,
       "total": 50,
-      "total_latency_ms": 674.3313999468228,
-      "total_tokens": 122386,
+      "total_latency_ms": 916.0451000498142,
+      "total_tokens": 232837,
       "total_retries": 0,
       "details": [
         {
@@ -775,7 +936,7 @@
           "lenient_correct": true,
           "tokens": 4347,
           "retries": 0,
-          "latency_ms": 30.73
+          "latency_ms": 28.36
         },
         {
           "id": "easy-002",
@@ -785,7 +946,7 @@
           "lenient_correct": true,
           "tokens": 4406,
           "retries": 0,
-          "latency_ms": 22.94
+          "latency_ms": 14.56
         },
         {
           "id": "easy-003",
@@ -795,7 +956,7 @@
           "lenient_correct": true,
           "tokens": 4527,
           "retries": 0,
-          "latency_ms": 21.27
+          "latency_ms": 12.43
         },
         {
           "id": "easy-004",
@@ -805,7 +966,7 @@
           "lenient_correct": true,
           "tokens": 4481,
           "retries": 0,
-          "latency_ms": 20.73
+          "latency_ms": 13.57
         },
         {
           "id": "easy-005",
@@ -815,7 +976,7 @@
           "lenient_correct": true,
           "tokens": 4581,
           "retries": 0,
-          "latency_ms": 20.46
+          "latency_ms": 13.75
         },
         {
           "id": "easy-006",
@@ -825,7 +986,7 @@
           "lenient_correct": true,
           "tokens": 4351,
           "retries": 0,
-          "latency_ms": 21.31
+          "latency_ms": 13.53
         },
         {
           "id": "easy-007",
@@ -835,7 +996,7 @@
           "lenient_correct": true,
           "tokens": 4371,
           "retries": 0,
-          "latency_ms": 24.4
+          "latency_ms": 11.03
         },
         {
           "id": "easy-008",
@@ -845,7 +1006,7 @@
           "lenient_correct": true,
           "tokens": 4415,
           "retries": 0,
-          "latency_ms": 23.75
+          "latency_ms": 12.76
         },
         {
           "id": "easy-009",
@@ -855,7 +1016,7 @@
           "lenient_correct": true,
           "tokens": 4459,
           "retries": 0,
-          "latency_ms": 24.04
+          "latency_ms": 14.27
         },
         {
           "id": "easy-010",
@@ -865,7 +1026,7 @@
           "lenient_correct": true,
           "tokens": 4415,
           "retries": 0,
-          "latency_ms": 19.93
+          "latency_ms": 11.63
         },
         {
           "id": "easy-011",
@@ -875,7 +1036,7 @@
           "lenient_correct": true,
           "tokens": 4416,
           "retries": 0,
-          "latency_ms": 19.44
+          "latency_ms": 11.31
         },
         {
           "id": "easy-012",
@@ -885,7 +1046,7 @@
           "lenient_correct": true,
           "tokens": 4366,
           "retries": 0,
-          "latency_ms": 18.75
+          "latency_ms": 11.61
         },
         {
           "id": "easy-013",
@@ -895,7 +1056,7 @@
           "lenient_correct": true,
           "tokens": 4227,
           "retries": 0,
-          "latency_ms": 18.61
+          "latency_ms": 13.11
         },
         {
           "id": "easy-014",
@@ -905,7 +1066,7 @@
           "lenient_correct": true,
           "tokens": 4431,
           "retries": 0,
-          "latency_ms": 24.7
+          "latency_ms": 13.42
         },
         {
           "id": "easy-015",
@@ -915,7 +1076,7 @@
           "lenient_correct": true,
           "tokens": 4460,
           "retries": 0,
-          "latency_ms": 21.31
+          "latency_ms": 12.27
         },
         {
           "id": "easy-016",
@@ -925,7 +1086,7 @@
           "lenient_correct": true,
           "tokens": 4530,
           "retries": 0,
-          "latency_ms": 23.28
+          "latency_ms": 14.46
         },
         {
           "id": "easy-017",
@@ -935,7 +1096,7 @@
           "lenient_correct": true,
           "tokens": 4350,
           "retries": 0,
-          "latency_ms": 22.5
+          "latency_ms": 12.57
         },
         {
           "id": "med-001",
@@ -945,7 +1106,7 @@
           "lenient_correct": true,
           "tokens": 4653,
           "retries": 0,
-          "latency_ms": 24.55
+          "latency_ms": 17.95
         },
         {
           "id": "med-002",
@@ -955,7 +1116,7 @@
           "lenient_correct": true,
           "tokens": 5070,
           "retries": 0,
-          "latency_ms": 33.46
+          "latency_ms": 24.11
         },
         {
           "id": "med-003",
@@ -965,7 +1126,7 @@
           "lenient_correct": true,
           "tokens": 4719,
           "retries": 0,
-          "latency_ms": 29.31
+          "latency_ms": 20.02
         },
         {
           "id": "med-004",
@@ -975,7 +1136,7 @@
           "lenient_correct": true,
           "tokens": 4863,
           "retries": 0,
-          "latency_ms": 30.26
+          "latency_ms": 18.23
         },
         {
           "id": "med-005",
@@ -985,7 +1146,7 @@
           "lenient_correct": true,
           "tokens": 4756,
           "retries": 0,
-          "latency_ms": 30.98
+          "latency_ms": 19.64
         },
         {
           "id": "med-006",
@@ -995,7 +1156,7 @@
           "lenient_correct": true,
           "tokens": 4658,
           "retries": 0,
-          "latency_ms": 28.71
+          "latency_ms": 16.66
         },
         {
           "id": "med-007",
@@ -1005,7 +1166,7 @@
           "lenient_correct": true,
           "tokens": 4603,
           "retries": 0,
-          "latency_ms": 26.84
+          "latency_ms": 14.55
         },
         {
           "id": "med-008",
@@ -1015,7 +1176,7 @@
           "lenient_correct": true,
           "tokens": 4709,
           "retries": 0,
-          "latency_ms": 28.83
+          "latency_ms": 15.02
         },
         {
           "id": "med-009",
@@ -1025,7 +1186,7 @@
           "lenient_correct": true,
           "tokens": 4727,
           "retries": 0,
-          "latency_ms": 27.47
+          "latency_ms": 16.29
         },
         {
           "id": "med-010",
@@ -1035,7 +1196,237 @@
           "lenient_correct": true,
           "tokens": 4495,
           "retries": 0,
-          "latency_ms": 35.76
+          "latency_ms": 12.3
+        },
+        {
+          "id": "med-011",
+          "question": "Find customers who have placed more than 5 orders.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, COUNT(o.order_id) AS order_count FROM customers AS c JOIN orders AS o ON c.customer_id = o.customer_id GROUP BY c.customer_id, c.first_name, c.last_name HAVING COUNT(o.order_id) > 5 ORDER BY order_count DESC LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4700,
+          "retries": 0,
+          "latency_ms": 16.43
+        },
+        {
+          "id": "med-012",
+          "question": "Which customers have registered but never placed an order?",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, c.email FROM customers AS c LEFT JOIN orders AS o ON c.customer_id = o.customer_id WHERE o.customer_id IS NULL ORDER BY c.customer_id LIMIT 100",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4665,
+          "retries": 0,
+          "latency_ms": 18.68
+        },
+        {
+          "id": "med-013",
+          "question": "List products that have never received any customer reviews.",
+          "generated_sql": "SELECT p.product_id, p.name FROM products AS p LEFT JOIN reviews AS r ON p.product_id = r.product_id WHERE r.product_id IS NULL LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4545,
+          "retries": 0,
+          "latency_ms": 29.0
+        },
+        {
+          "id": "med-014",
+          "question": "Find products that have never been ordered.",
+          "generated_sql": "SELECT p.product_id, p.name FROM products AS p LEFT JOIN order_items AS oi ON p.product_id = oi.product_id WHERE oi.product_id IS NULL ORDER BY p.product_id LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4479,
+          "retries": 0,
+          "latency_ms": 26.68
+        },
+        {
+          "id": "med-015",
+          "question": "What is the average order total by order status?",
+          "generated_sql": "SELECT status, AVG(total_amount) AS avg_total FROM orders GROUP BY status ORDER BY avg_total DESC LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4423,
+          "retries": 0,
+          "latency_ms": 14.36
+        },
+        {
+          "id": "med-016",
+          "question": "What is the average rating given per category of products?",
+          "generated_sql": "SELECT cat.category_id, cat.name AS category_name, ROUND(AVG(rv.rating), 2) AS avg_rating FROM categories AS cat JOIN products AS p ON cat.category_id = p.category_id JOIN reviews AS rv ON p.product_id = rv.product_id GROUP BY cat.category_id, cat.name ORDER BY avg_rating DESC LIMIT 100",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4766,
+          "retries": 0,
+          "latency_ms": 17.92
+        },
+        {
+          "id": "med-017",
+          "question": "Which payment method has the highest failure rate?",
+          "generated_sql": "SELECT payment_method, ROUND(100.0 * SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) / COUNT(*), 2) AS failure_rate_percent FROM payments GROUP BY payment_method ORDER BY failure_rate_percent DESC LIMIT 1",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4577,
+          "retries": 0,
+          "latency_ms": 26.1
+        },
+        {
+          "id": "med-018",
+          "question": "What is the total revenue by quarter for completed orders?",
+          "generated_sql": "SELECT CASE WHEN STRFTIME('%m', order_date) IN ('01', '02', '03') THEN 'Q1' WHEN STRFTIME('%m', order_date) IN ('04', '05', '06') THEN 'Q2' WHEN STRFTIME('%m', order_date) IN ('07', '08', '09') THEN 'Q3' ELSE 'Q4' END AS quarter, ROUND(SUM(total_amount), 2) AS total_revenue FROM orders WHERE status = 'completed' GROUP BY quarter ORDER BY quarter LIMIT 100",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4752,
+          "retries": 0,
+          "latency_ms": 39.91
+        },
+        {
+          "id": "med-019",
+          "question": "List the top 5 customers with the most reviews written.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, COUNT(r.review_id) AS review_count FROM customers AS c JOIN reviews AS r ON c.customer_id = r.customer_id GROUP BY c.customer_id, c.first_name, c.last_name ORDER BY review_count DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4689,
+          "retries": 0,
+          "latency_ms": 20.64
+        },
+        {
+          "id": "med-020",
+          "question": "What is the average item price by category?",
+          "generated_sql": "SELECT c.category_id, c.name AS category_name, ROUND(AVG(p.price), 2) AS avg_price FROM categories AS c JOIN products AS p ON c.category_id = p.category_id GROUP BY c.category_id, c.name ORDER BY avg_price DESC LIMIT 100",
+          "strict_correct": false,
+          "lenient_correct": true,
+          "tokens": 4641,
+          "retries": 0,
+          "latency_ms": 16.42
+        },
+        {
+          "id": "med-021",
+          "question": "Find all products that have an average rating lower than 3.0.",
+          "generated_sql": "SELECT p.product_id, p.name, AVG(r.rating) AS avg_rating FROM products AS p JOIN reviews AS r ON p.product_id = r.product_id GROUP BY p.product_id, p.name HAVING AVG(r.rating) < 3.0 LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4610,
+          "retries": 0,
+          "latency_ms": 17.5
+        },
+        {
+          "id": "med-022",
+          "question": "What are the 5 cities with the most registered customers?",
+          "generated_sql": "SELECT c.city, COUNT(c.customer_id) AS customer_count FROM customers AS c GROUP BY c.city ORDER BY customer_count DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4600,
+          "retries": 0,
+          "latency_ms": 15.86
+        },
+        {
+          "id": "hard-001",
+          "question": "What was the completed order revenue drop or gain (Q2 minus Q1) between Q1 and Q2 of 2024 using conditional aggregation?",
+          "generated_sql": "SELECT SUM(CASE WHEN STRFTIME('%m', order_date) IN ('04', '05', '06') THEN total_amount ELSE 0 END) - SUM(CASE WHEN STRFTIME('%m', order_date) IN ('01', '02', '03') THEN total_amount ELSE 0 END) AS revenue_difference FROM orders WHERE status = 'completed' AND STRFTIME('%Y', order_date) = '2024' LIMIT 100",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4587,
+          "retries": 0,
+          "latency_ms": 13.69
+        },
+        {
+          "id": "hard-002",
+          "question": "Calculate customer lifetime value (LTV): rank the top 5 customers by total completed spend and include their average order value and order count.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, SUM(o.total_amount) AS total_spent, COUNT(o.order_id) AS order_count, AVG(o.total_amount) AS avg_order_value FROM customers AS c JOIN orders AS o ON c.customer_id = o.customer_id WHERE o.status = 'completed' GROUP BY c.customer_id, c.first_name, c.last_name ORDER BY total_spent DESC LIMIT 5",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4954,
+          "retries": 0,
+          "latency_ms": 18.92
+        },
+        {
+          "id": "hard-003",
+          "question": "Identify repeat customers versus one-time buyers: count how many customers placed exactly 1 completed order versus 2 or more completed orders, returning one row per buyer type with columns buyer_type and customer_count.",
+          "generated_sql": "WITH customer_order_counts AS (SELECT customer_id, COUNT(*) AS order_cnt FROM orders WHERE status = 'completed' GROUP BY customer_id) SELECT CASE WHEN order_cnt = 1 THEN 'one-time' ELSE 'repeat' END AS buyer_type, COUNT(*) AS customer_count FROM customer_order_counts GROUP BY buyer_type LIMIT 100",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 4625,
+          "retries": 0,
+          "latency_ms": 21.07
+        },
+        {
+          "id": "hard-004",
+          "question": "Which product category has the highest customer repeat purchase rate (completed orders with products from that category from repeat buyers)?",
+          "generated_sql": "WITH repeat_customers AS (SELECT o.customer_id FROM orders AS o WHERE o.status = 'completed' GROUP BY o.customer_id HAVING COUNT(DISTINCT o.order_id) > 1), category_customers AS (SELECT c.category_id, o.customer_id FROM categories AS c JOIN products AS p ON p.category_id = c.category_id JOIN order_items AS oi ON oi.product_id = p.product_id JOIN orders AS o ON o.order_id = oi.order_id WHERE o.status = 'completed' GROUP BY c.category_id, o.customer_id) SELECT cat.name, ROUND(CAST(COUNT(DISTINCT CASE WHEN NOT rc.customer_id IS NULL THEN cc.customer_id END) AS REAL) / COUNT(DISTINCT cc.customer_id), 4) AS repeat_purchase_rate FROM category_customers AS cc JOIN categories AS cat ON cat.category_id = cc.category_id LEFT JOIN repeat_customers AS rc ON rc.customer_id = cc.customer_id GROUP BY cat.category_id, cat.name ORDER BY repeat_purchase_rate DESC LIMIT 1",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 5759,
+          "retries": 0,
+          "latency_ms": 22.69
+        },
+        {
+          "id": "hard-005",
+          "question": "Find the top product in each category by total revenue generated from completed orders.",
+          "generated_sql": "WITH product_revenue AS (SELECT p.product_id, p.name AS product_name, p.category_id, SUM(oi.quantity * oi.unit_price - oi.discount) AS total_revenue FROM products AS p JOIN order_items AS oi ON p.product_id = oi.product_id JOIN orders AS o ON oi.order_id = o.order_id WHERE o.status = 'completed' GROUP BY p.product_id, p.name, p.category_id), ranked AS (SELECT pr.*, ROW_NUMBER() OVER (PARTITION BY pr.category_id ORDER BY pr.total_revenue DESC) AS rn FROM product_revenue AS pr) SELECT c.category_id, c.name AS category_name, r.product_id, r.product_name, r.total_revenue FROM ranked AS r JOIN categories AS c ON r.category_id = c.category_id WHERE r.rn = 1 ORDER BY c.category_id LIMIT 100",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 5250,
+          "retries": 0,
+          "latency_ms": 34.0
+        },
+        {
+          "id": "hard-006",
+          "question": "Compute month-over-month revenue growth percentage for completed orders in 2024.",
+          "generated_sql": "WITH monthly_rev AS (SELECT STRFTIME('%Y-%m', order_date) AS month, SUM(total_amount) AS revenue FROM orders WHERE status = 'completed' AND STRFTIME('%Y', order_date) = '2024' GROUP BY month) SELECT month, revenue, ROUND((revenue - LAG(revenue) OVER (ORDER BY month)) * 100.0 / NULLIF(LAG(revenue) OVER (ORDER BY month), 0), 2) AS mom_growth_pct FROM monthly_rev ORDER BY month LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4746,
+          "retries": 0,
+          "latency_ms": 25.0
+        },
+        {
+          "id": "hard-007",
+          "question": "Find churned customers: customers who placed a completed order in 2023 but placed zero completed orders in 2024.",
+          "generated_sql": "SELECT c.customer_id, c.first_name, c.last_name, c.email FROM customers AS c WHERE EXISTS(SELECT 1 FROM orders AS o WHERE o.customer_id = c.customer_id AND o.status = 'completed' AND STRFTIME('%Y', o.order_date) = '2023') AND NOT EXISTS(SELECT 1 FROM orders AS o2 WHERE o2.customer_id = c.customer_id AND o2.status = 'completed' AND STRFTIME('%Y', o2.order_date) = '2024') LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4903,
+          "retries": 0,
+          "latency_ms": 25.74
+        },
+        {
+          "id": "hard-008",
+          "question": "Find reactivated customers: customers who placed a completed order in 2024 after placing zero completed orders in 2023.",
+          "generated_sql": "SELECT c.customer_id FROM customers AS c WHERE EXISTS(SELECT 1 FROM orders AS o WHERE o.customer_id = c.customer_id AND o.status = 'completed' AND STRFTIME('%Y', o.order_date) = '2024') AND NOT EXISTS(SELECT 1 FROM orders AS o2 WHERE o2.customer_id = c.customer_id AND o2.status = 'completed' AND STRFTIME('%Y', o2.order_date) = '2023') LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 4858,
+          "retries": 0,
+          "latency_ms": 21.42
+        },
+        {
+          "id": "hard-009",
+          "question": "Calculate the average time (in days) between a customer's first completed order and their second completed order.",
+          "generated_sql": "WITH completed AS (SELECT customer_id, order_date, ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY order_date) AS rn FROM orders WHERE status = 'completed'), first_second AS (SELECT customer_id, MAX(CASE WHEN rn = 1 THEN order_date END) AS first_date, MAX(CASE WHEN rn = 2 THEN order_date END) AS second_date FROM completed WHERE rn <= 2 GROUP BY customer_id HAVING COUNT(*) = 2) SELECT ROUND(AVG(JULIANDAY(second_date) - JULIANDAY(first_date)), 2) AS avg_days_between_first_and_second FROM first_second LIMIT 100",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 5032,
+          "retries": 0,
+          "latency_ms": 25.02
+        },
+        {
+          "id": "hard-010",
+          "question": "Find the product with the highest revenue from completed orders that also maintains an average review rating of at least 4.0.",
+          "generated_sql": "WITH revenue AS (SELECT oi.product_id, SUM(oi.quantity * oi.unit_price * (1 - COALESCE(oi.discount, 0))) AS total_revenue FROM order_items AS oi JOIN orders AS o ON oi.order_id = o.order_id WHERE o.status = 'completed' GROUP BY oi.product_id), rating AS (SELECT r.product_id, AVG(r.rating) AS avg_rating FROM reviews AS r GROUP BY r.product_id) SELECT p.product_id, p.name, rev.total_revenue, rat.avg_rating FROM products AS p JOIN revenue AS rev ON p.product_id = rev.product_id JOIN rating AS rat ON p.product_id = rat.product_id WHERE rat.avg_rating >= 4.0 ORDER BY rev.total_revenue DESC LIMIT 1",
+          "strict_correct": false,
+          "lenient_correct": false,
+          "tokens": 5215,
+          "retries": 0,
+          "latency_ms": 24.12
+        },
+        {
+          "id": "hard-011",
+          "question": "Compare year-over-year performance: total revenue, completed order count, and unique customers between 2023 and 2024.",
+          "generated_sql": "SELECT STRFTIME('%Y', order_date) AS year, ROUND(SUM(total_amount), 2) AS total_revenue, COUNT(order_id) AS completed_order_count, COUNT(DISTINCT customer_id) AS unique_customers FROM orders WHERE status = 'completed' AND STRFTIME('%Y', order_date) IN ('2023', '2024') GROUP BY year ORDER BY year LIMIT 100",
+          "strict_correct": true,
+          "lenient_correct": true,
+          "tokens": 5075,
+          "retries": 0,
+          "latency_ms": 15.45
         }
       ]
     }
@@ -1046,7 +1437,6 @@
       "question": "How many total products are in the catalog?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1054,7 +1444,6 @@
       "question": "What is the average price of all products?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1062,7 +1451,6 @@
       "question": "How many customers are registered in California?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1070,7 +1458,6 @@
       "question": "List the 5 most expensive products and their prices.",
       "Config A": false,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1078,7 +1465,6 @@
       "question": "Which 5 products have the lowest stock quantity?",
       "Config A": false,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1086,7 +1472,6 @@
       "question": "How many completed orders have been placed?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1094,7 +1479,6 @@
       "question": "What is the total revenue collected across all completed orders?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1102,7 +1486,6 @@
       "question": "How many reviews have a 5-star rating?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1110,7 +1493,6 @@
       "question": "What is the total amount paid from successful payments using credit card?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1118,7 +1500,6 @@
       "question": "List all distinct product categories in alphabetical order.",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1126,7 +1507,6 @@
       "question": "How many products currently have zero stock?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1134,7 +1514,6 @@
       "question": "What is the highest single order total amount?",
       "Config A": false,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1142,7 +1521,6 @@
       "question": "What is the lowest single completed order total amount?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1150,7 +1528,6 @@
       "question": "How many orders were placed in the year 2024?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1158,7 +1535,6 @@
       "question": "How many orders were placed in the year 2023?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1166,7 +1542,6 @@
       "question": "How many customers are located in New York city?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1174,7 +1549,6 @@
       "question": "What is the average rating across all customer reviews?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1182,7 +1556,6 @@
       "question": "What is the total number of products in each category?",
       "Config A": false,
       "Config B": false,
-      "Config C": false,
       "Config D": false
     },
     {
@@ -1190,7 +1563,6 @@
       "question": "What is the total revenue generated from completed orders for each product category?",
       "Config A": false,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1198,7 +1570,6 @@
       "question": "List the top 5 customers who have spent the most money on completed orders.",
       "Config A": false,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1206,7 +1577,6 @@
       "question": "Which 5 products have generated the highest total revenue from completed orders?",
       "Config A": false,
       "Config B": false,
-      "Config C": false,
       "Config D": false
     },
     {
@@ -1214,7 +1584,6 @@
       "question": "Which 5 products have been ordered the most by quantity in completed orders?",
       "Config A": false,
       "Config B": false,
-      "Config C": false,
       "Config D": false
     },
     {
@@ -1222,7 +1591,6 @@
       "question": "Show the average review rating and review count for each product that has at least 3 reviews.",
       "Config A": false,
       "Config B": false,
-      "Config C": false,
       "Config D": false
     },
     {
@@ -1230,7 +1598,6 @@
       "question": "What is the monthly revenue for completed orders in 2024?",
       "Config A": true,
       "Config B": false,
-      "Config C": false,
       "Config D": true
     },
     {
@@ -1238,7 +1605,6 @@
       "question": "How many orders were placed by customers in each state?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1246,7 +1612,6 @@
       "question": "Find the top 5 states by total completed order spending.",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1254,7 +1619,167 @@
       "question": "What is the total amount and count of successful payments per payment method?",
       "Config A": false,
       "Config B": false,
-      "Config C": false,
+      "Config D": true
+    },
+    {
+      "id": "med-011",
+      "question": "Find customers who have placed more than 5 orders.",
+      "Config A": false,
+      "Config B": true,
+      "Config D": true
+    },
+    {
+      "id": "med-012",
+      "question": "Which customers have registered but never placed an order?",
+      "Config A": false,
+      "Config B": false,
+      "Config D": false
+    },
+    {
+      "id": "med-013",
+      "question": "List products that have never received any customer reviews.",
+      "Config A": false,
+      "Config B": true,
+      "Config D": true
+    },
+    {
+      "id": "med-014",
+      "question": "Find products that have never been ordered.",
+      "Config A": false,
+      "Config B": true,
+      "Config D": true
+    },
+    {
+      "id": "med-015",
+      "question": "What is the average order total by order status?",
+      "Config A": true,
+      "Config B": true,
+      "Config D": true
+    },
+    {
+      "id": "med-016",
+      "question": "What is the average rating given per category of products?",
+      "Config A": false,
+      "Config B": false,
+      "Config D": false
+    },
+    {
+      "id": "med-017",
+      "question": "Which payment method has the highest failure rate?",
+      "Config A": false,
+      "Config B": false,
+      "Config D": false
+    },
+    {
+      "id": "med-018",
+      "question": "What is the total revenue by quarter for completed orders?",
+      "Config A": false,
+      "Config B": false,
+      "Config D": false
+    },
+    {
+      "id": "med-019",
+      "question": "List the top 5 customers with the most reviews written.",
+      "Config A": true,
+      "Config B": true,
+      "Config D": true
+    },
+    {
+      "id": "med-020",
+      "question": "What is the average item price by category?",
+      "Config A": false,
+      "Config B": false,
+      "Config D": false
+    },
+    {
+      "id": "med-021",
+      "question": "Find all products that have an average rating lower than 3.0.",
+      "Config A": false,
+      "Config B": true,
+      "Config D": true
+    },
+    {
+      "id": "med-022",
+      "question": "What are the 5 cities with the most registered customers?",
+      "Config A": true,
+      "Config B": true,
+      "Config D": true
+    },
+    {
+      "id": "hard-001",
+      "question": "What was the completed order revenue drop or gain (Q2 minus Q1) between Q1 and Q2 of 2024 using conditional aggregation?",
+      "Config A": true,
+      "Config B": false,
+      "Config D": false
+    },
+    {
+      "id": "hard-002",
+      "question": "Calculate customer lifetime value (LTV): rank the top 5 customers by total completed spend and include their average order value and order count.",
+      "Config A": true,
+      "Config B": true,
+      "Config D": true
+    },
+    {
+      "id": "hard-003",
+      "question": "Identify repeat customers versus one-time buyers: count how many customers placed exactly 1 completed order versus 2 or more completed orders, returning one row per buyer type with columns buyer_type and customer_count.",
+      "Config A": false,
+      "Config B": false,
+      "Config D": false
+    },
+    {
+      "id": "hard-004",
+      "question": "Which product category has the highest customer repeat purchase rate (completed orders with products from that category from repeat buyers)?",
+      "Config A": false,
+      "Config B": false,
+      "Config D": false
+    },
+    {
+      "id": "hard-005",
+      "question": "Find the top product in each category by total revenue generated from completed orders.",
+      "Config A": false,
+      "Config B": false,
+      "Config D": false
+    },
+    {
+      "id": "hard-006",
+      "question": "Compute month-over-month revenue growth percentage for completed orders in 2024.",
+      "Config A": false,
+      "Config B": false,
+      "Config D": true
+    },
+    {
+      "id": "hard-007",
+      "question": "Find churned customers: customers who placed a completed order in 2023 but placed zero completed orders in 2024.",
+      "Config A": true,
+      "Config B": true,
+      "Config D": true
+    },
+    {
+      "id": "hard-008",
+      "question": "Find reactivated customers: customers who placed a completed order in 2024 after placing zero completed orders in 2023.",
+      "Config A": false,
+      "Config B": true,
+      "Config D": true
+    },
+    {
+      "id": "hard-009",
+      "question": "Calculate the average time (in days) between a customer's first completed order and their second completed order.",
+      "Config A": false,
+      "Config B": false,
+      "Config D": false
+    },
+    {
+      "id": "hard-010",
+      "question": "Find the product with the highest revenue from completed orders that also maintains an average review rating of at least 4.0.",
+      "Config A": true,
+      "Config B": true,
+      "Config D": false
+    },
+    {
+      "id": "hard-011",
+      "question": "Compare year-over-year performance: total revenue, completed order count, and unique customers between 2023 and 2024.",
+      "Config A": false,
+      "Config B": false,
       "Config D": true
     }
   ],
@@ -1264,7 +1789,6 @@
       "question": "How many total products are in the catalog?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1272,7 +1796,6 @@
       "question": "What is the average price of all products?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1280,7 +1803,6 @@
       "question": "How many customers are registered in California?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1288,7 +1810,6 @@
       "question": "List the 5 most expensive products and their prices.",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1296,7 +1817,6 @@
       "question": "Which 5 products have the lowest stock quantity?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1304,7 +1824,6 @@
       "question": "How many completed orders have been placed?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1312,7 +1831,6 @@
       "question": "What is the total revenue collected across all completed orders?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1320,7 +1838,6 @@
       "question": "How many reviews have a 5-star rating?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1328,7 +1845,6 @@
       "question": "What is the total amount paid from successful payments using credit card?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1336,7 +1852,6 @@
       "question": "List all distinct product categories in alphabetical order.",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1344,7 +1859,6 @@
       "question": "How many products currently have zero stock?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1352,7 +1866,6 @@
       "question": "What is the highest single order total amount?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1360,7 +1873,6 @@
       "question": "What is the lowest single completed order total amount?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1368,7 +1880,6 @@
       "question": "How many orders were placed in the year 2024?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1376,7 +1887,6 @@
       "question": "How many orders were placed in the year 2023?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1384,7 +1894,6 @@
       "question": "How many customers are located in New York city?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1392,15 +1901,13 @@
       "question": "What is the average rating across all customer reviews?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
       "id": "med-001",
       "question": "What is the total number of products in each category?",
-      "Config A": true,
+      "Config A": false,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1408,7 +1915,6 @@
       "question": "What is the total revenue generated from completed orders for each product category?",
       "Config A": false,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1416,7 +1922,6 @@
       "question": "List the top 5 customers who have spent the most money on completed orders.",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1424,7 +1929,6 @@
       "question": "Which 5 products have generated the highest total revenue from completed orders?",
       "Config A": false,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1432,7 +1936,6 @@
       "question": "Which 5 products have been ordered the most by quantity in completed orders?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1440,7 +1943,6 @@
       "question": "Show the average review rating and review count for each product that has at least 3 reviews.",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1448,7 +1950,6 @@
       "question": "What is the monthly revenue for completed orders in 2024?",
       "Config A": true,
       "Config B": false,
-      "Config C": false,
       "Config D": true
     },
     {
@@ -1456,7 +1957,6 @@
       "question": "How many orders were placed by customers in each state?",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1464,7 +1964,6 @@
       "question": "Find the top 5 states by total completed order spending.",
       "Config A": true,
       "Config B": true,
-      "Config C": true,
       "Config D": true
     },
     {
@@ -1472,7 +1971,167 @@
       "question": "What is the total amount and count of successful payments per payment method?",
       "Config A": false,
       "Config B": false,
-      "Config C": false,
+      "Config D": true
+    },
+    {
+      "id": "med-011",
+      "question": "Find customers who have placed more than 5 orders.",
+      "Config A": false,
+      "Config B": true,
+      "Config D": true
+    },
+    {
+      "id": "med-012",
+      "question": "Which customers have registered but never placed an order?",
+      "Config A": true,
+      "Config B": true,
+      "Config D": true
+    },
+    {
+      "id": "med-013",
+      "question": "List products that have never received any customer reviews.",
+      "Config A": true,
+      "Config B": true,
+      "Config D": true
+    },
+    {
+      "id": "med-014",
+      "question": "Find products that have never been ordered.",
+      "Config A": true,
+      "Config B": true,
+      "Config D": true
+    },
+    {
+      "id": "med-015",
+      "question": "What is the average order total by order status?",
+      "Config A": true,
+      "Config B": true,
+      "Config D": true
+    },
+    {
+      "id": "med-016",
+      "question": "What is the average rating given per category of products?",
+      "Config A": false,
+      "Config B": false,
+      "Config D": true
+    },
+    {
+      "id": "med-017",
+      "question": "Which payment method has the highest failure rate?",
+      "Config A": false,
+      "Config B": false,
+      "Config D": false
+    },
+    {
+      "id": "med-018",
+      "question": "What is the total revenue by quarter for completed orders?",
+      "Config A": false,
+      "Config B": false,
+      "Config D": false
+    },
+    {
+      "id": "med-019",
+      "question": "List the top 5 customers with the most reviews written.",
+      "Config A": true,
+      "Config B": true,
+      "Config D": true
+    },
+    {
+      "id": "med-020",
+      "question": "What is the average item price by category?",
+      "Config A": false,
+      "Config B": false,
+      "Config D": true
+    },
+    {
+      "id": "med-021",
+      "question": "Find all products that have an average rating lower than 3.0.",
+      "Config A": true,
+      "Config B": true,
+      "Config D": true
+    },
+    {
+      "id": "med-022",
+      "question": "What are the 5 cities with the most registered customers?",
+      "Config A": true,
+      "Config B": true,
+      "Config D": true
+    },
+    {
+      "id": "hard-001",
+      "question": "What was the completed order revenue drop or gain (Q2 minus Q1) between Q1 and Q2 of 2024 using conditional aggregation?",
+      "Config A": true,
+      "Config B": false,
+      "Config D": false
+    },
+    {
+      "id": "hard-002",
+      "question": "Calculate customer lifetime value (LTV): rank the top 5 customers by total completed spend and include their average order value and order count.",
+      "Config A": true,
+      "Config B": true,
+      "Config D": true
+    },
+    {
+      "id": "hard-003",
+      "question": "Identify repeat customers versus one-time buyers: count how many customers placed exactly 1 completed order versus 2 or more completed orders, returning one row per buyer type with columns buyer_type and customer_count.",
+      "Config A": false,
+      "Config B": false,
+      "Config D": false
+    },
+    {
+      "id": "hard-004",
+      "question": "Which product category has the highest customer repeat purchase rate (completed orders with products from that category from repeat buyers)?",
+      "Config A": false,
+      "Config B": false,
+      "Config D": false
+    },
+    {
+      "id": "hard-005",
+      "question": "Find the top product in each category by total revenue generated from completed orders.",
+      "Config A": false,
+      "Config B": false,
+      "Config D": false
+    },
+    {
+      "id": "hard-006",
+      "question": "Compute month-over-month revenue growth percentage for completed orders in 2024.",
+      "Config A": true,
+      "Config B": true,
+      "Config D": true
+    },
+    {
+      "id": "hard-007",
+      "question": "Find churned customers: customers who placed a completed order in 2023 but placed zero completed orders in 2024.",
+      "Config A": true,
+      "Config B": true,
+      "Config D": true
+    },
+    {
+      "id": "hard-008",
+      "question": "Find reactivated customers: customers who placed a completed order in 2024 after placing zero completed orders in 2023.",
+      "Config A": true,
+      "Config B": true,
+      "Config D": true
+    },
+    {
+      "id": "hard-009",
+      "question": "Calculate the average time (in days) between a customer's first completed order and their second completed order.",
+      "Config A": false,
+      "Config B": false,
+      "Config D": false
+    },
+    {
+      "id": "hard-010",
+      "question": "Find the product with the highest revenue from completed orders that also maintains an average review rating of at least 4.0.",
+      "Config A": true,
+      "Config B": true,
+      "Config D": false
+    },
+    {
+      "id": "hard-011",
+      "question": "Compare year-over-year performance: total revenue, completed order count, and unique customers between 2023 and 2024.",
+      "Config A": false,
+      "Config B": false,
       "Config D": true
     }
   ]

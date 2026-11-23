@@ -192,6 +192,7 @@ def create_querypilot_graph(
         traces.append({
             "node": "guardrails",
             "type": "guardrail_event",
+            "layer": "untrusted-data wrapping",
             "action": "injection_wrapper_applied",
             "reason": "Encapsulated database schema in <untrusted_data> delimiters",
         })
@@ -199,9 +200,11 @@ def create_querypilot_graph(
         # Check for direct destructive or off-topic refusal
         if res.data.intent in ("destructive_request", "off_topic"):
             block_reason = res.data.block_reason or f"Request blocked due to prohibited intent: {res.data.intent}."
+            layer = "L1 deterministic pre-check" if getattr(res, "model", "") == "deterministic-precheck" or res.data.block_reason else "L2 LLM intent classifier"
             traces.append({
                 "node": "guardrails",
                 "type": "guardrail_event",
+                "layer": layer,
                 "action": "destructive_intent_block",
                 "reason": block_reason,
             })
@@ -274,6 +277,7 @@ def create_querypilot_graph(
         traces.append({
             "node": "guardrails",
             "type": "guardrail_event",
+            "layer": "untrusted-data wrapping",
             "action": "injection_wrapper_applied",
             "reason": "Encapsulated schema and previous errors in <untrusted_data> delimiters",
         })
@@ -315,6 +319,7 @@ def create_querypilot_graph(
             traces.append({
                 "node": "guardrails",
                 "type": "guardrail_event",
+                "layer": "L3 SQL validator",
                 "action": "validator_rejection",
                 "reason": val_res.reason,
             })
@@ -355,6 +360,7 @@ def create_querypilot_graph(
             traces.append({
                 "node": "guardrails",
                 "type": "guardrail_event",
+                "layer": "L3 SQL validator",
                 "action": "approval_declined",
                 "reason": "Expensive query approval declined by user",
             })
@@ -396,6 +402,7 @@ def create_querypilot_graph(
             traces.append({
                 "node": "guardrails",
                 "type": "guardrail_event",
+                "layer": "L4 read-only connection",
                 "action": "masking_applied",
                 "reason": f"Masked sensitive columns in {exec_res.get('row_count', 0)} rows",
             })
@@ -445,6 +452,7 @@ def create_querypilot_graph(
         traces.append({
             "node": "guardrails",
             "type": "guardrail_event",
+            "layer": "untrusted-data wrapping",
             "action": "injection_wrapper_applied",
             "reason": "Encapsulated query execution result rows in <untrusted_data> delimiters",
         })
